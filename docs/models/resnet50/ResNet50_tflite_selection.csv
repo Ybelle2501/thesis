@@ -1,0 +1,3 @@
+variant,validation_images,mean_absolute_probability_difference,maximum_absolute_probability_difference,top1_agreement_with_keras,maximum_probability_sum_error,passed_equivalence,selected_for_deployment,selection_reason
+float32,46,2.005139343452811e-08,2.3245811462402344e-06,1.0,1.7881393432617188e-07,True,False,Dynamic-range model passed validation equivalence.
+dynamic_range,46,0.0006921913009136915,0.11577194929122925,1.0,1.1920928955078125e-07,True,True,Dynamic-range model passed validation equivalence.

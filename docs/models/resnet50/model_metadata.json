@@ -1,0 +1,48 @@
+{
+  "model_name": "ResNet50_Refined",
+  "source_keras_model": "/content/drive/MyDrive/crop_thesis_pipeline/05_model_output/ResNet50_Refined/ResNet50_refined_best.keras",
+  "deployment_model": "ResNet50_refined_best.tflite",
+  "selected_tflite_variant": "dynamic_range",
+  "selection_reason": "Dynamic-range model passed validation equivalence.",
+  "created_utc": "2026-09-05T15:37:43.385892+00:00",
+  "tensorflow_version": "2.20.0",
+  "input_shape": [
+    1,
+    224,
+    224,
+    3
+  ],
+  "input_dtype": "float32",
+  "input_color_order": "RGB",
+  "input_pixel_range": "0 to 255",
+  "resize": "224 x 224 bilinear",
+  "preprocessing": "ResNet50 preprocess_input is embedded inside the model; do not normalize again in Flutter.",
+  "output_shape": [
+    1,
+    23
+  ],
+  "output_dtype": "float32",
+  "output_interpretation": "Softmax probabilities in labels.txt order",
+  "number_of_labels": 23,
+  "confidence_threshold": 0.0,
+  "margin_threshold": 0.0,
+  "model_sha256": "c14be85039ee7d5fe8a053b02b2b9668da4ca94b837079b425c03c5aeb7313b6",
+  "tflite_test_metrics": {
+    "model": "tflite_dynamic_range",
+    "accuracy": 0.9134375,
+    "macro_precision": 0.898762943501635,
+    "macro_recall": 0.8873055046601617,
+    "macro_f1": 0.8886587642500724,
+    "balanced_accuracy": 0.8873055046601617,
+    "selected_variant": "dynamic_range",
+    "test_images": 3200,
+    "accuracy_drop_vs_keras": 0.0006249999999999867,
+    "top1_agreement_with_keras": 0.9953125,
+    "confidence_threshold": 0.0,
+    "margin_threshold": 0.0,
+    "coverage": 1.0,
+    "accepted_accuracy": 0.9134375,
+    "notebook4_test_accuracy": 0.9140625,
+    "accuracy_difference_from_notebook4": 0.0006249999999999867
+  }
+}

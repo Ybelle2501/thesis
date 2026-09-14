@@ -1,0 +1,14 @@
+{
+  "confidence_threshold": 0.0,
+  "margin_threshold": 0.0,
+  "validation_coverage": 1.0,
+  "validation_accepted_accuracy": 0.9125939849624061,
+  "unknown_false_accept_rate": null,
+  "unknown_validation_images": 0,
+  "target_accepted_accuracy": 0.9,
+  "minimum_validation_coverage": 0.5,
+  "maximum_unknown_false_accept_rate": 0.1,
+  "all_targets_met": true,
+  "selection_reason": "All configured targets were met.",
+  "decision_rule": "Accept only when confidence >= confidence_threshold and top1_minus_top2 >= margin_threshold."
+}
