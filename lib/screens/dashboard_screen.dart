@@ -176,7 +176,18 @@ class _DashHeader extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const SizedBox(height: 2),
-                const Text('APP NAME', style: AppTextStyles.displayLarge),
+                Row(
+                  children: [
+                    Image.asset(
+                      'assets/leaflens_logo.png',
+                      width: 38,
+                      height: 38,
+                      semanticLabel: 'LeafLens logo',
+                    ),
+                    const SizedBox(width: 10),
+                    const Text('LeafLens', style: AppTextStyles.displayLarge),
+                  ],
+                ),
               ],
             ),
           ),

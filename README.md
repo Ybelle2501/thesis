@@ -1,4 +1,4 @@
-# CropSense
+# LeafLens
 
 Flutter app for single-leaf and grid scans of crop conditions, with scan history
 and reports.

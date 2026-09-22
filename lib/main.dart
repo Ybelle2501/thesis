@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'theme/app_theme.dart';
-import 'screens/dashboard_screen.dart';
+import 'screens/welcome_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -11,19 +11,19 @@ void main() {
       statusBarIconBrightness: Brightness.dark,
     ),
   );
-  runApp(const CropSenseApp());
+  runApp(const LeafLensApp());
 }
 
-class CropSenseApp extends StatelessWidget {
-  const CropSenseApp({super.key});
+class LeafLensApp extends StatelessWidget {
+  const LeafLensApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'APP NAME',
+      title: 'LeafLens',
       debugShowCheckedModeBanner: false,
       theme: AppTheme.light,
-      home: const DashboardScreen(),
+      home: const WelcomeScreen(),
     );
   }
 }

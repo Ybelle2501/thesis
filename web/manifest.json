@@ -1,11 +1,11 @@
 {
-    "name": "thesis_app_ediwow",
-    "short_name": "thesis_app_ediwow",
+    "name": "LeafLens",
+    "short_name": "LeafLens",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "description": "AI-assisted crop disease identification.",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [

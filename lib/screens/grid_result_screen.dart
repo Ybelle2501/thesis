@@ -245,14 +245,14 @@ class _GridCellResultCard extends StatelessWidget {
                 const SizedBox(height: 10),
                 Text(presentation.description, style: AppTextStyles.bodyMedium),
                 if (presentation.showRankedFindings &&
-                    result!.rankedPredictions.isNotEmpty) ...[
+                    result!.suggestedDiseases.isNotEmpty) ...[
                   const SizedBox(height: 14),
                   Text(
-                    'Ranked model matches',
+                    'Other possible diseases',
                     style: AppTextStyles.titleMedium,
                   ),
                   const SizedBox(height: 8),
-                  ...result.rankedPredictions.map(
+                  ...result.suggestedDiseases.map(
                     (prediction) => Padding(
                       padding: const EdgeInsets.only(bottom: 5),
                       child: Row(

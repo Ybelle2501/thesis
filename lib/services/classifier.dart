@@ -10,10 +10,12 @@ class ClassifierDecisionThresholds {
   const ClassifierDecisionThresholds({
     required this.confidence,
     required this.margin,
+    required this.suggestionConfidence,
   });
 
   final double confidence;
   final double margin;
+  final double suggestionConfidence;
 
   bool accepts({required double topScore, required double top1Top2Margin}) =>
       topScore >= confidence && top1Top2Margin >= margin;
@@ -60,6 +62,7 @@ class ClassificationResult {
   final int classIndex;
   final ScanStatus status;
   final List<RankedPrediction> rankedPredictions;
+  final List<RankedPrediction> suggestedDiseases;
 
   ClassificationResult({
     required this.rawLabel,
@@ -67,6 +70,7 @@ class ClassificationResult {
     required this.classIndex,
     required this.status,
     this.rankedPredictions = const [],
+    this.suggestedDiseases = const [],
   }) : label = _formatLabel(rawLabel),
        plantName = _plantName(rawLabel),
        conditionName = _conditionName(rawLabel);
@@ -138,6 +142,7 @@ class PlantDiseaseClassifier {
   static const String modelName = 'ResNet50_refined_best.tflite';
   static const int inputSize = 224;
   static const int expectedClassCount = 23;
+  static const int maximumSuggestedDiseases = 2;
 
   Interpreter? _interpreter;
   List<String> _labels = const [];
@@ -234,15 +239,20 @@ class PlantDiseaseClassifier {
 
     final confidenceValue = decoded['confidence_threshold'];
     final marginValue = decoded['margin_threshold'];
-    if (confidenceValue is! num || marginValue is! num) {
+    final suggestionConfidenceValue =
+        decoded['suggestion_confidence_threshold'];
+    if (confidenceValue is! num ||
+        marginValue is! num ||
+        suggestionConfidenceValue is! num) {
       throw const FormatException(
         'Classifier thresholds must contain numeric confidence_threshold '
-        'and margin_threshold values.',
+        'margin_threshold, and suggestion_confidence_threshold values.',
       );
     }
 
     final confidence = confidenceValue.toDouble();
     final margin = marginValue.toDouble();
+    final suggestionConfidence = suggestionConfidenceValue.toDouble();
     if (!confidence.isFinite || confidence < 0 || confidence > 1) {
       throw FormatException(
         'Invalid classifier confidence threshold: $confidence.',
@@ -251,8 +261,56 @@ class PlantDiseaseClassifier {
     if (!margin.isFinite || margin < 0 || margin > 1) {
       throw FormatException('Invalid classifier margin threshold: $margin.');
     }
+    if (!suggestionConfidence.isFinite ||
+        suggestionConfidence < 0 ||
+        suggestionConfidence > 1) {
+      throw FormatException(
+        'Invalid classifier suggestion confidence threshold: '
+        '$suggestionConfidence.',
+      );
+    }
 
-    return ClassifierDecisionThresholds(confidence: confidence, margin: margin);
+    return ClassifierDecisionThresholds(
+      confidence: confidence,
+      margin: margin,
+      suggestionConfidence: suggestionConfidence,
+    );
+  }
+
+  /// Returns at most two credible disease alternatives for the primary crop.
+  ///
+  /// Healthy labels, the primary class, other crops, and scores below the
+  /// configured display threshold are intentionally excluded.
+  static List<RankedPrediction> selectDiseaseSuggestions({
+    required List<RankedPrediction> rankedPredictions,
+    required RankedPrediction primary,
+    required double confidenceThreshold,
+  }) {
+    if (!confidenceThreshold.isFinite ||
+        confidenceThreshold < 0 ||
+        confidenceThreshold > 1) {
+      throw ArgumentError.value(
+        confidenceThreshold,
+        'confidenceThreshold',
+        'Must be between 0 and 1.',
+      );
+    }
+
+    final suggestions =
+        rankedPredictions
+            .where(
+              (prediction) =>
+                  prediction.classIndex != primary.classIndex &&
+                  prediction.plantName == primary.plantName &&
+                  !prediction.isHealthy &&
+                  prediction.confidence >= confidenceThreshold,
+            )
+            .toList(growable: false)
+          ..sort((a, b) => b.confidence.compareTo(a.confidence));
+
+    return List<RankedPrediction>.unmodifiable(
+      suggestions.take(maximumSuggestedDiseases),
+    );
   }
 
   static void _validateModelContract(
@@ -369,6 +427,11 @@ class PlantDiseaseClassifier {
         thresholds.accepts(topScore: topScore, top1Top2Margin: top1Top2Margin)
         ? ScanStatus.success
         : ScanStatus.lowConfidence;
+    final suggestedDiseases = selectDiseaseSuggestions(
+      rankedPredictions: rankedPredictions,
+      primary: rankedPredictions.first,
+      confidenceThreshold: thresholds.suggestionConfidence,
+    );
 
     return ClassificationResult(
       rawLabel: _labels[bestIndex],
@@ -376,6 +439,7 @@ class PlantDiseaseClassifier {
       classIndex: bestIndex,
       status: status,
       rankedPredictions: rankedPredictions.take(3).toList(growable: false),
+      suggestedDiseases: suggestedDiseases,
     );
   }
 

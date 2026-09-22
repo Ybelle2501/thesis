@@ -1,6 +1,7 @@
 {
   "confidence_threshold": 0.0,
   "margin_threshold": 0.0,
+  "suggestion_confidence_threshold": 0.1,
   "validation_coverage": 1.0,
   "validation_accepted_accuracy": 0.9125939849624061,
   "unknown_false_accept_rate": null,

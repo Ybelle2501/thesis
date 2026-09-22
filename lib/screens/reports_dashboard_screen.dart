@@ -84,7 +84,7 @@ class _ReportsDashboardScreenState extends State<ReportsDashboardScreen> {
                   const SizedBox(height: 24),
                   const SectionLabel('Confidence by scan'),
                   const SizedBox(height: 8),
-                  _ConfidenceChart(scans: scans),
+                  ConfidenceByScanChart(scans: scans),
                   const SizedBox(height: 24),
                   const SectionLabel('Condition breakdown'),
                   const SizedBox(height: 8),
@@ -481,8 +481,8 @@ class _LegendDot extends StatelessWidget {
   }
 }
 
-class _ConfidenceChart extends StatelessWidget {
-  const _ConfidenceChart({required this.scans});
+class ConfidenceByScanChart extends StatelessWidget {
+  const ConfidenceByScanChart({super.key, required this.scans});
 
   final List<ScanData> scans;
 
@@ -495,48 +495,66 @@ class _ConfidenceChart extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(
-            height: 150,
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: scans.map((scan) {
-                final color = scan.status == 'Healthy'
-                    ? AppColors.primaryLight
-                    : AppColors.error;
-                return Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 5),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        Text(
-                          '${(scan.confidence * 100).round()}%',
-                          style: AppTextStyles.labelSmall.copyWith(
-                            color: color,
-                          ),
-                        ),
-                        const SizedBox(height: 5),
-                        AnimatedContainer(
-                          duration: const Duration(milliseconds: 250),
-                          height: 20 + scan.confidence * 80,
-                          decoration: BoxDecoration(
-                            color: color,
-                            borderRadius: const BorderRadius.vertical(
-                              top: Radius.circular(7),
+            height: 156,
+            child: LayoutBuilder(
+              builder: (context, constraints) {
+                return SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: ConstrainedBox(
+                    constraints: BoxConstraints(minWidth: constraints.maxWidth),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: scans.map((scan) {
+                        final confidence = scan.confidence
+                            .clamp(0.0, 1.0)
+                            .toDouble();
+                        final color = scan.status == 'Healthy'
+                            ? AppColors.primaryLight
+                            : AppColors.error;
+                        return SizedBox(
+                          width: 68,
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 5),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                Text(
+                                  '${(confidence * 100).round()}%',
+                                  maxLines: 1,
+                                  overflow: TextOverflow.fade,
+                                  softWrap: false,
+                                  style: AppTextStyles.labelSmall.copyWith(
+                                    color: color,
+                                  ),
+                                ),
+                                const SizedBox(height: 5),
+                                AnimatedContainer(
+                                  duration: const Duration(milliseconds: 250),
+                                  height: 20 + confidence * 80,
+                                  decoration: BoxDecoration(
+                                    color: color,
+                                    borderRadius: const BorderRadius.vertical(
+                                      top: Radius.circular(7),
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(height: 6),
+                                Text(
+                                  scan.plant,
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: AppTextStyles.labelSmall,
+                                ),
+                              ],
                             ),
                           ),
-                        ),
-                        const SizedBox(height: 6),
-                        Text(
-                          scan.plant,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: AppTextStyles.labelSmall,
-                        ),
-                      ],
+                        );
+                      }).toList(),
                     ),
                   ),
                 );
-              }).toList(),
+              },
             ),
           ),
           const SizedBox(height: 12),

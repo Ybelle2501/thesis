@@ -356,6 +356,13 @@ class _LowConfidenceView extends StatelessWidget {
                     ),
                     const SizedBox(height: 16),
 
+                    if (result.suggestedDiseases.isNotEmpty) ...[
+                      _DiseaseSuggestionsCard(
+                        suggestions: result.suggestedDiseases,
+                      ),
+                      const SizedBox(height: 16),
+                    ],
+
                     // Tips card
                     AppCard(
                       padding: const EdgeInsets.all(16),
@@ -407,6 +414,8 @@ class _LowConfidenceView extends StatelessWidget {
                           confidence: result.confidence,
                           classIndex: result.classIndex,
                           status: ScanStatus.success,
+                          rankedPredictions: result.rankedPredictions,
+                          suggestedDiseases: result.suggestedDiseases,
                         );
                         String? savedImagePath = imagePath;
                         if (imagePath != null) {
@@ -562,6 +571,13 @@ class _SuccessView extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 14),
+
+                    if (result.suggestedDiseases.isNotEmpty) ...[
+                      _DiseaseSuggestionsCard(
+                        suggestions: result.suggestedDiseases,
+                      ),
+                      const SizedBox(height: 14),
+                    ],
 
                     // ── Confidence card ───────────────────────────────────
                     AppCard(
@@ -962,6 +978,91 @@ class _DebugRow extends StatelessWidget {
 }
 
 // ─── CONFIDENCE CARD (reusable) ───────────────────────────────────────────────
+
+class _DiseaseSuggestionsCard extends StatelessWidget {
+  const _DiseaseSuggestionsCard({required this.suggestions});
+
+  final List<RankedPrediction> suggestions;
+
+  @override
+  Widget build(BuildContext context) {
+    return AppCard(
+      color: const Color(0xFFFFF8E1),
+      padding: const EdgeInsets.all(18),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Row(
+            children: [
+              Icon(
+                Icons.compare_arrows_rounded,
+                color: AppColors.warning,
+                size: 20,
+              ),
+              SizedBox(width: 8),
+              Expanded(
+                child: Text(
+                  'Other Possible Diseases',
+                  style: AppTextStyles.titleMedium,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 6),
+          Text(
+            'These similar conditions are for the same crop and passed the '
+            'comparison threshold. Compare visible symptoms before choosing '
+            'a treatment.',
+            style: AppTextStyles.bodyMedium,
+          ),
+          const SizedBox(height: 12),
+          ...suggestions.asMap().entries.map((entry) {
+            final prediction = entry.value;
+            return Padding(
+              padding: EdgeInsets.only(
+                bottom: entry.key == suggestions.length - 1 ? 0 : 10,
+              ),
+              child: Row(
+                children: [
+                  Container(
+                    width: 28,
+                    height: 28,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      color: AppColors.warning.withValues(alpha: 0.12),
+                      shape: BoxShape.circle,
+                    ),
+                    child: Text(
+                      '${entry.key + 1}',
+                      style: AppTextStyles.titleMedium.copyWith(
+                        color: AppColors.warning,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 10),
+                  Expanded(
+                    child: Text(
+                      prediction.conditionName,
+                      style: AppTextStyles.bodyLarge.copyWith(
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+                  Text(
+                    prediction.confidencePercent,
+                    style: AppTextStyles.titleMedium.copyWith(
+                      color: AppColors.warning,
+                    ),
+                  ),
+                ],
+              ),
+            );
+          }),
+        ],
+      ),
+    );
+  }
+}
 
 class ConfidenceCard extends StatelessWidget {
   final double confidence;
