@@ -23,7 +23,7 @@ class ScanHistoryDatabase {
     final path = '$databasesDirectory${Platform.pathSeparator}$_databaseName';
     final database = await openDatabase(
       path,
-      version: 1,
+      version: 2,
       onCreate: (db, _) async {
         await db.execute('''
           CREATE TABLE $_tableName (
@@ -38,7 +38,8 @@ class ScanHistoryDatabase {
             captured_at INTEGER NOT NULL,
             source TEXT NOT NULL,
             scan_mode TEXT NOT NULL,
-            grid_cell INTEGER
+            grid_cell INTEGER,
+            location TEXT NOT NULL DEFAULT ''
           )
         ''');
         await db.execute(
@@ -48,6 +49,15 @@ class ScanHistoryDatabase {
         await db.execute(
           'CREATE INDEX scan_history_status ON $_tableName(status)',
         );
+        await _createMetadataTable(db);
+      },
+      onUpgrade: (db, oldVersion, newVersion) async {
+        if (oldVersion < 2) {
+          await db.execute(
+            "ALTER TABLE $_tableName ADD COLUMN location TEXT NOT NULL DEFAULT ''",
+          );
+          await _createMetadataTable(db);
+        }
       },
     );
     _database = database;
@@ -69,6 +79,7 @@ class ScanHistoryDatabase {
     required ClassificationResult result,
     required String source,
     required String scanMode,
+    required String location,
     int? gridCell,
   }) async {
     if (result.status != ScanStatus.success) {
@@ -88,6 +99,7 @@ class ScanHistoryDatabase {
       source: source,
       scanMode: scanMode,
       gridCell: gridCell,
+      location: location,
     );
 
     try {
@@ -98,6 +110,46 @@ class ScanHistoryDatabase {
       await _deleteFileIfPresent(savedImagePath);
       rethrow;
     }
+  }
+
+  Future<void> updateLocation(int id, String location) async {
+    final database = await _db;
+    await database.update(
+      _tableName,
+      {'location': location},
+      where: 'id = ?',
+      whereArgs: [id],
+    );
+  }
+
+  Future<int> takeNextReportNumber() async {
+    final database = await _db;
+    return database.transaction((txn) async {
+      final rows = await txn.query(
+        'app_metadata',
+        columns: const ['value'],
+        where: 'key = ?',
+        whereArgs: const ['next_report_number'],
+        limit: 1,
+      );
+      final number = rows.isEmpty
+          ? 1
+          : int.tryParse(rows.first['value'] as String? ?? '') ?? 1;
+      await txn.insert('app_metadata', {
+        'key': 'next_report_number',
+        'value': '${number + 1}',
+      }, conflictAlgorithm: ConflictAlgorithm.replace);
+      return number;
+    });
+  }
+
+  static Future<void> _createMetadataTable(DatabaseExecutor db) async {
+    await db.execute('''
+      CREATE TABLE IF NOT EXISTS app_metadata (
+        key TEXT PRIMARY KEY,
+        value TEXT NOT NULL
+      )
+    ''');
   }
 
   Future<void> deleteScans(Iterable<int> ids) async {

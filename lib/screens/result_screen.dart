@@ -1,7 +1,9 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import '../theme/app_theme.dart';
 import '../widgets/shared_widgets.dart';
+import '../widgets/location_tag_dialog.dart';
 import '../services/classifier.dart';
 import '../services/scan_history_database.dart';
 import 'treatment_screen.dart';
@@ -14,8 +16,20 @@ import 'scanner_screen.dart';
 class DiseaseResultScreen extends StatelessWidget {
   final String? capturedImagePath;
   final ClassificationResult? result;
+  final String historySource;
+  final String scanMode;
+  final bool alreadySaved;
+  final String existingLocation;
 
-  const DiseaseResultScreen({super.key, this.capturedImagePath, this.result});
+  const DiseaseResultScreen({
+    super.key,
+    this.capturedImagePath,
+    this.result,
+    this.historySource = 'Camera',
+    this.scanMode = 'Single',
+    this.alreadySaved = false,
+    this.existingLocation = '',
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -28,10 +42,19 @@ class DiseaseResultScreen extends StatelessWidget {
           return _LowConfidenceView(
             imagePath: capturedImagePath,
             result: result!,
+            historySource: historySource,
+            scanMode: scanMode,
           );
 
         case ScanStatus.success:
-          return _SuccessView(imagePath: capturedImagePath, result: result!);
+          return _SuccessView(
+            imagePath: capturedImagePath,
+            result: result!,
+            historySource: historySource,
+            scanMode: scanMode,
+            alreadySaved: alreadySaved,
+            existingLocation: existingLocation,
+          );
       }
     }
     return _FallbackView(imagePath: capturedImagePath);
@@ -50,6 +73,7 @@ class _NoLeafView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.surface,
+      bottomNavigationBar: const AiDisclaimer(),
       body: SafeArea(
         child: Column(
           children: [
@@ -228,13 +252,21 @@ class _NoLeafView extends StatelessWidget {
 class _LowConfidenceView extends StatelessWidget {
   final String? imagePath;
   final ClassificationResult result;
+  final String historySource;
+  final String scanMode;
 
-  const _LowConfidenceView({required this.imagePath, required this.result});
+  const _LowConfidenceView({
+    required this.imagePath,
+    required this.result,
+    required this.historySource,
+    required this.scanMode,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.surface,
+      bottomNavigationBar: const AiDisclaimer(),
       body: SafeArea(
         child: Column(
           children: [
@@ -408,7 +440,7 @@ class _LowConfidenceView extends StatelessWidget {
                       label: 'Use This Result Anyway',
                       icon: Icons.check_rounded,
                       outlined: true,
-                      onPressed: () async {
+                      onPressed: () {
                         final acceptedResult = ClassificationResult(
                           rawLabel: result.rawLabel,
                           confidence: result.confidence,
@@ -417,28 +449,14 @@ class _LowConfidenceView extends StatelessWidget {
                           rankedPredictions: result.rankedPredictions,
                           suggestedDiseases: result.suggestedDiseases,
                         );
-                        String? savedImagePath = imagePath;
-                        if (imagePath != null) {
-                          try {
-                            final scan = await ScanHistoryDatabase.instance
-                                .saveSuccessfulScan(
-                                  sourceImagePath: imagePath!,
-                                  result: acceptedResult,
-                                  source: 'Confirmed result',
-                                  scanMode: 'Single',
-                                );
-                            savedImagePath = scan.imagePath;
-                          } catch (error) {
-                            debugPrint('Could not save scan history: $error');
-                          }
-                        }
-                        if (!context.mounted) return;
                         Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
                             builder: (_) => DiseaseResultScreen(
-                              capturedImagePath: savedImagePath,
+                              capturedImagePath: imagePath,
                               result: acceptedResult,
+                              historySource: historySource,
+                              scanMode: scanMode,
                             ),
                           ),
                         );
@@ -459,11 +477,96 @@ class _LowConfidenceView extends StatelessWidget {
 // STATE 3 — RESULT PASSED THE DEPLOYMENT DECISION RULE
 // ═══════════════════════════════════════════════════════════════════════════════
 
-class _SuccessView extends StatelessWidget {
+class _SuccessView extends StatefulWidget {
   final String? imagePath;
   final ClassificationResult result;
+  final String historySource;
+  final String scanMode;
+  final bool alreadySaved;
+  final String existingLocation;
 
-  const _SuccessView({required this.imagePath, required this.result});
+  const _SuccessView({
+    required this.imagePath,
+    required this.result,
+    required this.historySource,
+    required this.scanMode,
+    required this.alreadySaved,
+    required this.existingLocation,
+  });
+
+  @override
+  State<_SuccessView> createState() => _SuccessViewState();
+}
+
+class _SuccessViewState extends State<_SuccessView> {
+  late final TextEditingController _locationController;
+  late bool _saved;
+  bool _saving = false;
+  String? _locationError;
+  String? _savedImagePath;
+
+  ClassificationResult get result => widget.result;
+  String? get imagePath => _savedImagePath ?? widget.imagePath;
+
+  @override
+  void initState() {
+    super.initState();
+    _saved = widget.alreadySaved;
+    _locationController = TextEditingController(text: widget.existingLocation);
+  }
+
+  @override
+  void dispose() {
+    _locationController.dispose();
+    super.dispose();
+  }
+
+  Future<void> _saveToHistory() async {
+    final location = normalizeLocationTag(_locationController.text);
+    if (location.isEmpty || !locationTagPattern.hasMatch(location)) {
+      setState(() {
+        _locationError = location.isEmpty
+            ? 'Enter the crop location.'
+            : 'Use letters, numbers, and spaces only.';
+      });
+      return;
+    }
+    final path = imagePath;
+    if (path == null) {
+      setState(() => _locationError = 'The scan image is no longer available.');
+      return;
+    }
+
+    setState(() {
+      _saving = true;
+      _locationError = null;
+    });
+    try {
+      final scan = await ScanHistoryDatabase.instance.saveSuccessfulScan(
+        sourceImagePath: path,
+        result: result,
+        source: widget.historySource,
+        scanMode: widget.scanMode,
+        location: location,
+      );
+      if (!mounted) return;
+      setState(() {
+        _saved = true;
+        _saving = false;
+        _savedImagePath = scan.imagePath;
+        _locationController.text = location;
+      });
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Scan and location saved to history.')),
+      );
+    } catch (_) {
+      if (!mounted) return;
+      setState(() {
+        _saving = false;
+        _locationError = 'Could not save this scan. Please try again.';
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -476,6 +579,7 @@ class _SuccessView extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: AppColors.surface,
+      bottomNavigationBar: const AiDisclaimer(),
       body: SafeArea(
         child: Column(
           children: [
@@ -567,6 +671,82 @@ class _SuccessView extends StatelessWidget {
                             value: result.conditionName,
                             valueColor: statusColor,
                           ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 14),
+
+                    AppCard(
+                      padding: const EdgeInsets.all(18),
+                      color: _saved ? AppColors.accent : null,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            children: [
+                              Icon(
+                                _saved
+                                    ? Icons.check_circle_rounded
+                                    : Icons.location_on_outlined,
+                                color: AppColors.primary,
+                              ),
+                              const SizedBox(width: 8),
+                              Expanded(
+                                child: Text(
+                                  _saved
+                                      ? 'Crop location saved'
+                                      : 'Tag this crop location',
+                                  style: AppTextStyles.titleMedium,
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 8),
+                          Text(
+                            _saved
+                                ? 'This scan is included under this location in Reports.'
+                                : 'Enter the location before leaving this result so it can be included in a scouting report.',
+                            style: AppTextStyles.bodyMedium,
+                          ),
+                          const SizedBox(height: 12),
+                          TextField(
+                            controller: _locationController,
+                            enabled: !_saved && !_saving,
+                            textCapitalization: TextCapitalization.words,
+                            textInputAction: TextInputAction.done,
+                            maxLength: 50,
+                            inputFormatters: [
+                              FilteringTextInputFormatter.allow(
+                                RegExp(r'[A-Za-z0-9 ]'),
+                              ),
+                            ],
+                            decoration: InputDecoration(
+                              labelText: 'Crop location',
+                              hintText: 'Example: Greenhouse 1',
+                              errorText: _locationError,
+                              prefixIcon: const Icon(
+                                Icons.location_on_outlined,
+                              ),
+                            ),
+                            onChanged: (_) {
+                              if (_locationError != null) {
+                                setState(() => _locationError = null);
+                              }
+                            },
+                            onSubmitted: _saved || _saving
+                                ? null
+                                : (_) => _saveToHistory(),
+                          ),
+                          if (!_saved) ...[
+                            const SizedBox(height: 10),
+                            AppButton(
+                              label: _saving
+                                  ? 'Saving scan...'
+                                  : 'Save Scan & Location',
+                              icon: Icons.save_alt_rounded,
+                              onPressed: _saving ? null : _saveToHistory,
+                            ),
+                          ],
                         ],
                       ),
                     ),
@@ -755,6 +935,7 @@ class _FallbackView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.surface,
+      bottomNavigationBar: const AiDisclaimer(),
       body: SafeArea(
         child: CustomScrollView(
           physics: const BouncingScrollPhysics(),

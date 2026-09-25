@@ -6,7 +6,6 @@ import '../widgets/shared_widgets.dart';
 import '../widgets/grid_overlay.dart';
 import '../services/classifier.dart';
 import '../services/grid_scan_service.dart';
-import '../services/scan_history_database.dart';
 import 'grid_result_screen.dart';
 import 'result_screen.dart';
 
@@ -195,12 +194,6 @@ class _CropScannerScreenState extends State<CropScannerScreen>
           },
         );
 
-        final savedCells = await _saveGridHistory(
-          cells: cells,
-          source: source,
-          mode: mode,
-        );
-
         if (!mounted) return;
         Navigator.push(
           context,
@@ -208,7 +201,8 @@ class _CropScannerScreenState extends State<CropScannerScreen>
             builder: (_) => GridResultScreen(
               capturedImagePath: imagePath,
               mode: mode,
-              cells: savedCells,
+              cells: cells,
+              source: source,
             ),
           ),
         );
@@ -217,11 +211,6 @@ class _CropScannerScreenState extends State<CropScannerScreen>
 
       setState(() => _statusText = 'Running AI model…');
       final ClassificationResult result = await _classifier.classify(imagePath);
-      final savedImagePath = await _saveSingleHistory(
-        imagePath: imagePath,
-        result: result,
-        source: source,
-      );
 
       if (!mounted) return;
 
@@ -229,8 +218,10 @@ class _CropScannerScreenState extends State<CropScannerScreen>
         context,
         MaterialPageRoute(
           builder: (_) => DiseaseResultScreen(
-            capturedImagePath: savedImagePath ?? imagePath,
+            capturedImagePath: imagePath,
             result: result,
+            historySource: source,
+            scanMode: mode.shortLabel,
           ),
         ),
       );
@@ -241,62 +232,6 @@ class _CropScannerScreenState extends State<CropScannerScreen>
     } finally {
       if (mounted) setState(() => _processing = false);
     }
-  }
-
-  Future<String?> _saveSingleHistory({
-    required String imagePath,
-    required ClassificationResult result,
-    required String source,
-  }) async {
-    if (result.status != ScanStatus.success) return null;
-    try {
-      final scan = await ScanHistoryDatabase.instance.saveSuccessfulScan(
-        sourceImagePath: imagePath,
-        result: result,
-        source: source,
-        scanMode: ScanCaptureMode.single.shortLabel,
-      );
-      return scan.imagePath;
-    } catch (error) {
-      debugPrint('Could not save scan history: $error');
-      return null;
-    }
-  }
-
-  Future<List<GridCellScan>> _saveGridHistory({
-    required List<GridCellScan> cells,
-    required String source,
-    required ScanCaptureMode mode,
-  }) async {
-    final savedCells = <GridCellScan>[];
-    for (final cell in cells) {
-      final result = cell.result;
-      if (result == null || result.status != ScanStatus.success) {
-        savedCells.add(cell);
-        continue;
-      }
-
-      try {
-        final scan = await ScanHistoryDatabase.instance.saveSuccessfulScan(
-          sourceImagePath: cell.imagePath,
-          result: result,
-          source: source,
-          scanMode: mode.shortLabel,
-          gridCell: cell.cellNumber,
-        );
-        savedCells.add(
-          GridCellScan(
-            cellNumber: cell.cellNumber,
-            imagePath: scan.imagePath,
-            result: result,
-          ),
-        );
-      } catch (error) {
-        debugPrint('Could not save grid cell ${cell.cellNumber}: $error');
-        savedCells.add(cell);
-      }
-    }
-    return savedCells;
   }
 
   void _showError(String msg) {
@@ -326,6 +261,7 @@ class _CropScannerScreenState extends State<CropScannerScreen>
             _buildModeSelector(),
             Expanded(child: _buildViewfinder()),
             _buildInstruction(),
+            const AiDisclaimer(dark: true, useSafeArea: false),
             _buildControls(),
           ],
         ),

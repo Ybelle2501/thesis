@@ -168,6 +168,93 @@ class CircleButton extends StatelessWidget {
 
 // ─── BOTTOM NAVIGATION BAR ────────────────────────────────────────────────────
 
+class AiDisclaimer extends StatelessWidget {
+  const AiDisclaimer({
+    super.key,
+    this.prominent = false,
+    this.dark = false,
+    this.useSafeArea = true,
+  });
+
+  static const message =
+      'AI can make mistakes. Verify important results with a qualified crop '
+      'specialist before treatment.';
+  static const compactMessage =
+      'AI can make mistakes. Verify results before treatment.';
+
+  final bool prominent;
+  final bool dark;
+  final bool useSafeArea;
+
+  @override
+  Widget build(BuildContext context) {
+    final foreground = dark ? Colors.white60 : AppColors.textSecondary;
+    final content = prominent
+        ? Container(
+            width: double.infinity,
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              color: AppColors.warning.withValues(alpha: 0.08),
+              borderRadius: BorderRadius.circular(14),
+              border: Border.all(
+                color: AppColors.warning.withValues(alpha: 0.25),
+              ),
+            ),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Icon(
+                  Icons.info_outline_rounded,
+                  color: AppColors.warning,
+                  size: 18,
+                ),
+                const SizedBox(width: 9),
+                Expanded(
+                  child: Text(
+                    message,
+                    style: AppTextStyles.bodyMedium.copyWith(
+                      color: AppColors.textSecondary,
+                      fontSize: 12,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          )
+        : Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 5),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(Icons.info_outline_rounded, color: foreground, size: 12),
+                const SizedBox(width: 5),
+                Flexible(
+                  child: Text(
+                    compactMessage,
+                    maxLines: 1,
+                    textAlign: TextAlign.center,
+                    overflow: TextOverflow.ellipsis,
+                    style: AppTextStyles.labelSmall.copyWith(
+                      color: foreground,
+                      fontSize: 9,
+                      height: 1.25,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          );
+
+    return useSafeArea
+        ? SafeArea(
+            top: false,
+            minimum: const EdgeInsets.only(bottom: 2),
+            child: content,
+          )
+        : content;
+  }
+}
+
 class AppBottomNav extends StatelessWidget {
   final int currentIndex;
   const AppBottomNav({super.key, required this.currentIndex});
@@ -187,50 +274,62 @@ class AppBottomNav extends StatelessWidget {
         ],
       ),
       child: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              _NavItem(
-                icon: Icons.dashboard_rounded,
-                label: 'Home',
-                active: currentIndex == 0,
-                onTap: () => Navigator.pushAndRemoveUntil(
-                  context,
-                  MaterialPageRoute(builder: (_) => const DashboardScreen()),
-                  (_) => false,
-                ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const AiDisclaimer(useSafeArea: false),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(16, 2, 16, 8),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  _NavItem(
+                    icon: Icons.dashboard_rounded,
+                    label: 'Home',
+                    active: currentIndex == 0,
+                    onTap: () => Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => const DashboardScreen(),
+                      ),
+                      (_) => false,
+                    ),
+                  ),
+                  _NavItem(
+                    icon: Icons.document_scanner_rounded,
+                    label: 'Scan',
+                    active: currentIndex == 1,
+                    onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => const CropScannerScreen(),
+                      ),
+                    ),
+                  ),
+                  _NavItem(
+                    icon: Icons.history_rounded,
+                    label: 'History',
+                    active: currentIndex == 2,
+                    onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => const ScanHistoryScreen(),
+                      ),
+                    ),
+                  ),
+                  _NavItem(
+                    icon: Icons.bar_chart_rounded,
+                    label: 'Reports',
+                    active: currentIndex == 3,
+                    onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (_) => const ReportsScreen()),
+                    ),
+                  ),
+                ],
               ),
-              _NavItem(
-                icon: Icons.document_scanner_rounded,
-                label: 'Scan',
-                active: currentIndex == 1,
-                onTap: () => Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (_) => const CropScannerScreen()),
-                ),
-              ),
-              _NavItem(
-                icon: Icons.history_rounded,
-                label: 'History',
-                active: currentIndex == 2,
-                onTap: () => Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (_) => const ScanHistoryScreen()),
-                ),
-              ),
-              _NavItem(
-                icon: Icons.bar_chart_rounded,
-                label: 'Reports',
-                active: currentIndex == 3,
-                onTap: () => Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (_) => const ReportsScreen()),
-                ),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

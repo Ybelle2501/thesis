@@ -5,8 +5,12 @@ import 'package:thesis_app_ediwow/main.dart';
 import 'package:thesis_app_ediwow/models/models.dart';
 import 'package:thesis_app_ediwow/screens/reports_dashboard_screen.dart';
 import 'package:thesis_app_ediwow/screens/reports_screen.dart';
+import 'package:thesis_app_ediwow/screens/result_screen.dart';
 import 'package:thesis_app_ediwow/services/classifier.dart';
 import 'package:thesis_app_ediwow/services/grid_scan_service.dart';
+import 'package:thesis_app_ediwow/services/pdf_report_service.dart';
+import 'package:thesis_app_ediwow/widgets/location_tag_dialog.dart';
+import 'package:thesis_app_ediwow/widgets/shared_widgets.dart';
 
 void main() {
   testWidgets('dashboard loads the existing single-scan entry point', (
@@ -16,12 +20,14 @@ void main() {
 
     expect(find.text('LeafLens'), findsOneWidget);
     expect(find.text('See the leaf. Understand the problem.'), findsOneWidget);
+    expect(find.text(AiDisclaimer.message), findsOneWidget);
     await tester.tap(find.text('Get Started'));
     await tester.pumpAndSettle();
 
     expect(find.text('Scan Now'), findsOneWidget);
     expect(find.text('LeafLens'), findsOneWidget);
     expect(find.text('AI Crop\nScanner'), findsOneWidget);
+    expect(find.text(AiDisclaimer.compactMessage), findsOneWidget);
   });
 
   test('grid scan modes have the requested independent cell layouts', () {
@@ -44,6 +50,27 @@ void main() {
 
     expect(find.text('Crop Reports'), findsOneWidget);
     expect(find.textContaining('Live data from scan history.'), findsOneWidget);
+  });
+
+  testWidgets('successful results collect location on the result screen', (
+    WidgetTester tester,
+  ) async {
+    await tester.pumpWidget(
+      MaterialApp(
+        home: DiseaseResultScreen(
+          result: ClassificationResult(
+            rawLabel: 'tomato_Early_blight',
+            confidence: 0.92,
+            classIndex: 14,
+            status: ScanStatus.success,
+          ),
+        ),
+      ),
+    );
+
+    expect(find.text('Tag this crop location'), findsOneWidget);
+    expect(find.text('Save Scan & Location'), findsOneWidget);
+    expect(find.widgetWithText(TextField, 'Crop location'), findsOneWidget);
   });
 
   testWidgets(
@@ -70,6 +97,7 @@ void main() {
           capturedAt: DateTime(2026, 9, 22, 12, index),
           source: 'Camera',
           scanMode: 'Single',
+          location: 'Greenhouse 1',
         ),
       );
 
@@ -240,6 +268,7 @@ void main() {
       capturedAt: capturedAt,
       source: 'Camera',
       scanMode: 'Single',
+      location: 'Greenhouse 1',
     );
 
     final restored = ScanData.fromMap(scan.toMap());
@@ -250,9 +279,49 @@ void main() {
     expect(restored.imagePath, '/saved/scan.jpg');
     expect(restored.capturedAt, capturedAt);
     expect(restored.contextLabel, 'Camera - Single');
+    expect(restored.location, 'Greenhouse 1');
     expect(
       dateGroupLabel(capturedAt, relativeTo: DateTime(2026, 9, 1)),
       'Today',
     );
+  });
+
+  test(
+    'location tags reject special characters and match case-insensitively',
+    () {
+      expect(locationTagPattern.hasMatch('Greenhouse 12'), isTrue);
+      expect(locationTagPattern.hasMatch('Greenhouse-12'), isFalse);
+      expect(locationTagsMatch('  Greenhouse  12 ', 'greenHOUSE 12'), isTrue);
+    },
+  );
+
+  test('scouting PDF supports affected-crop attachments', () async {
+    final scans = List<ScanData>.generate(
+      8,
+      (index) => ScanData(
+        id: index,
+        plant: index.isEven ? 'Tomato' : 'Lettuce',
+        disease: index.isEven ? 'Early Blight' : 'Bacterial Leaf Spot',
+        status: 'Infected',
+        confidence: 0.9,
+        imagePath: 'assets/leaflens_logo.png',
+        rawLabel: 'tomato_Early_blight',
+        classIndex: 14,
+        capturedAt: DateTime(2026, 9, 25, 9, index),
+        source: 'Camera',
+        scanMode: 'Single',
+        location: 'Greenhouse 1',
+      ),
+    );
+
+    final bytes = await PapusoyReportService.buildPdf(
+      scans: scans,
+      location: 'Greenhouse 1',
+      scoutedBy: 'Test Scout',
+      exportedAt: DateTime(2026, 9, 25),
+    );
+
+    expect(bytes, isNotEmpty);
+    expect(bytes.length, greaterThan(10000));
   });
 }

@@ -61,6 +61,8 @@ class WelcomeScreen extends StatelessWidget {
                   ),
                 ),
               ),
+              const AiDisclaimer(prominent: true, useSafeArea: false),
+              const SizedBox(height: 16),
               AppButton(
                 label: 'Get Started',
                 icon: Icons.arrow_forward_rounded,

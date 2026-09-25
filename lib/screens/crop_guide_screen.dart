@@ -6,6 +6,7 @@ import '../services/seasonal_risk.dart';
 import '../theme/app_theme.dart';
 import '../widgets/guide_sources.dart';
 import '../widgets/seasonal_setup_card.dart';
+import '../widgets/shared_widgets.dart';
 
 enum GuideMode { treatment, prevention }
 
@@ -18,6 +19,7 @@ class CropGuideLibraryScreen extends StatelessWidget {
     length: Crop.values.length,
     child: Scaffold(
       backgroundColor: AppColors.surface,
+      bottomNavigationBar: const AiDisclaimer(),
       appBar: AppBar(
         title: Text(
           mode == GuideMode.treatment
@@ -165,6 +167,7 @@ class _CropGuideDetailScreenState extends State<CropGuideDetailScreen> {
     };
     return Scaffold(
       backgroundColor: AppColors.surface,
+      bottomNavigationBar: const AiDisclaimer(),
       appBar: AppBar(
         title: Text(guide.crop.title),
         actions: [

@@ -1,34 +1,139 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../services/classifier.dart';
 import '../services/grid_scan_service.dart';
+import '../services/scan_history_database.dart';
 import '../theme/app_theme.dart';
 import '../widgets/grid_overlay.dart';
+import '../widgets/location_tag_dialog.dart';
 import '../widgets/shared_widgets.dart';
 import 'result_screen.dart';
 
-class GridResultScreen extends StatelessWidget {
+class GridResultScreen extends StatefulWidget {
   const GridResultScreen({
     super.key,
     required this.capturedImagePath,
     required this.mode,
     required this.cells,
+    required this.source,
   });
 
   final String capturedImagePath;
   final ScanCaptureMode mode;
   final List<GridCellScan> cells;
+  final String source;
+
+  @override
+  State<GridResultScreen> createState() => _GridResultScreenState();
+}
+
+class _GridResultScreenState extends State<GridResultScreen> {
+  final _locationController = TextEditingController();
+  final Set<int> _savedCellNumbers = {};
+  late List<GridCellScan> _cells;
+  bool _saving = false;
+  bool _saved = false;
+  String? _locationError;
+
+  String get _location => normalizeLocationTag(_locationController.text);
+
+  @override
+  void initState() {
+    super.initState();
+    _cells = List<GridCellScan>.from(widget.cells);
+    _saved = !_cells.any((cell) => cell.result?.status == ScanStatus.success);
+  }
+
+  @override
+  void dispose() {
+    _locationController.dispose();
+    super.dispose();
+  }
+
+  Future<void> _saveGridHistory() async {
+    final location = _location;
+    if (location.isEmpty || !locationTagPattern.hasMatch(location)) {
+      setState(() {
+        _locationError = location.isEmpty
+            ? 'Enter the crop location.'
+            : 'Use letters, numbers, and spaces only.';
+      });
+      return;
+    }
+
+    setState(() {
+      _saving = true;
+      _locationError = null;
+    });
+    var failed = false;
+    final updated = List<GridCellScan>.from(_cells);
+    for (var index = 0; index < updated.length; index++) {
+      final cell = updated[index];
+      final result = cell.result;
+      if (result == null ||
+          result.status != ScanStatus.success ||
+          _savedCellNumbers.contains(cell.cellNumber)) {
+        continue;
+      }
+      try {
+        final scan = await ScanHistoryDatabase.instance.saveSuccessfulScan(
+          sourceImagePath: cell.imagePath,
+          result: result,
+          source: widget.source,
+          scanMode: widget.mode.shortLabel,
+          gridCell: cell.cellNumber,
+          location: location,
+        );
+        updated[index] = GridCellScan(
+          cellNumber: cell.cellNumber,
+          imagePath: scan.imagePath,
+          result: result,
+        );
+        _savedCellNumbers.add(cell.cellNumber);
+      } catch (_) {
+        failed = true;
+      }
+    }
+
+    if (!mounted) return;
+    final successfulNumbers = updated
+        .where((cell) => cell.result?.status == ScanStatus.success)
+        .map((cell) => cell.cellNumber)
+        .toSet();
+    final complete = _savedCellNumbers.containsAll(successfulNumbers);
+    setState(() {
+      _cells = updated;
+      _saving = false;
+      _saved = complete;
+      _locationController.text = location;
+      if (failed && !complete) {
+        _locationError = 'Some cells could not be saved. Tap retry.';
+      }
+    });
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(
+          complete
+              ? 'Grid scans and location saved to history.'
+              : 'Some grid cells still need to be saved.',
+        ),
+        backgroundColor: complete ? null : AppColors.error,
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
-    final healthyCount = cells.where(_isHealthy).length;
-    final issueCount = cells.where(_hasDetectedIssue).length;
-    final reviewCount = cells.length - healthyCount - issueCount;
+    final healthyCount = _cells.where(_isHealthy).length;
+    final issueCount = _cells.where(_hasDetectedIssue).length;
+    final reviewCount = _cells.length - healthyCount - issueCount;
 
     return Scaffold(
       backgroundColor: AppColors.surface,
+      bottomNavigationBar: const AiDisclaimer(),
       appBar: AppBar(
         backgroundColor: AppColors.surface,
         surfaceTintColor: Colors.transparent,
@@ -37,12 +142,14 @@ class GridResultScreen extends StatelessWidget {
       body: SafeArea(
         top: false,
         child: ListView(
-          key: PageStorageKey<String>('grid-results-$capturedImagePath'),
+          key: PageStorageKey<String>(
+            'grid-results-${widget.capturedImagePath}',
+          ),
           physics: const BouncingScrollPhysics(),
           padding: const EdgeInsets.fromLTRB(20, 8, 20, 32),
           children: [
             Text(
-              '${mode.gridName} grid - ${mode.dimensionsLabel}',
+              '${widget.mode.gridName} grid - ${widget.mode.dimensionsLabel}',
               style: AppTextStyles.displayMedium,
             ),
             const SizedBox(height: 6),
@@ -56,12 +163,15 @@ class GridResultScreen extends StatelessWidget {
               child: Stack(
                 children: [
                   Image.file(
-                    File(capturedImagePath),
+                    File(widget.capturedImagePath),
                     width: double.infinity,
                     fit: BoxFit.fitWidth,
                   ),
                   Positioned.fill(
-                    child: GridOverlay(rows: mode.rows, columns: mode.columns),
+                    child: GridOverlay(
+                      rows: widget.mode.rows,
+                      columns: widget.mode.columns,
+                    ),
                   ),
                 ],
               ),
@@ -95,20 +205,94 @@ class GridResultScreen extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 24),
-            ...cells.map(
+            _buildLocationCard(),
+            const SizedBox(height: 24),
+            ..._cells.map(
               (cell) => Padding(
                 padding: const EdgeInsets.only(bottom: 14),
-                child: _GridCellResultCard(cell: cell),
+                child: _GridCellResultCard(
+                  cell: cell,
+                  saved: _saved,
+                  location: _location,
+                  source: widget.source,
+                  scanMode: widget.mode.shortLabel,
+                ),
               ),
             ),
             const SizedBox(height: 8),
             AppButton(
               label: 'Scan Another Grid',
               icon: Icons.grid_view_rounded,
-              onPressed: () => Navigator.pop(context),
+              onPressed: _saved ? () => Navigator.pop(context) : null,
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _buildLocationCard() {
+    return AppCard(
+      padding: const EdgeInsets.all(18),
+      color: _saved ? AppColors.accent : null,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Icon(
+                _saved
+                    ? Icons.check_circle_rounded
+                    : Icons.location_on_outlined,
+                color: AppColors.primary,
+              ),
+              const SizedBox(width: 8),
+              Expanded(
+                child: Text(
+                  _saved ? 'Crop location saved' : 'Tag this crop grid',
+                  style: AppTextStyles.titleMedium,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 8),
+          Text(
+            _saved
+                ? 'Every successful cell is saved under this location.'
+                : 'One location tag will be applied to every successful cell.',
+            style: AppTextStyles.bodyMedium,
+          ),
+          const SizedBox(height: 12),
+          TextField(
+            controller: _locationController,
+            enabled: !_saved && !_saving,
+            maxLength: 50,
+            textCapitalization: TextCapitalization.words,
+            inputFormatters: [
+              FilteringTextInputFormatter.allow(RegExp(r'[A-Za-z0-9 ]')),
+            ],
+            decoration: InputDecoration(
+              labelText: 'Crop location',
+              hintText: 'Example: Greenhouse 1',
+              errorText: _locationError,
+              prefixIcon: const Icon(Icons.location_on_outlined),
+            ),
+            onChanged: (_) {
+              if (_locationError != null) {
+                setState(() => _locationError = null);
+              }
+            },
+            onSubmitted: _saved || _saving ? null : (_) => _saveGridHistory(),
+          ),
+          if (!_saved) ...[
+            const SizedBox(height: 10),
+            AppButton(
+              label: _saving ? 'Saving grid scans...' : 'Save Grid & Location',
+              icon: Icons.save_alt_rounded,
+              onPressed: _saving ? null : _saveGridHistory,
+            ),
+          ],
+        ],
       ),
     );
   }
@@ -159,9 +343,19 @@ class _SummaryTile extends StatelessWidget {
 }
 
 class _GridCellResultCard extends StatelessWidget {
-  const _GridCellResultCard({required this.cell});
+  const _GridCellResultCard({
+    required this.cell,
+    required this.saved,
+    required this.location,
+    required this.source,
+    required this.scanMode,
+  });
 
   final GridCellScan cell;
+  final bool saved;
+  final String location;
+  final String source;
+  final String scanMode;
 
   @override
   Widget build(BuildContext context) {
@@ -278,15 +472,21 @@ class _GridCellResultCard extends StatelessWidget {
                 if (result != null) ...[
                   const SizedBox(height: 12),
                   TextButton.icon(
-                    onPressed: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (_) => DiseaseResultScreen(
-                          capturedImagePath: cell.imagePath,
-                          result: result,
-                        ),
-                      ),
-                    ),
+                    onPressed: saved
+                        ? () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => DiseaseResultScreen(
+                                capturedImagePath: cell.imagePath,
+                                result: result,
+                                alreadySaved: true,
+                                existingLocation: location,
+                                historySource: source,
+                                scanMode: scanMode,
+                              ),
+                            ),
+                          )
+                        : null,
                     icon: const Icon(Icons.open_in_new_rounded, size: 18),
                     label: const Text('Open detailed cell result'),
                   ),

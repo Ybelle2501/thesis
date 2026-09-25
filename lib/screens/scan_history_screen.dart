@@ -7,6 +7,7 @@ import '../services/classifier.dart';
 import '../services/scan_history_database.dart';
 import '../theme/app_theme.dart';
 import '../widgets/shared_widgets.dart';
+import '../widgets/location_tag_dialog.dart';
 import 'result_screen.dart';
 import 'scanner_screen.dart';
 
@@ -262,8 +263,10 @@ class _ScanHistoryScreenState extends State<ScanHistoryScreen> {
                 scan: scan,
                 selectionMode: _selectionMode,
                 selected: scan.id != null && _selectedIds.contains(scan.id),
-                onTap: () =>
-                    _selectionMode ? _toggleSelected(scan) : _openScan(scan),
+                onTap: () => _selectionMode
+                    ? _toggleSelected(scan)
+                    : _editLocation(scan),
+                onOpen: () => _viewScan(scan),
                 onLongPress: () {
                   if (!_selectionMode) setState(() => _selectionMode = true);
                   _toggleSelected(scan);
@@ -332,7 +335,42 @@ class _ScanHistoryScreenState extends State<ScanHistoryScreen> {
     });
   }
 
-  void _openScan(ScanData scan) {
+  Future<void> _editLocation(ScanData scan) async {
+    final id = scan.id;
+    if (id == null) return;
+    final location = await showLocationTagDialog(
+      context,
+      initialLocation: scan.location,
+      title: 'Edit crop location',
+      required: false,
+    );
+    if (location == null || !mounted) return;
+    try {
+      await ScanHistoryDatabase.instance.updateLocation(id, location);
+      if (!mounted) return;
+      setState(() {
+        _scans = _scans
+            .map(
+              (item) =>
+                  item.id == id ? item.copyWith(location: location) : item,
+            )
+            .toList(growable: false);
+      });
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text('Crop location updated.')));
+    } catch (_) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Could not update the crop location.'),
+          backgroundColor: AppColors.error,
+        ),
+      );
+    }
+  }
+
+  void _viewScan(ScanData scan) {
     final result = ClassificationResult(
       rawLabel: scan.rawLabel,
       confidence: scan.confidence,
@@ -347,6 +385,10 @@ class _ScanHistoryScreenState extends State<ScanHistoryScreen> {
               ? scan.imagePath
               : null,
           result: result,
+          alreadySaved: true,
+          existingLocation: scan.location,
+          historySource: scan.source,
+          scanMode: scan.scanMode,
         ),
       ),
     );
@@ -448,6 +490,7 @@ class _HistoryCard extends StatelessWidget {
     required this.selected,
     required this.onTap,
     required this.onLongPress,
+    required this.onOpen,
   });
 
   final ScanData scan;
@@ -455,6 +498,7 @@ class _HistoryCard extends StatelessWidget {
   final bool selected;
   final VoidCallback onTap;
   final VoidCallback onLongPress;
+  final VoidCallback onOpen;
 
   @override
   Widget build(BuildContext context) {
@@ -486,6 +530,20 @@ class _HistoryCard extends StatelessWidget {
                   Text(
                     scan.contextLabel,
                     style: AppTextStyles.labelSmall.copyWith(fontSize: 10),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  const SizedBox(height: 2),
+                  Text(
+                    scan.location.isEmpty
+                        ? 'Location not tagged'
+                        : 'Location: ${scan.location}',
+                    style: AppTextStyles.labelSmall.copyWith(
+                      fontSize: 10,
+                      color: scan.location.isEmpty
+                          ? AppColors.warning
+                          : AppColors.primary,
+                    ),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                   ),
@@ -528,15 +586,21 @@ class _HistoryCard extends StatelessWidget {
                   style: AppTextStyles.labelSmall,
                 ),
                 const SizedBox(height: 10),
-                Icon(
-                  selectionMode
-                      ? selected
-                            ? Icons.check_circle_rounded
-                            : Icons.radio_button_unchecked_rounded
-                      : Icons.chevron_right_rounded,
-                  color: selected ? AppColors.primary : AppColors.textMuted,
-                  size: selectionMode ? 22 : 18,
-                ),
+                if (selectionMode)
+                  Icon(
+                    selected
+                        ? Icons.check_circle_rounded
+                        : Icons.radio_button_unchecked_rounded,
+                    color: selected ? AppColors.primary : AppColors.textMuted,
+                    size: 22,
+                  )
+                else
+                  IconButton(
+                    tooltip: 'View scan result',
+                    visualDensity: VisualDensity.compact,
+                    onPressed: onOpen,
+                    icon: const Icon(Icons.open_in_new_rounded, size: 18),
+                  ),
               ],
             ),
           ],

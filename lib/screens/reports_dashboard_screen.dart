@@ -5,6 +5,7 @@ import '../services/scan_history_database.dart';
 import '../theme/app_theme.dart';
 import '../widgets/shared_widgets.dart';
 import 'scan_history_screen.dart';
+import 'report_export_screen.dart';
 
 class ReportsDashboardScreen extends StatefulWidget {
   const ReportsDashboardScreen({super.key});
@@ -53,7 +54,7 @@ class _ReportsDashboardScreenState extends State<ReportsDashboardScreen> {
       body: SafeArea(
         child: Column(
           children: [
-            _ReportsHeader(onExportTap: () => _showExportGuide(context)),
+            _ReportsHeader(onExportTap: _openExport),
             Expanded(
               child: ListView(
                 physics: const BouncingScrollPhysics(),
@@ -118,44 +119,12 @@ class _ReportsDashboardScreenState extends State<ReportsDashboardScreen> {
     );
   }
 
-  void _showExportGuide(BuildContext context) {
-    showModalBottomSheet<void>(
-      context: context,
-      showDragHandle: true,
-      isScrollControlled: true,
-      builder: (context) => const SafeArea(
-        child: Padding(
-          padding: EdgeInsets.fromLTRB(24, 4, 24, 28),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text('Enable report export', style: AppTextStyles.titleLarge),
-              SizedBox(height: 10),
-              Text(
-                'Add PDF/CSV generation only after live scan storage is connected. The report must export real records, not the current preview data.',
-                style: AppTextStyles.bodyLarge,
-              ),
-              SizedBox(height: 14),
-              _GuideLine(
-                number: '1',
-                text:
-                    'Add the pdf and printing packages for printable reports.',
-              ),
-              _GuideLine(
-                number: '2',
-                text:
-                    'Add csv for spreadsheet export and share_plus for sharing.',
-              ),
-              _GuideLine(
-                number: '3',
-                text:
-                    'Generate exports from the same repository used by History and Reports.',
-              ),
-            ],
-          ),
-        ),
-      ),
+  Future<void> _openExport() async {
+    await _loadScans();
+    if (!mounted) return;
+    await Navigator.push(
+      context,
+      MaterialPageRoute(builder: (_) => ReportExportScreen(scans: _allScans)),
     );
   }
 }
@@ -811,43 +780,6 @@ class _WhatToAddCard extends StatelessWidget {
 }
 
 */
-class _GuideLine extends StatelessWidget {
-  const _GuideLine({required this.number, required this.text});
-
-  final String number;
-  final String text;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 10),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            width: 24,
-            height: 24,
-            alignment: Alignment.center,
-            decoration: const BoxDecoration(
-              color: AppColors.accent,
-              shape: BoxShape.circle,
-            ),
-            child: Text(
-              number,
-              style: AppTextStyles.labelSmall.copyWith(
-                color: AppColors.primary,
-                fontWeight: FontWeight.w700,
-              ),
-            ),
-          ),
-          const SizedBox(width: 9),
-          Expanded(child: Text(text, style: AppTextStyles.bodyMedium)),
-        ],
-      ),
-    );
-  }
-}
-
 class _EmptyReportCard extends StatelessWidget {
   const _EmptyReportCard();
 
