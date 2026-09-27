@@ -6,6 +6,7 @@ import 'package:thesis_app_ediwow/models/models.dart';
 import 'package:thesis_app_ediwow/screens/reports_dashboard_screen.dart';
 import 'package:thesis_app_ediwow/screens/reports_screen.dart';
 import 'package:thesis_app_ediwow/screens/result_screen.dart';
+import 'package:thesis_app_ediwow/screens/scan_history_screen.dart';
 import 'package:thesis_app_ediwow/services/classifier.dart';
 import 'package:thesis_app_ediwow/services/grid_scan_service.dart';
 import 'package:thesis_app_ediwow/services/pdf_report_service.dart';
@@ -71,6 +72,65 @@ void main() {
     expect(find.text('Tag this crop location'), findsOneWidget);
     expect(find.text('Save Scan & Location'), findsOneWidget);
     expect(find.widgetWithText(TextField, 'Crop location'), findsOneWidget);
+  });
+
+  testWidgets('scan history overflow menu exposes location renaming', (
+    WidgetTester tester,
+  ) async {
+    var renameRequested = false;
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Scaffold(
+          body: ScanHistoryOverflowMenu(
+            hasLocation: true,
+            onRenameLocation: () => renameRequested = true,
+          ),
+        ),
+      ),
+    );
+
+    expect(find.byIcon(Icons.more_vert_rounded), findsOneWidget);
+    expect(find.byIcon(Icons.open_in_new_rounded), findsNothing);
+
+    await tester.tap(find.byIcon(Icons.more_vert_rounded));
+    await tester.pumpAndSettle();
+    expect(find.text('Rename location'), findsOneWidget);
+
+    await tester.tap(find.text('Rename location'));
+    await tester.pumpAndSettle();
+    expect(renameRequested, isTrue);
+  });
+
+  testWidgets('rename dialog selects the old location for quick replacement', (
+    WidgetTester tester,
+  ) async {
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Builder(
+          builder: (context) => TextButton(
+            onPressed: () => showLocationTagDialog(
+              context,
+              initialLocation: 'Greenhouse 1',
+              title: 'Rename location',
+              actionLabel: 'Save changes',
+              selectAllOnOpen: true,
+              required: false,
+            ),
+            child: const Text('Open'),
+          ),
+        ),
+      ),
+    );
+
+    await tester.tap(find.text('Open'));
+    await tester.pumpAndSettle();
+
+    final field = tester.widget<TextField>(find.byType(TextField));
+    expect(
+      field.controller!.selection,
+      const TextSelection(baseOffset: 0, extentOffset: 12),
+    );
+    expect(find.text('Save changes'), findsOneWidget);
   });
 
   testWidgets(

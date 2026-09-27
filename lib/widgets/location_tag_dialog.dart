@@ -18,6 +18,10 @@ Future<String?> showLocationTagDialog(
   BuildContext context, {
   String initialLocation = '',
   String title = 'Where is this crop located?',
+  String description =
+      'This tag groups scans into the correct scouting report.',
+  String actionLabel = 'Save location',
+  bool selectAllOnOpen = false,
   bool required = true,
 }) {
   return showDialog<String>(
@@ -28,6 +32,9 @@ Future<String?> showLocationTagDialog(
       child: _LocationTagDialog(
         initialLocation: initialLocation,
         title: title,
+        description: description,
+        actionLabel: actionLabel,
+        selectAllOnOpen: selectAllOnOpen,
         required: required,
       ),
     ),
@@ -38,11 +45,17 @@ class _LocationTagDialog extends StatefulWidget {
   const _LocationTagDialog({
     required this.initialLocation,
     required this.title,
+    required this.description,
+    required this.actionLabel,
+    required this.selectAllOnOpen,
     required this.required,
   });
 
   final String initialLocation;
   final String title;
+  final String description;
+  final String actionLabel;
+  final bool selectAllOnOpen;
   final bool required;
 
   @override
@@ -57,6 +70,12 @@ class _LocationTagDialogState extends State<_LocationTagDialog> {
   void initState() {
     super.initState();
     _controller = TextEditingController(text: widget.initialLocation);
+    if (widget.selectAllOnOpen && widget.initialLocation.isNotEmpty) {
+      _controller.selection = TextSelection(
+        baseOffset: 0,
+        extentOffset: widget.initialLocation.length,
+      );
+    }
   }
 
   @override
@@ -86,10 +105,7 @@ class _LocationTagDialogState extends State<_LocationTagDialog> {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
-            'This tag groups scans into the correct scouting report.',
-            style: AppTextStyles.bodyMedium,
-          ),
+          Text(widget.description, style: AppTextStyles.bodyMedium),
           const SizedBox(height: 14),
           TextField(
             controller: _controller,
@@ -119,7 +135,7 @@ class _LocationTagDialogState extends State<_LocationTagDialog> {
             onPressed: () => Navigator.pop(context),
             child: const Text('Cancel'),
           ),
-        FilledButton(onPressed: _submit, child: const Text('Save location')),
+        FilledButton(onPressed: _submit, child: Text(widget.actionLabel)),
       ],
     );
   }

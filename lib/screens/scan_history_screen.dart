@@ -263,10 +263,9 @@ class _ScanHistoryScreenState extends State<ScanHistoryScreen> {
                 scan: scan,
                 selectionMode: _selectionMode,
                 selected: scan.id != null && _selectedIds.contains(scan.id),
-                onTap: () => _selectionMode
-                    ? _toggleSelected(scan)
-                    : _editLocation(scan),
-                onOpen: () => _viewScan(scan),
+                onTap: () =>
+                    _selectionMode ? _toggleSelected(scan) : _viewScan(scan),
+                onRenameLocation: () => _editLocation(scan),
                 onLongPress: () {
                   if (!_selectionMode) setState(() => _selectionMode = true);
                   _toggleSelected(scan);
@@ -341,7 +340,12 @@ class _ScanHistoryScreenState extends State<ScanHistoryScreen> {
     final location = await showLocationTagDialog(
       context,
       initialLocation: scan.location,
-      title: 'Edit crop location',
+      title: scan.location.isEmpty ? 'Add location' : 'Rename location',
+      description: scan.location.isEmpty
+          ? 'Add a clear location name so this scan appears in the right report.'
+          : 'Update the location name for this scan. Future reports will use the new name.',
+      actionLabel: scan.location.isEmpty ? 'Add location' : 'Save changes',
+      selectAllOnOpen: scan.location.isNotEmpty,
       required: false,
     );
     if (location == null || !mounted) return;
@@ -490,7 +494,7 @@ class _HistoryCard extends StatelessWidget {
     required this.selected,
     required this.onTap,
     required this.onLongPress,
-    required this.onOpen,
+    required this.onRenameLocation,
   });
 
   final ScanData scan;
@@ -498,7 +502,7 @@ class _HistoryCard extends StatelessWidget {
   final bool selected;
   final VoidCallback onTap;
   final VoidCallback onLongPress;
-  final VoidCallback onOpen;
+  final VoidCallback onRenameLocation;
 
   @override
   Widget build(BuildContext context) {
@@ -595,17 +599,49 @@ class _HistoryCard extends StatelessWidget {
                     size: 22,
                   )
                 else
-                  IconButton(
-                    tooltip: 'View scan result',
-                    visualDensity: VisualDensity.compact,
-                    onPressed: onOpen,
-                    icon: const Icon(Icons.open_in_new_rounded, size: 18),
+                  ScanHistoryOverflowMenu(
+                    hasLocation: scan.location.isNotEmpty,
+                    onRenameLocation: onRenameLocation,
                   ),
               ],
             ),
           ],
         ),
       ),
+    );
+  }
+}
+
+enum _ScanHistoryMenuAction { renameLocation }
+
+class ScanHistoryOverflowMenu extends StatelessWidget {
+  const ScanHistoryOverflowMenu({
+    super.key,
+    required this.hasLocation,
+    required this.onRenameLocation,
+  });
+
+  final bool hasLocation;
+  final VoidCallback onRenameLocation;
+
+  @override
+  Widget build(BuildContext context) {
+    return PopupMenuButton<_ScanHistoryMenuAction>(
+      tooltip: 'Record options',
+      icon: const Icon(Icons.more_vert_rounded, size: 22),
+      onSelected: (_) => onRenameLocation(),
+      itemBuilder: (context) => [
+        PopupMenuItem<_ScanHistoryMenuAction>(
+          value: _ScanHistoryMenuAction.renameLocation,
+          child: Row(
+            children: [
+              const Icon(Icons.edit_location_alt_outlined, size: 20),
+              const SizedBox(width: 12),
+              Text(hasLocation ? 'Rename location' : 'Add location'),
+            ],
+          ),
+        ),
+      ],
     );
   }
 }

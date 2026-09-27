@@ -11,6 +11,11 @@ import 'scan_history_database.dart';
 class PapusoyReportService {
   const PapusoyReportService._();
 
+  static const downloadsFolderName = 'Papusoy Hydrofarm Reports';
+  static const _storageChannel = MethodChannel(
+    'com.example.thesis_app_ediwow/report_storage',
+  );
+
   static Future<String> export({
     required List<ScanData> scans,
     required String location,
@@ -26,6 +31,24 @@ class PapusoyReportService {
       scoutedBy: scoutedBy,
       exportedAt: exportedAt ?? DateTime.now(),
     );
+    if (Platform.isAndroid) {
+      final savedPath = await _storageChannel.invokeMethod<String>(
+        'savePdfToDownloads',
+        <String, Object>{
+          'filename': filename,
+          'folderName': downloadsFolderName,
+          'bytes': bytes,
+        },
+      );
+      if (savedPath == null || savedPath.isEmpty) {
+        throw const FileSystemException(
+          'Android did not return the saved report path.',
+        );
+      }
+      return savedPath;
+    }
+
+    // Keep the existing platform-native export experience outside Android.
     await Printing.sharePdf(bytes: bytes, filename: filename);
     return filename;
   }

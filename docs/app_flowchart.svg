@@ -1,0 +1,179 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2000" height="1500" viewBox="0 0 2000 1500" role="img" aria-labelledby="title desc">
+  <title id="title">LeafLens application flowchart</title>
+  <desc id="desc">Application navigation and data flow covering scanning, classification, history, guidance, reports, and PDF export.</desc>
+  <defs>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="7" stdDeviation="10" flood-color="#17352B" flood-opacity="0.12"/>
+    </filter>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M0,0 L12,6 L0,12 Z" fill="#55766B"/>
+    </marker>
+    <style>
+      .title { font: 700 42px 'Segoe UI', Arial, sans-serif; fill: #17352B; }
+      .subtitle { font: 400 19px 'Segoe UI', Arial, sans-serif; fill: #5C746C; }
+      .lane-title { font: 700 16px 'Segoe UI', Arial, sans-serif; fill: #315E4D; letter-spacing: 1.3px; }
+      .node-title { font: 700 18px 'Segoe UI', Arial, sans-serif; fill: #18392E; }
+      .node-sub { font: 400 14px 'Segoe UI', Arial, sans-serif; fill: #60766E; }
+      .white { fill: #FFFFFF; }
+      .label { font: 700 13px 'Segoe UI', Arial, sans-serif; fill: #46665B; }
+      .edge { fill: none; stroke: #55766B; stroke-width: 3; marker-end: url(#arrow); }
+      .edge-soft { fill: none; stroke: #7A998E; stroke-width: 2.5; stroke-dasharray: 8 7; marker-end: url(#arrow); }
+    </style>
+  </defs>
+
+  <rect width="2000" height="1500" fill="#F5FAF7"/>
+  <circle cx="1880" cy="95" r="220" fill="#DDF2E5"/>
+  <text x="65" y="72" class="title">LeafLens Application Flowchart</text>
+  <text x="65" y="108" class="subtitle">User navigation, AI classification, local storage, history, analytics, and PDF reporting</text>
+
+  <!-- lane backgrounds -->
+  <rect x="45" y="145" width="1910" height="210" rx="24" fill="#FFFFFF" stroke="#D8E7DE" stroke-width="2"/>
+  <text x="70" y="180" class="lane-title">ENTRY &amp; PRIMARY NAVIGATION</text>
+  <rect x="45" y="380" width="1910" height="705" rx="24" fill="#FFFFFF" stroke="#D8E7DE" stroke-width="2"/>
+  <text x="70" y="415" class="lane-title">AI SCAN WORKFLOW</text>
+  <rect x="45" y="1110" width="1910" height="330" rx="24" fill="#FFFFFF" stroke="#D8E7DE" stroke-width="2"/>
+  <text x="70" y="1145" class="lane-title">PERSISTENCE, REVIEW &amp; REPORTING</text>
+
+  <!-- helpers: rounded nodes -->
+  <g filter="url(#shadow)">
+    <rect x="85" y="215" width="180" height="88" rx="22" fill="#2C6A50"/>
+    <rect x="350" y="215" width="210" height="88" rx="22" fill="#E6F5EB" stroke="#85AF97" stroke-width="2"/>
+    <rect x="660" y="200" width="260" height="118" rx="24" fill="#DDF1E4" stroke="#6D9A81" stroke-width="3"/>
+    <rect x="1045" y="215" width="200" height="88" rx="22" fill="#EAF4FF" stroke="#9DB7D5" stroke-width="2"/>
+    <rect x="1305" y="215" width="200" height="88" rx="22" fill="#FFF1E9" stroke="#E6B39A" stroke-width="2"/>
+    <rect x="1565" y="215" width="200" height="88" rx="22" fill="#EEF2FF" stroke="#ABB6E1" stroke-width="2"/>
+    <rect x="1810" y="215" width="110" height="88" rx="22" fill="#F5EEFF" stroke="#C7ADE4" stroke-width="2"/>
+  </g>
+  <text x="175" y="250" text-anchor="middle" class="node-title white">Launch</text>
+  <text x="175" y="276" text-anchor="middle" class="node-sub white">Flutter app</text>
+  <text x="455" y="250" text-anchor="middle" class="node-title">Welcome</text>
+  <text x="455" y="276" text-anchor="middle" class="node-sub">Get Started</text>
+  <text x="790" y="247" text-anchor="middle" class="node-title">Dashboard</text>
+  <text x="790" y="273" text-anchor="middle" class="node-sub">Quick access + recent scans</text>
+  <text x="790" y="296" text-anchor="middle" class="node-sub">Bottom navigation hub</text>
+  <text x="1145" y="250" text-anchor="middle" class="node-title">AI Scanner</text>
+  <text x="1145" y="276" text-anchor="middle" class="node-sub">Camera / gallery</text>
+  <text x="1405" y="250" text-anchor="middle" class="node-title">Prevention</text>
+  <text x="1405" y="276" text-anchor="middle" class="node-sub">Disease guidance</text>
+  <text x="1665" y="250" text-anchor="middle" class="node-title">Treatment</text>
+  <text x="1665" y="276" text-anchor="middle" class="node-sub">Care advice</text>
+  <text x="1865" y="250" text-anchor="middle" class="node-title">Reports</text>
+  <text x="1865" y="276" text-anchor="middle" class="node-sub">Analytics</text>
+
+  <path class="edge" d="M265 259 H350"/>
+  <path class="edge" d="M560 259 H660"/>
+  <path class="edge" d="M920 259 H1045"/>
+  <path class="edge-soft" d="M920 240 C1040 150 1260 150 1305 230"/>
+  <path class="edge-soft" d="M920 265 C1130 360 1450 345 1565 275"/>
+  <path class="edge-soft" d="M920 285 C1270 375 1710 350 1810 280"/>
+
+  <!-- Scan workflow -->
+  <g filter="url(#shadow)">
+    <rect x="85" y="470" width="235" height="92" rx="20" fill="#E8F5EC" stroke="#77A48A" stroke-width="2"/>
+    <polygon points="445,455 570,516 445,577 320,516" fill="#FFF7E5" stroke="#D8B86D" stroke-width="2"/>
+    <rect x="625" y="470" width="245" height="92" rx="20" fill="#EAF4FF" stroke="#92B1D0" stroke-width="2"/>
+    <polygon points="1025,455 1150,516 1025,577 900,516" fill="#FFF7E5" stroke="#D8B86D" stroke-width="2"/>
+  </g>
+  <text x="202" y="505" text-anchor="middle" class="node-title">Acquire image</text>
+  <text x="202" y="532" text-anchor="middle" class="node-sub">Camera capture or gallery</text>
+  <text x="445" y="510" text-anchor="middle" class="node-title">Capture mode?</text>
+  <text x="445" y="535" text-anchor="middle" class="node-sub">Single / 2×2 / 2×3</text>
+  <text x="747" y="505" text-anchor="middle" class="node-title">TFLite classifier</text>
+  <text x="747" y="532" text-anchor="middle" class="node-sub">ResNet50 + decision thresholds</text>
+  <text x="1025" y="510" text-anchor="middle" class="node-title">Reliable result?</text>
+  <text x="1025" y="535" text-anchor="middle" class="node-sub">success vs low confidence</text>
+  <path class="edge" d="M1145 303 V420 H202 V470"/>
+  <path class="edge" d="M320 516 H320"/>
+  <path class="edge" d="M320 516 H320 M570 516 H625"/>
+  <text x="585" y="503" class="label">SINGLE</text>
+  <path class="edge" d="M870 516 H900"/>
+
+  <!-- single result branches -->
+  <g filter="url(#shadow)">
+    <rect x="1220" y="455" width="270" height="122" rx="22" fill="#E6F5EB" stroke="#75A189" stroke-width="2"/>
+    <rect x="1575" y="455" width="285" height="122" rx="22" fill="#FFF0EA" stroke="#DEA68D" stroke-width="2"/>
+    <rect x="1220" y="645" width="270" height="110" rx="22" fill="#EEF7F1" stroke="#88AE98" stroke-width="2"/>
+    <rect x="1575" y="645" width="285" height="110" rx="22" fill="#F3F6F5" stroke="#B5C5BF" stroke-width="2"/>
+  </g>
+  <text x="1355" y="495" text-anchor="middle" class="node-title">Disease result</text>
+  <text x="1355" y="522" text-anchor="middle" class="node-sub">Healthy or infected</text>
+  <text x="1355" y="547" text-anchor="middle" class="node-sub">Show confidence + diagnosis</text>
+  <text x="1717" y="495" text-anchor="middle" class="node-title">Review result</text>
+  <text x="1717" y="522" text-anchor="middle" class="node-sub">Low confidence / no leaf</text>
+  <text x="1717" y="547" text-anchor="middle" class="node-sub">Suggestions or rescan</text>
+  <text x="1355" y="687" text-anchor="middle" class="node-title">Enter location</text>
+  <text x="1355" y="715" text-anchor="middle" class="node-sub">Required before saving</text>
+  <text x="1717" y="687" text-anchor="middle" class="node-title">Guidance</text>
+  <text x="1717" y="715" text-anchor="middle" class="node-sub">Treatment + prevention</text>
+  <path class="edge" d="M1150 516 H1220"/>
+  <text x="1170" y="501" class="label">YES</text>
+  <path class="edge" d="M1025 577 V610 H1717 V577"/>
+  <text x="1040" y="601" class="label">NO</text>
+  <path class="edge" d="M1355 577 V645"/>
+  <path class="edge-soft" d="M1490 516 H1530 V700 H1575"/>
+  <text x="1510" y="501" class="label">INFECTED</text>
+  <path class="edge-soft" d="M1717 645 V600 H1440 V577"/>
+
+  <!-- grid branch -->
+  <g filter="url(#shadow)">
+    <rect x="85" y="700" width="250" height="105" rx="22" fill="#F1EEFF" stroke="#AD9BD8" stroke-width="2"/>
+    <rect x="410" y="700" width="250" height="105" rx="22" fill="#EAF4FF" stroke="#92B1D0" stroke-width="2"/>
+    <rect x="735" y="700" width="250" height="105" rx="22" fill="#F1EEFF" stroke="#AD9BD8" stroke-width="2"/>
+    <rect x="735" y="875" width="250" height="105" rx="22" fill="#EEF7F1" stroke="#88AE98" stroke-width="2"/>
+    <rect x="1090" y="875" width="300" height="105" rx="22" fill="#E6F5EB" stroke="#75A189" stroke-width="2"/>
+  </g>
+  <text x="210" y="740" text-anchor="middle" class="node-title">Split into cells</text>
+  <text x="210" y="768" text-anchor="middle" class="node-sub">Crop one source image</text>
+  <text x="535" y="740" text-anchor="middle" class="node-title">Classify each cell</text>
+  <text x="535" y="768" text-anchor="middle" class="node-sub">Independent inference</text>
+  <text x="860" y="740" text-anchor="middle" class="node-title">Grid results</text>
+  <text x="860" y="768" text-anchor="middle" class="node-sub">Healthy / issue / review</text>
+  <text x="860" y="915" text-anchor="middle" class="node-title">Enter one location</text>
+  <text x="860" y="943" text-anchor="middle" class="node-sub">Applied to successful cells</text>
+  <text x="1240" y="915" text-anchor="middle" class="node-title">Save successful cells</text>
+  <text x="1240" y="943" text-anchor="middle" class="node-sub">One database row per cell</text>
+  <path class="edge" d="M445 577 V635 H210 V700"/>
+  <text x="355" y="622" class="label">GRID</text>
+  <path class="edge" d="M335 752 H410"/>
+  <path class="edge" d="M660 752 H735"/>
+  <path class="edge" d="M860 805 V875"/>
+  <path class="edge" d="M985 927 H1090"/>
+
+  <!-- persistence/reporting lane -->
+  <g filter="url(#shadow)">
+    <rect x="85" y="1190" width="320" height="150" rx="24" fill="#245B45"/>
+    <rect x="485" y="1190" width="280" height="150" rx="24" fill="#E6F5EB" stroke="#75A189" stroke-width="2"/>
+    <rect x="845" y="1190" width="280" height="150" rx="24" fill="#F0F5FF" stroke="#9EB4D2" stroke-width="2"/>
+    <rect x="1205" y="1190" width="300" height="150" rx="24" fill="#FFF7E5" stroke="#D8B86D" stroke-width="2"/>
+    <rect x="1585" y="1190" width="300" height="150" rx="24" fill="#F3EDFF" stroke="#B7A1D6" stroke-width="2"/>
+  </g>
+  <text x="245" y="1235" text-anchor="middle" class="node-title white">Scan history database</text>
+  <text x="245" y="1264" text-anchor="middle" class="node-sub white">scan_history rows</text>
+  <text x="245" y="1288" text-anchor="middle" class="node-sub white">+ copied image files</text>
+  <text x="245" y="1312" text-anchor="middle" class="node-sub white">+ app_metadata</text>
+  <text x="625" y="1235" text-anchor="middle" class="node-title">History</text>
+  <text x="625" y="1264" text-anchor="middle" class="node-sub">Filter and view results</text>
+  <text x="625" y="1288" text-anchor="middle" class="node-sub">Rename location / delete</text>
+  <text x="985" y="1235" text-anchor="middle" class="node-title">Reports dashboard</text>
+  <text x="985" y="1264" text-anchor="middle" class="node-sub">Metrics + charts + insights</text>
+  <text x="985" y="1288" text-anchor="middle" class="node-sub">All / infected / healthy</text>
+  <text x="1355" y="1235" text-anchor="middle" class="node-title">Export by location</text>
+  <text x="1355" y="1264" text-anchor="middle" class="node-sub">Match tagged scans</text>
+  <text x="1355" y="1288" text-anchor="middle" class="node-sub">Scout name + report number</text>
+  <text x="1735" y="1235" text-anchor="middle" class="node-title">PDF report</text>
+  <text x="1735" y="1264" text-anchor="middle" class="node-sub">Saved to Downloads</text>
+  <text x="1735" y="1288" text-anchor="middle" class="node-sub">Papusoy Hydrofarm format</text>
+
+  <path class="edge" d="M1355 755 V1040 H245 V1190"/>
+  <path class="edge" d="M1240 980 V1040 H245 V1190"/>
+  <path class="edge" d="M405 1265 H485"/>
+  <path class="edge" d="M765 1265 H845"/>
+  <path class="edge" d="M1125 1265 H1205"/>
+  <path class="edge" d="M1505 1265 H1585"/>
+  <path class="edge-soft" d="M1865 303 V1080 H985 V1190"/>
+  <path class="edge-soft" d="M790 318 V1090 H625 V1190"/>
+  <path class="edge-soft" d="M485 1310 H430 V1385 H245 V1340"/>
+  <text x="430" y="1376" class="label">UPDATE / DELETE</text>
+
+  <text x="65" y="1473" class="subtitle">Solid arrows show primary task flow · dashed arrows show navigation or secondary actions</text>
+</svg>

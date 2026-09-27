@@ -59,14 +59,20 @@ class _ReportExportScreenState extends State<ReportExportScreen> {
     setState(() => _exporting = true);
     try {
       final canonicalLocation = matching.first.location;
-      final filename = await PapusoyReportService.export(
+      final savedPath = await PapusoyReportService.export(
         scans: matching,
         location: canonicalLocation,
         scoutedBy: _nameController.text.trim(),
       );
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('$filename is ready to save or share.')),
+        SnackBar(
+          content: Text(
+            'PDF saved to $savedPath',
+            maxLines: 3,
+            overflow: TextOverflow.ellipsis,
+          ),
+        ),
       );
     } catch (error) {
       if (!mounted) return;
@@ -204,7 +210,7 @@ class _ReportExportScreenState extends State<ReportExportScreen> {
               ),
               const SizedBox(height: 10),
               Text(
-                'On Android, the export opens the system share sheet. Choose Save to Files, then Downloads, to keep a local copy.',
+                'On Android, reports are saved automatically in Downloads/${PapusoyReportService.downloadsFolderName}.',
                 style: AppTextStyles.bodyMedium.copyWith(
                   color: AppColors.textMuted,
                 ),

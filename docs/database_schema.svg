@@ -1,0 +1,102 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000" role="img" aria-labelledby="title desc">
+  <title id="title">LeafLens database schema</title>
+  <desc id="desc">SQLite schema showing the scan_history and app_metadata tables, indexes, the ScanData mapping, and external image storage.</desc>
+  <defs>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#17352B" flood-opacity="0.12"/>
+    </filter>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M0,0 L12,6 L0,12 Z" fill="#477568"/>
+    </marker>
+    <style>
+      .title { font: 700 42px 'Segoe UI', Arial, sans-serif; fill: #17352B; }
+      .subtitle { font: 400 19px 'Segoe UI', Arial, sans-serif; fill: #5C746C; }
+      .section { font: 700 21px 'Segoe UI', Arial, sans-serif; fill: #17352B; }
+      .table-title { font: 700 24px 'Segoe UI', Arial, sans-serif; fill: #FFFFFF; }
+      .field { font: 500 16px 'Consolas', 'Courier New', monospace; fill: #243C34; }
+      .type { font: 600 15px 'Consolas', 'Courier New', monospace; fill: #2F6F58; }
+      .note { font: 400 15px 'Segoe UI', Arial, sans-serif; fill: #5C746C; }
+      .tag { font: 700 12px 'Segoe UI', Arial, sans-serif; fill: #FFFFFF; letter-spacing: .5px; }
+      .small { font: 600 14px 'Segoe UI', Arial, sans-serif; fill: #3A5A50; }
+    </style>
+  </defs>
+
+  <rect width="1600" height="1000" fill="#F5FAF7"/>
+  <circle cx="1485" cy="95" r="180" fill="#DDF2E5" opacity=".75"/>
+  <circle cx="80" cy="940" r="220" fill="#E9F6ED"/>
+
+  <text id="title-text" x="70" y="80" class="title">LeafLens Database Schema</text>
+  <text x="70" y="116" class="subtitle">SQLite database: scan_history.db · schema version 2 · local, offline persistence</text>
+
+  <rect x="55" y="155" width="1490" height="765" rx="28" fill="#FFFFFF" stroke="#D5E6DC" stroke-width="2" filter="url(#shadow)"/>
+  <text x="85" y="198" class="section">SQLite database</text>
+  <rect x="1265" y="174" width="240" height="36" rx="18" fill="#E3F3E9"/>
+  <text x="1385" y="198" text-anchor="middle" class="small">sqflite · device storage</text>
+
+  <!-- scan_history table -->
+  <g filter="url(#shadow)">
+    <rect x="85" y="235" width="735" height="610" rx="18" fill="#FFFFFF" stroke="#BFD8C8" stroke-width="2"/>
+    <path d="M103 235 H802 Q820 235 820 253 V305 H85 V253 Q85 235 103 235 Z" fill="#245B45"/>
+  </g>
+  <text x="115" y="280" class="table-title">scan_history</text>
+  <rect x="680" y="257" width="108" height="27" rx="13.5" fill="#4C8C6F"/>
+  <text x="734" y="276" text-anchor="middle" class="tag">SCAN RECORDS</text>
+
+  <g>
+    <rect x="102" y="323" width="700" height="34" rx="8" fill="#EEF7F1"/>
+    <rect x="110" y="330" width="34" height="20" rx="5" fill="#E0A84F"/>
+    <text x="127" y="345" text-anchor="middle" class="tag">PK</text>
+    <text x="158" y="346" class="field">id</text><text x="450" y="346" class="type">INTEGER AUTOINCREMENT</text>
+
+    <text x="115" y="386" class="field">plant</text><text x="450" y="386" class="type">TEXT NOT NULL</text>
+    <text x="115" y="424" class="field">disease</text><text x="450" y="424" class="type">TEXT NOT NULL</text>
+    <text x="115" y="462" class="field">status</text><text x="450" y="462" class="type">TEXT NOT NULL</text>
+    <text x="610" y="462" class="note">Healthy | Infected</text>
+    <text x="115" y="500" class="field">confidence</text><text x="450" y="500" class="type">REAL NOT NULL</text>
+    <text x="115" y="538" class="field">image_path</text><text x="450" y="538" class="type">TEXT NOT NULL</text>
+    <text x="115" y="576" class="field">raw_label</text><text x="450" y="576" class="type">TEXT NOT NULL</text>
+    <text x="115" y="614" class="field">class_index</text><text x="450" y="614" class="type">INTEGER NOT NULL</text>
+    <text x="115" y="652" class="field">captured_at</text><text x="450" y="652" class="type">INTEGER NOT NULL</text>
+    <text x="610" y="652" class="note">UTC epoch ms</text>
+    <text x="115" y="690" class="field">source</text><text x="450" y="690" class="type">TEXT NOT NULL</text>
+    <text x="610" y="690" class="note">Camera | Gallery</text>
+    <text x="115" y="728" class="field">scan_mode</text><text x="450" y="728" class="type">TEXT NOT NULL</text>
+    <text x="610" y="728" class="note">Single | 2×2 | 2×3</text>
+    <text x="115" y="766" class="field">grid_cell</text><text x="450" y="766" class="type">INTEGER NULL</text>
+    <text x="115" y="804" class="field">location</text><text x="450" y="804" class="type">TEXT NOT NULL DEFAULT ''</text>
+  </g>
+
+  <!-- app_metadata table -->
+  <g filter="url(#shadow)">
+    <rect x="925" y="235" width="500" height="250" rx="18" fill="#FFFFFF" stroke="#BFD8C8" stroke-width="2"/>
+    <path d="M943 235 H1407 Q1425 235 1425 253 V305 H925 V253 Q925 235 943 235 Z" fill="#36735A"/>
+  </g>
+  <text x="955" y="280" class="table-title">app_metadata</text>
+  <rect x="1273" y="257" width="120" height="27" rx="13.5" fill="#5A9479"/>
+  <text x="1333" y="276" text-anchor="middle" class="tag">KEY / VALUE</text>
+  <rect x="942" y="323" width="466" height="42" rx="8" fill="#EEF7F1"/>
+  <rect x="950" y="334" width="34" height="20" rx="5" fill="#E0A84F"/>
+  <text x="967" y="349" text-anchor="middle" class="tag">PK</text>
+  <text x="998" y="350" class="field">key</text><text x="1195" y="350" class="type">TEXT</text>
+  <text x="955" y="402" class="field">value</text><text x="1195" y="402" class="type">TEXT NOT NULL</text>
+  <text x="955" y="446" class="note">Used key: next_report_number</text>
+
+  <!-- indexes -->
+  <rect x="925" y="530" width="500" height="145" rx="18" fill="#F2F7FF" stroke="#CCD9EA" stroke-width="2"/>
+  <text x="955" y="568" class="section">Indexes</text>
+  <text x="955" y="606" class="field">scan_history_captured_at</text>
+  <text x="955" y="632" class="note">captured_at DESC · newest scans first</text>
+  <text x="955" y="662" class="field">scan_history_status</text>
+
+  <!-- external storage -->
+  <rect x="925" y="720" width="500" height="125" rx="18" fill="#FFF9EA" stroke="#E9D498" stroke-width="2"/>
+  <text x="955" y="760" class="section">Saved image files</text>
+  <text x="955" y="793" class="field">scan_history_images/scan_*.jpg</text>
+  <text x="955" y="820" class="note">Referenced by scan_history.image_path</text>
+  <path d="M820 538 C875 538 870 782 925 782" fill="none" stroke="#477568" stroke-width="3" stroke-dasharray="8 7" marker-end="url(#arrow)"/>
+
+  <rect x="85" y="870" width="1340" height="30" rx="15" fill="#E9F4ED"/>
+  <text x="755" y="891" text-anchor="middle" class="note">No foreign keys: app_metadata is independent; ScanData maps one-to-one to each scan_history row.</text>
+
+  <text x="70" y="964" class="note">Source of truth: lib/services/scan_history_database.dart and lib/models/models.dart</text>
+</svg>
