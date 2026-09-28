@@ -42,8 +42,6 @@ class DiseaseResultScreen extends StatelessWidget {
           return _LowConfidenceView(
             imagePath: capturedImagePath,
             result: result!,
-            historySource: historySource,
-            scanMode: scanMode,
           );
 
         case ScanStatus.success:
@@ -252,15 +250,8 @@ class _NoLeafView extends StatelessWidget {
 class _LowConfidenceView extends StatelessWidget {
   final String? imagePath;
   final ClassificationResult result;
-  final String historySource;
-  final String scanMode;
 
-  const _LowConfidenceView({
-    required this.imagePath,
-    required this.result,
-    required this.historySource,
-    required this.scanMode,
-  });
+  const _LowConfidenceView({required this.imagePath, required this.result});
 
   @override
   Widget build(BuildContext context) {
@@ -315,13 +306,15 @@ class _LowConfidenceView extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 const Text(
-                                  'Uncertain Result',
+                                  'Unable to Identify Clearly',
                                   style: AppTextStyles.titleMedium,
                                 ),
                                 const SizedBox(height: 2),
                                 Text(
-                                  'Confidence is only ${result.confidencePercent}. '
-                                  'The result below may not be accurate.',
+                                  'This may not be a supported plant, or the photo '
+                                  'may be unclear. The classifier confidence was '
+                                  '${result.confidencePercent}. Please scan again '
+                                  'or take a clear picture.',
                                   style: AppTextStyles.bodyMedium,
                                 ),
                               ],
@@ -331,69 +324,6 @@ class _LowConfidenceView extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 16),
-
-                    // Partial result card (shown greyed out)
-                    AppCard(
-                      padding: const EdgeInsets.all(18),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Best Guess',
-                            style: AppTextStyles.labelSmall.copyWith(
-                              color: AppColors.textMuted,
-                              fontWeight: FontWeight.w700,
-                              letterSpacing: 1.1,
-                            ),
-                          ),
-                          const SizedBox(height: 8),
-                          Text(
-                            result.plantName,
-                            style: AppTextStyles.displayMedium.copyWith(
-                              fontSize: 20,
-                              color: AppColors.textMuted,
-                            ),
-                          ),
-                          Text(
-                            result.conditionName,
-                            style: AppTextStyles.bodyLarge.copyWith(
-                              color: AppColors.textMuted,
-                            ),
-                          ),
-                          const SizedBox(height: 14),
-                          // Confidence bar
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(8),
-                            child: LinearProgressIndicator(
-                              value: result.confidence,
-                              minHeight: 10,
-                              backgroundColor: AppColors.divider,
-                              valueColor: const AlwaysStoppedAnimation<Color>(
-                                AppColors.warning,
-                              ),
-                            ),
-                          ),
-                          const SizedBox(height: 6),
-                          Align(
-                            alignment: Alignment.centerRight,
-                            child: Text(
-                              result.confidencePercent,
-                              style: AppTextStyles.titleMedium.copyWith(
-                                color: AppColors.warning,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(height: 16),
-
-                    if (result.suggestedDiseases.isNotEmpty) ...[
-                      _DiseaseSuggestionsCard(
-                        suggestions: result.suggestedDiseases,
-                      ),
-                      const SizedBox(height: 16),
-                    ],
 
                     // Tips card
                     AppCard(
@@ -425,7 +355,7 @@ class _LowConfidenceView extends StatelessWidget {
 
                     // Primary: rescan
                     AppButton(
-                      label: 'Rescan for Better Result',
+                      label: 'Scan or Take a Clear Picture',
                       icon: Icons.camera_alt_rounded,
                       onPressed: () => Navigator.pushReplacement(
                         context,
@@ -433,34 +363,6 @@ class _LowConfidenceView extends StatelessWidget {
                           builder: (_) => const CropScannerScreen(),
                         ),
                       ),
-                    ),
-                    const SizedBox(height: 10),
-                    // Secondary: trust the guess anyway
-                    AppButton(
-                      label: 'Use This Result Anyway',
-                      icon: Icons.check_rounded,
-                      outlined: true,
-                      onPressed: () {
-                        final acceptedResult = ClassificationResult(
-                          rawLabel: result.rawLabel,
-                          confidence: result.confidence,
-                          classIndex: result.classIndex,
-                          status: ScanStatus.success,
-                          rankedPredictions: result.rankedPredictions,
-                          suggestedDiseases: result.suggestedDiseases,
-                        );
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                            builder: (_) => DiseaseResultScreen(
-                              capturedImagePath: imagePath,
-                              result: acceptedResult,
-                              historySource: historySource,
-                              scanMode: scanMode,
-                            ),
-                          ),
-                        );
-                      },
                     ),
                   ],
                 ),

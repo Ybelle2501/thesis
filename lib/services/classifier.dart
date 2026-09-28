@@ -26,6 +26,8 @@ enum ScanStatus {
   success,
 
   /// The result did not pass the deployment decision thresholds.
+  /// This includes unclear photos and closed-set predictions that may have
+  /// been produced from an unsupported or non-plant image.
   lowConfidence,
 
   /// Reserved for classifiers that explicitly support no-leaf detection.

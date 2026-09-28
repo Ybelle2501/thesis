@@ -216,15 +216,6 @@ class _DashHeader extends StatelessWidget {
               ),
             ],
           ),
-          const SizedBox(width: 10),
-          AppCard(
-            padding: const EdgeInsets.all(10),
-            child: const Icon(
-              Icons.notifications_none_rounded,
-              color: AppColors.primary,
-              size: 22,
-            ),
-          ),
         ],
       ),
     );

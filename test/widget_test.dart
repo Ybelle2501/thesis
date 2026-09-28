@@ -29,6 +29,7 @@ void main() {
     expect(find.text('LeafLens'), findsOneWidget);
     expect(find.text('AI Crop\nScanner'), findsOneWidget);
     expect(find.text(AiDisclaimer.compactMessage), findsOneWidget);
+    expect(find.byIcon(Icons.notifications_none_rounded), findsNothing);
   });
 
   test('grid scan modes have the requested independent cell layouts', () {
@@ -42,6 +43,24 @@ void main() {
       (ScanCaptureMode.grid3x2.rows, ScanCaptureMode.grid3x2.columns),
       (3, 2),
     );
+  });
+
+  test('grid scans disregard non-plant and unreliable tiles', () {
+    GridCellScan cellWith(ScanStatus status) => GridCellScan(
+      cellNumber: 1,
+      imagePath: '/cell.jpg',
+      result: ClassificationResult(
+        rawLabel: 'tomato_healthy',
+        confidence: 0.9,
+        classIndex: 22,
+        status: status,
+      ),
+    );
+
+    expect(cellWith(ScanStatus.noLeafDetected).isIgnored, isTrue);
+    expect(cellWith(ScanStatus.lowConfidence).isIgnored, isTrue);
+    expect(cellWith(ScanStatus.success).isIgnored, isFalse);
+    expect(cellWith(ScanStatus.success).hasPlantResult, isTrue);
   });
 
   testWidgets('reports tab identifies scan history as its live data source', (
@@ -202,13 +221,38 @@ void main() {
       );
       final thresholds = PlantDiseaseClassifier.parseThresholds(source);
 
-      expect(thresholds.confidence, 0.0);
-      expect(thresholds.margin, 0.0);
+      expect(thresholds.confidence, 0.6);
+      expect(thresholds.margin, 0.15);
       expect(thresholds.suggestionConfidence, 0.1);
-      expect(thresholds.accepts(topScore: 0.0, top1Top2Margin: 0.0), isTrue);
-      expect(thresholds.accepts(topScore: 0.289, top1Top2Margin: 0.1), isTrue);
+      expect(thresholds.accepts(topScore: 0.59, top1Top2Margin: 0.3), isFalse);
+      expect(thresholds.accepts(topScore: 0.8, top1Top2Margin: 0.14), isFalse);
+      expect(thresholds.accepts(topScore: 0.6, top1Top2Margin: 0.15), isTrue);
     },
   );
+
+  testWidgets('low-confidence results require a clearer plant picture', (
+    WidgetTester tester,
+  ) async {
+    await tester.pumpWidget(
+      MaterialApp(
+        home: DiseaseResultScreen(
+          result: ClassificationResult(
+            rawLabel: 'tomato_Early_blight',
+            confidence: 0.42,
+            classIndex: 14,
+            status: ScanStatus.lowConfidence,
+          ),
+        ),
+      ),
+    );
+
+    expect(find.text('Unable to Identify Clearly'), findsOneWidget);
+    expect(find.textContaining('may not be a supported plant'), findsOneWidget);
+    expect(find.text('Scan or Take a Clear Picture'), findsOneWidget);
+    expect(find.text('Use This Result Anyway'), findsNothing);
+    expect(find.text('Tomato'), findsNothing);
+    expect(find.text('Early Blight'), findsNothing);
+  });
 
   test(
     'disease suggestions are thresholded, crop-scoped, and capped at two',

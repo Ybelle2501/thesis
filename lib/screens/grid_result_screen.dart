@@ -44,7 +44,7 @@ class _GridResultScreenState extends State<GridResultScreen> {
   void initState() {
     super.initState();
     _cells = List<GridCellScan>.from(widget.cells);
-    _saved = !_cells.any((cell) => cell.result?.status == ScanStatus.success);
+    _saved = !_cells.any((cell) => cell.hasPlantResult);
   }
 
   @override
@@ -73,8 +73,8 @@ class _GridResultScreenState extends State<GridResultScreen> {
     for (var index = 0; index < updated.length; index++) {
       final cell = updated[index];
       final result = cell.result;
-      if (result == null ||
-          result.status != ScanStatus.success ||
+      if (!cell.hasPlantResult ||
+          result == null ||
           _savedCellNumbers.contains(cell.cellNumber)) {
         continue;
       }
@@ -100,7 +100,7 @@ class _GridResultScreenState extends State<GridResultScreen> {
 
     if (!mounted) return;
     final successfulNumbers = updated
-        .where((cell) => cell.result?.status == ScanStatus.success)
+        .where((cell) => cell.hasPlantResult)
         .map((cell) => cell.cellNumber)
         .toSet();
     final complete = _savedCellNumbers.containsAll(successfulNumbers);
@@ -129,7 +129,9 @@ class _GridResultScreenState extends State<GridResultScreen> {
   Widget build(BuildContext context) {
     final healthyCount = _cells.where(_isHealthy).length;
     final issueCount = _cells.where(_hasDetectedIssue).length;
-    final reviewCount = _cells.length - healthyCount - issueCount;
+    final ignoredCount = _cells.where((cell) => cell.isIgnored).length;
+    final reviewCount =
+        _cells.length - healthyCount - issueCount - ignoredCount;
 
     return Scaffold(
       backgroundColor: AppColors.surface,
@@ -197,11 +199,21 @@ class _GridResultScreenState extends State<GridResultScreen> {
                 const SizedBox(width: 8),
                 Expanded(
                   child: _SummaryTile(
-                    label: 'Review',
-                    value: reviewCount,
+                    label: 'Ignored',
+                    value: ignoredCount,
                     color: AppColors.warning,
                   ),
                 ),
+                if (reviewCount > 0) ...[
+                  const SizedBox(width: 8),
+                  Expanded(
+                    child: _SummaryTile(
+                      label: 'Review',
+                      value: reviewCount,
+                      color: AppColors.textMuted,
+                    ),
+                  ),
+                ],
               ],
             ),
             const SizedBox(height: 24),
@@ -232,6 +244,36 @@ class _GridResultScreenState extends State<GridResultScreen> {
   }
 
   Widget _buildLocationCard() {
+    final hasPlantResults = _cells.any((cell) => cell.hasPlantResult);
+    if (!hasPlantResults) {
+      return const AppCard(
+        padding: EdgeInsets.all(18),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Icon(Icons.block_rounded, color: AppColors.warning),
+            SizedBox(width: 10),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'No plant tiles to save',
+                    style: AppTextStyles.titleMedium,
+                  ),
+                  SizedBox(height: 6),
+                  Text(
+                    'Ignored and inconclusive tiles are not added to scan history.',
+                    style: AppTextStyles.bodyMedium,
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+
     return AppCard(
       padding: const EdgeInsets.all(18),
       color: _saved ? AppColors.accent : null,
@@ -258,8 +300,8 @@ class _GridResultScreenState extends State<GridResultScreen> {
           const SizedBox(height: 8),
           Text(
             _saved
-                ? 'Every successful cell is saved under this location.'
-                : 'One location tag will be applied to every successful cell.',
+                ? 'Every recognized plant tile is saved under this location. Ignored tiles were not added.'
+                : 'One location tag will be applied to every recognized plant tile. Ignored tiles will not be saved.',
             style: AppTextStyles.bodyMedium,
           ),
           const SizedBox(height: 12),
@@ -430,8 +472,7 @@ class _GridCellResultCard extends StatelessWidget {
                 ),
                 _FactRow(label: 'Crop', value: presentation.crop),
                 _FactRow(label: 'Primary finding', value: presentation.finding),
-                if (result != null &&
-                    result.status != ScanStatus.noLeafDetected)
+                if (result != null && result.status == ScanStatus.success)
                   _FactRow(
                     label: 'Confidence',
                     value: result.confidencePercent,
@@ -469,7 +510,7 @@ class _GridCellResultCard extends StatelessWidget {
                     ),
                   ),
                 ],
-                if (result != null) ...[
+                if (result != null && result.status == ScanStatus.success) ...[
                   const SizedBox(height: 12),
                   TextButton.icon(
                     onPressed: saved
@@ -569,24 +610,24 @@ class _CellPresentation {
     switch (result.status) {
       case ScanStatus.noLeafDetected:
         return const _CellPresentation(
-          statusCode: 'no_plant_detected',
+          statusCode: 'ignored_non_plant',
           color: AppColors.warning,
           plantVisible: 'No',
           crop: 'None identified',
-          finding: 'No plant material detected',
+          finding: 'Tile disregarded',
           description:
-              'No recognizable leaf, stem, fruit, or crop structure was found in this cell. No disease classification was reported.',
+              'No recognizable plant material was found in this tile, so it was excluded from the grid results and will not be saved.',
           showRankedFindings: false,
         );
       case ScanStatus.lowConfidence:
-        return _CellPresentation(
-          statusCode: 'inconclusive',
+        return const _CellPresentation(
+          statusCode: 'ignored',
           color: AppColors.warning,
-          plantVisible: 'Unclear',
-          crop: 'Possible ${result.plantName}',
-          finding: 'Not reliable enough to diagnose',
+          plantVisible: 'Not confirmed',
+          crop: 'None recorded',
+          finding: 'Tile disregarded',
           description:
-              'The image evidence in this cell is too weak for a reliable result. Retake this cell closer, in better light, and keep the camera steady.',
+              'A supported plant could not be confirmed in this tile. It was excluded from the grid results and will not be saved.',
           showRankedFindings: false,
         );
       case ScanStatus.success:

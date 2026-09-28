@@ -50,6 +50,14 @@ class GridCellScan {
   final String imagePath;
   final ClassificationResult? result;
   final String? error;
+
+  /// Grid tiles that do not contain a confidently recognized supported plant
+  /// are kept for on-screen feedback but excluded from totals and history.
+  bool get isIgnored =>
+      result?.status == ScanStatus.noLeafDetected ||
+      result?.status == ScanStatus.lowConfidence;
+
+  bool get hasPlantResult => result?.status == ScanStatus.success;
 }
 
 class GridScanService {

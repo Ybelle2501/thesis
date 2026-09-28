@@ -22,8 +22,7 @@ class _CropScannerScreenState extends State<CropScannerScreen>
     with WidgetsBindingObserver {
   // ── Camera ────────────────────────────────────────────────────────────────
   CameraController? _controller;
-  List<CameraDescription> _cameras = [];
-  int _selectedCamera = 0;
+  CameraDescription? _camera;
   bool _cameraReady = false;
   String? _cameraError;
 
@@ -69,8 +68,8 @@ class _CropScannerScreenState extends State<CropScannerScreen>
     if (c == null || !c.value.isInitialized) return;
     if (state == AppLifecycleState.inactive) {
       c.dispose();
-    } else if (state == AppLifecycleState.resumed) {
-      _initCameraController(_cameras[_selectedCamera]);
+    } else if (state == AppLifecycleState.resumed && _camera != null) {
+      _initCameraController(_camera!);
     }
   }
 
@@ -80,12 +79,20 @@ class _CropScannerScreenState extends State<CropScannerScreen>
 
   Future<void> _initCamera() async {
     try {
-      _cameras = await availableCameras();
-      if (_cameras.isEmpty) {
+      final cameras = await availableCameras();
+      if (cameras.isEmpty) {
         setState(() => _cameraError = 'No cameras found on this device.');
         return;
       }
-      await _initCameraController(_cameras[_selectedCamera]);
+      var camera = cameras.first;
+      for (final availableCamera in cameras) {
+        if (availableCamera.lensDirection == CameraLensDirection.back) {
+          camera = availableCamera;
+          break;
+        }
+      }
+      _camera = camera;
+      await _initCameraController(camera);
     } catch (e) {
       setState(() => _cameraError = 'Camera failed to start: $e');
     }
@@ -112,7 +119,7 @@ class _CropScannerScreenState extends State<CropScannerScreen>
   }
 
   // ─────────────────────────────────────────────────────────────────────────
-  // FLASH & FLIP
+  // FLASH
   // ─────────────────────────────────────────────────────────────────────────
 
   Future<void> _toggleFlash() async {
@@ -133,15 +140,6 @@ class _CropScannerScreenState extends State<CropScannerScreen>
       : _flashMode == FlashMode.off
       ? Icons.flash_off_rounded
       : Icons.flash_auto_rounded;
-
-  Future<void> _flipCamera() async {
-    if (_cameras.length < 2) return;
-    setState(() {
-      _cameraReady = false;
-      _selectedCamera = _selectedCamera == 0 ? 1 : 0;
-    });
-    await _initCameraController(_cameras[_selectedCamera]);
-  }
 
   // ─────────────────────────────────────────────────────────────────────────
   // CAPTURE + CLASSIFY
@@ -599,19 +597,19 @@ class _CropScannerScreenState extends State<CropScannerScreen>
     return Padding(
       padding: const EdgeInsets.fromLTRB(32, 0, 32, 24),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          _SideControl(
-            icon: Icons.photo_library_rounded,
-            label: 'Gallery',
-            onTap: _pickFromGallery,
+          Expanded(
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: _SideControl(
+                icon: Icons.photo_library_rounded,
+                label: 'Gallery',
+                onTap: _pickFromGallery,
+              ),
+            ),
           ),
           _CaptureButton(processing: _processing, onTap: _onCapture),
-          _SideControl(
-            icon: Icons.flip_camera_ios_rounded,
-            label: 'Flip',
-            onTap: _flipCamera,
-          ),
+          const Expanded(child: SizedBox()),
         ],
       ),
     );
