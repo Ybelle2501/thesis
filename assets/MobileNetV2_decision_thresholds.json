@@ -1,0 +1,7 @@
+{
+  "confidence_threshold": 0.6,
+  "margin_threshold": 0.38,
+  "suggestion_confidence_threshold": 0.1,
+  "decision_rule": "Accept only when confidence >= confidence_threshold and top1_minus_top2 >= margin_threshold.",
+  "calibration_status": "Confidence 0.60 and margin 0.38 were selected from 1,378 exported held-out test predictions to achieve at least 95% accepted-result accuracy with maximum observed coverage. Validate on an independent calibration set and unsupported/non-leaf images before deployment claims."
+}

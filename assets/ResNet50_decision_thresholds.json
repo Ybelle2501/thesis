@@ -1,7 +1,0 @@
-{
-  "confidence_threshold": 0.6,
-  "margin_threshold": 0.15,
-  "suggestion_confidence_threshold": 0.1,
-  "selection_reason": "Application safety gate for unclear, ambiguous, or potentially non-plant images.",
-  "decision_rule": "Accept only when confidence >= confidence_threshold and top1_minus_top2 >= margin_threshold."
-}

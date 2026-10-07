@@ -31,8 +31,8 @@ class CropGuideLibraryScreen extends StatelessWidget {
           tabAlignment: TabAlignment.center,
           labelColor: AppColors.primary,
           tabs: [
+            Tab(text: 'Pineapple'),
             Tab(text: 'Banana'),
-            Tab(text: 'Eggplant'),
             Tab(text: 'Lettuce'),
             Tab(text: 'Tomato'),
           ],
@@ -265,7 +265,7 @@ class _CropGuideDetailScreenState extends State<CropGuideDetailScreen> {
           ],
           const SizedBox(height: 12),
           const Text(
-            'References reviewed 9 September 2026',
+            'References reviewed 28 September 2026',
             style: TextStyle(fontSize: 12),
           ),
         ],

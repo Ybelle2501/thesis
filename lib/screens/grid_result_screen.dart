@@ -659,6 +659,15 @@ class _CellPresentation {
 String _farmerFriendlyDescription(String rawLabel) {
   final normalizedLabel = rawLabel.toLowerCase().replaceAll(' ', '_');
 
+  if (normalizedLabel.contains('early-late_blight')) {
+    return 'The model recognized blighted, ringed, or water-soaked-looking tissue in its combined early/late blight class.';
+  }
+  if (normalizedLabel.contains('mealybug_wilt')) {
+    return 'The model recognized reddening, curling, or wilt-like patterns associated with pineapple mealybug wilt.';
+  }
+  if (normalizedLabel.contains('fusarium')) {
+    return 'The model recognized damaged or discolored tissue associated with its pineapple Fusarium class.';
+  }
   if (normalizedLabel.contains('leaf_miner')) {
     return 'The model recognized winding, mined, or damaged-looking leaf tissue consistent with leaf-miner feeding.';
   }
@@ -714,7 +723,8 @@ String _farmerFriendlyDescription(String rawLabel) {
   if (normalizedLabel.contains('white_flies')) {
     return 'The model recognized pale or yellowed leaf damage consistent with sap-feeding whitefly activity.';
   }
-  if (normalizedLabel.contains('insect_pest')) {
+  if (normalizedLabel.contains('insect_pest') ||
+      normalizedLabel.contains('insect_damage')) {
     return 'The model recognized chewing, scarring, holes, or other visible patterns consistent with insect feeding.';
   }
   if (normalizedLabel.contains('downy_mildew')) {

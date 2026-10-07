@@ -1,6 +1,6 @@
 enum Crop {
+  pineapple('Pineapple', 'P'),
   banana('Banana', 'B'),
-  eggplant('Eggplant', 'E'),
   lettuce('Lettuce', 'L'),
   tomato('Tomato', 'T');
 

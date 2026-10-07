@@ -1,6 +1,6 @@
 import '../models/crop_guide.dart';
 
-// Reviewed 2026-09-09. The raw labels must match assets/labels.json.
+// Reviewed 2026-09-28. The raw labels must match assets/labels.json.
 const guideSources = <String, GuideSource>{
   "ph_tomato": GuideSource(
     id: "ph_tomato",
@@ -64,35 +64,53 @@ const guideSources = <String, GuideSource>{
     note:
         "Cordana-specific symptoms and management. No Philippine seasonal calibration; routine fungicide treatment is usually unnecessary.",
   ),
-  "ph_eggplant": GuideSource(
-    id: "ph_eggplant",
-    title: "Eggplant Production Guide",
-    publisher: "DA Cagayan Valley",
+  "ph_pineapple": GuideSource(
+    id: "ph_pineapple",
+    title: "Pineapple Production Technoguide (2024)",
+    publisher: "Philippine Fiber Industry Development Authority",
     url:
-        "https://cagayanvalley.da.gov.ph/wp-content/uploads/2018/02/Eggplant.pdf",
+        "https://philfida.da.gov.ph/images/Publications/Technoguides/pineapple-technoguide-2024.pdf",
     scope: "Philippine extension",
     note:
-        "Crop sanitation, pest management, resistant varieties, crop rotation, bacterial and Fusarium wilt.",
+        "Philippine production, drainage, field sanitation and mealybug-wilt identification and control guidance.",
   ),
-  "ph_eggplant_ati": GuideSource(
-    id: "ph_eggplant_ati",
-    title: "Urban Agriculture for Lowland Areas (2020)",
-    publisher: "ATI Cordillera",
+  "ph_pineapple_research": GuideSource(
+    id: "ph_pineapple_research",
+    title: "Biocontrol agents against Queen pineapple pests (2020)",
+    publisher: "DOST-PCAARRD",
     url:
-        "https://ati2.da.gov.ph/ati-car/content/sites/default/files/2022-12/urban_agriculture_for_lowland.pdf",
-    scope: "Philippine extension",
+        "https://pcaarrd.dost.gov.ph/index.php/quick-information-dispatch-qid-articles/dost-project-identified-potential-biocontrol-agents-against-queen-pineapple-pests",
+    scope: "Philippine field research",
     note:
-        "Eggplant section, printed p. 23: pruning, airflow, removing damaged plant parts. General care, not pathogen-specific white-mold treatment.",
+        "Leyte and Camarines Norte work identifies pink pineapple mealybug, wilt risk and major Queen pineapple diseases.",
   ),
-  "ph_eggplant_spacing": GuideSource(
-    id: "ph_eggplant_spacing",
-    title: "Eggplant production guide",
-    publisher: "ATI Central Visayas",
-    url:
-        "https://ati2.da.gov.ph/ati-7/content/sites/default/files/users/user18/eggplant_final.pdf",
-    scope: "Philippine extension",
+  "uf_pineapple_mealybug": GuideSource(
+    id: "uf_pineapple_mealybug",
+    title: "Pineapple Mealybug",
+    publisher: "University of Florida IFAS",
+    url: "https://ask.ifas.ufl.edu/publication/IN1106",
+    scope: "International extension",
     note:
-        "Seedlings, spacing, mulch and common eggplant pests/diseases. General prevention for broad labels.",
+        "Mealybug-wilt symptoms, infected-material removal, weed sanitation and ant management; use only locally registered products.",
+  ),
+  "mx_pineapple_fusarium": GuideSource(
+    id: "mx_pineapple_fusarium",
+    title: "Pineapple fusariosis: Fusarium guttiforme (2025)",
+    publisher: "SENASICA, Government of Mexico",
+    url:
+        "https://www.gob.mx/senasica/documentos/fusariosis-de-la-pina-fusarium-guttiforme",
+    scope: "International plant-health authority",
+    note:
+        "Technical identification reference for pineapple fusariosis; occurrence and management must be confirmed locally.",
+  ),
+  "uf_pineapple": GuideSource(
+    id: "uf_pineapple",
+    title: "Pineapple Growing in the Florida Home Landscape",
+    publisher: "University of Florida IFAS",
+    url: "https://ask.ifas.ufl.edu/publication/MG055",
+    scope: "International extension",
+    note:
+        "Clean planting material, drainage, moisture management and inspection for pineapple pests and rots.",
   ),
   "ph_lettuce": GuideSource(
     id: "ph_lettuce",
@@ -145,15 +163,6 @@ const guideSources = <String, GuideSource>{
     note:
         "Printed pp. 30–34, 41–42, 75: disease inventory and protected cropping. Leaf mould in the inventory is Pseudocercospora, not necessarily the model's Passalora class.",
   ),
-  "uc_spot": GuideSource(
-    id: "uc_spot",
-    title: "Bacterial Spot of Tomato",
-    publisher: "University of California IPM",
-    url: "https://ipm.ucanr.edu/agriculture/tomato/bacterial-spot/",
-    scope: "International extension",
-    note:
-        "Pathogen-free transplants, splash reduction, rotation and limitations of copper protectants. US product rates are not used here.",
-  ),
   "uc_early": GuideSource(
     id: "uc_early",
     title: "Early Blight on Tomatoes",
@@ -190,24 +199,6 @@ const guideSources = <String, GuideSource>{
     note:
         "Passalora fulva: humidity, ventilation, drip irrigation, sanitation and locally evaluated resistance.",
   ),
-  "umd_septoria": GuideSource(
-    id: "umd_septoria",
-    title: "Septoria Leaf Spot of Tomatoes (2024)",
-    publisher: "University of Maryland Extension",
-    url: "https://www.extension.umd.edu/resource/septoria-leaf-spot-tomatoes",
-    scope: "International extension",
-    note:
-        "Wet-weather disease; spacing, clean transplants, mulch, base watering and lower-leaf management.",
-  ),
-  "uf_target": GuideSource(
-    id: "uf_target",
-    title: "Target Spot of Tomato in Florida",
-    publisher: "University of Florida IFAS",
-    url: "https://ask.ifas.ufl.edu/publication/PP351",
-    scope: "International extension",
-    note:
-        "Corynespora: diagnosis, canopy inspection, rotation, sanitation and fungicide resistance. No Philippine month-specific forecast.",
-  ),
   "uc_leafcurl": GuideSource(
     id: "uc_leafcurl",
     title: "Tomato Yellow Leaf Curl",
@@ -216,35 +207,6 @@ const guideSources = <String, GuideSource>{
     scope: "International extension",
     note:
         "Resistant varieties, whitefly exclusion, clean transplants and early roguing.",
-  ),
-  "umn_virus": GuideSource(
-    id: "umn_virus",
-    title: "Tomato viruses",
-    publisher: "University of Minnesota Extension",
-    url:
-        "https://extension.umn.edu/agriculture/specialty-crops/vegetable-farming/disease-management/tomato-viruses",
-    scope: "International extension",
-    note:
-        "ToMV/TMV: no curative chemical treatment; resistant varieties, hygiene and removal of affected plants.",
-  ),
-  "uc_eggvirus": GuideSource(
-    id: "uc_eggvirus",
-    title: "Mosaic Viruses of Peppers and Eggplants",
-    publisher: "University of California IPM",
-    url:
-        "https://ipm.ucanr.edu/home-and-landscape/mosaic-viruses-of-peppers-and-eggplants/",
-    scope: "International extension",
-    note:
-        "Virus symptoms overlap; removal, clean seedlings and vector management depend on the virus.",
-  ),
-  "umass_wilt": GuideSource(
-    id: "umass_wilt",
-    title: "Eggplant disease control",
-    publisher: "UMass / New England Vegetable Management Guide",
-    url: "https://nevegetable.org/crops/eggplant/disease-control",
-    scope: "International extension",
-    note:
-        "Different wilt causes require different management; drainage, clean fields and rotation. No US chemical rates copied.",
   ),
   "pagasa": GuideSource(
     id: "pagasa",
@@ -264,25 +226,6 @@ const guideSources = <String, GuideSource>{
     note:
         "Use the current product registration and crop/pest label when selecting pesticides.",
   ),
-  "bayer_eggplant": GuideSource(
-    id: "bayer_eggplant",
-    title: "Capsicum & Eggplant Disease Field Guide",
-    publisher: "Seminis / Bayer Plant Health Department",
-    url:
-        "https://www.vegetables.bayer.com/content/dam/bayer-vegetables/english/australia-new-zealand/product-sheets-and-pdfs/Vegetables-by-Bayer_Capsicum-Eggplant-Disease-Guide.pdf",
-    scope: "International technical guide",
-    note:
-        "Printed pp. 35 and 44: leaf spots and white mould. White mould requires confirmation; no Philippine season validation.",
-  ),
-  "uconn_mites": GuideSource(
-    id: "uconn_mites",
-    title: "Tomato – Spider Mites (2026)",
-    publisher: "University of Connecticut IPM",
-    url: "https://ipm.cahnr.uconn.edu/tomato-spider-mites/",
-    scope: "International extension",
-    note:
-        "Scouting and integrated mite management; local seasonal context comes from ATI Cordillera.",
-  ),
   "uc_lettuce": GuideSource(
     id: "uc_lettuce",
     title: "Bacterial Leaf Spot of Lettuce",
@@ -291,6 +234,25 @@ const guideSources = <String, GuideSource>{
     scope: "International extension",
     note:
         "Bacterial leaf spot differs from soft rot; seed health, moisture and sanitation guidance.",
+  ),
+  "ph_tomato_production": GuideSource(
+    id: "ph_tomato_production",
+    title: "Tomato Production Guide",
+    publisher: "DA Cagayan Valley",
+    url:
+        "https://cagayanvalley.da.gov.ph/wp-content/uploads/2018/02/Tomato.pdf",
+    scope: "Philippine extension",
+    note:
+        "Lists tomato leaf miner and other insect pests and recommends resistance, sanitation, rotation and need-based label-compliant control.",
+  ),
+  "uc_leafminer": GuideSource(
+    id: "uc_leafminer",
+    title: "Leafminers in Tomato",
+    publisher: "University of California IPM",
+    url: "https://ipm.ucanr.edu/agriculture/tomato/leafminers/",
+    scope: "International extension",
+    note:
+        "Identification, transplant inspection, monitoring and conservation of parasitoids; California treatment thresholds are not imported.",
   ),
 };
 
@@ -452,264 +414,160 @@ const cropGuides = <CropGuide>[
     seasonalSourceIds: ["ph_sigatoka", "pagasa"],
   ),
   CropGuide(
-    rawLabel: "eggplant_insect_pest",
-    crop: Crop.eggplant,
-    name: "Insect damage",
-    category: "Pest group",
+    rawLabel: "Pineapple_fusarium",
+    crop: Crop.pineapple,
+    name: "Fusarium symptoms",
+    category: "Fungal disease; confirm the cause",
     summary:
-        "This class does not identify the insect. Eggplant shoot/fruit borers, aphids and other pests require different controls.",
+        "The model class is broad. Fusarium can affect pineapple fruit or planting material, but similar discoloration and rot require field or laboratory confirmation.",
     healthy: false,
     treatment: [
       GuidanceStep(
-        "Identify the pest",
-        "Inspect shoots, fruit holes and leaf undersides; collect photographs or a specimen before selecting an insecticide.",
-        ["ph_eggplant"],
+        "Confirm the diagnosis",
+        "Inspect leaves, stem, planting material and fruit for lesions, internal discoloration or gum. Ask a plant-health technician to confirm Fusarium before treatment.",
+        ["mx_pineapple_fusarium", "ph_pineapple"],
       ),
       GuidanceStep(
-        "Remove infestation sources",
-        "Remove damaged shoots and fruit promptly and dispose of them away from the growing crop.",
-        ["ph_eggplant_ati"],
+        "Isolate affected material",
+        "Mark suspect plants and keep affected slips, fruit and crop debris out of clean planting-material lots while the cause is checked.",
+        ["mx_pineapple_fusarium"],
       ),
       GuidanceStep(
-        "Use targeted control",
-        "Start with sanitation and physical removal where practical. Ask the agricultural technician to match control to the identified pest and its stage.",
-        ["ph_eggplant"],
+        "Remove confirmed sources",
+        "Remove confirmed diseased material using local disposal advice and clean tools before moving to healthy rows.",
+        ["ph_pineapple", "mx_pineapple_fusarium"],
       ),
       GuidanceStep(
-        "Recheck damage",
-        "Look for fresh injury and remaining live insects at each inspection. A damaged old leaf alone does not mean control failed.",
-        ["ph_eggplant"],
+        "Use only matched products",
+        "If Fusarium is confirmed and chemical protection is justified, use only an FPA-registered pineapple product for the diagnosed target and follow its current label.",
+        ["fpa"],
       ),
     ],
     prevention: [
       GuidanceStep(
-        "Keep the field clean",
-        "Remove crop residues and weeds that sustain pest populations.",
-        ["ph_eggplant"],
+        "Use clean planting material",
+        "Select healthy crowns, slips or suckers and reject material with rot, lesions or abnormal gum exudation.",
+        ["ph_pineapple", "mx_pineapple_fusarium"],
       ),
       GuidanceStep(
-        "Harvest damaged fruit too",
-        "Remove deformed and infested fruit during harvest instead of leaving it as a pest source.",
-        ["ph_eggplant_ati"],
+        "Sanitize field operations",
+        "Clean cutting and harvest tools and avoid moving contaminated plant debris into clean blocks.",
+        ["ph_pineapple"],
       ),
       GuidanceStep(
-        "Plan the next planting",
-        "Use suitable resistant varieties and rotate crops according to the pest identified.",
-        ["ph_eggplant"],
+        "Reduce wounds and inspect",
+        "Limit avoidable injury to planting material and fruit, and inspect routinely so suspect material is removed early.",
+        ["mx_pineapple_fusarium", "ph_pineapple"],
       ),
     ],
     seasonalPattern: SeasonalPattern.insufficient,
     seasonalEvidence:
-        "Different insects have different seasonal patterns. The broad label cannot support one Philippine seasonal forecast; identify the pest and scout year-round.",
-    seasonalSourceIds: ["ph_eggplant"],
+        "The supplied class does not identify the Fusarium species or affected tissue. No validated Philippine month-based risk rule was found, so diagnosis and field scouting take priority.",
+    seasonalSourceIds: ["ph_pineapple", "mx_pineapple_fusarium"],
   ),
   CropGuide(
-    rawLabel: "eggplant_leaf_spot",
-    crop: Crop.eggplant,
-    name: "Leaf spot",
-    category: "Cause needs confirmation",
+    rawLabel: "Pineapple_leaf_blight",
+    crop: Crop.pineapple,
+    name: "Leaf blight",
+    category: "Blight symptoms; confirm the cause",
     summary:
-        "The label covers a symptom, not a confirmed organism. Fungal and bacterial leaf spots can need different treatment.",
+        "Leaf blight describes damaged tissue, not a confirmed organism. Rots, fungi, water stress and injury can overlap in appearance.",
     healthy: false,
     treatment: [
       GuidanceStep(
-        "Confirm the cause",
-        "Photograph upper and lower leaf surfaces and any fruit lesions. Have expanding or unusual spots checked before choosing a product.",
-        ["bayer_eggplant"],
+        "Check the whole plant",
+        "Inspect the heart, leaf bases, roots and drainage as well as blighted leaf tips. Submit expanding or water-soaked damage for diagnosis.",
+        ["uf_pineapple", "ph_pineapple"],
       ),
       GuidanceStep(
-        "Reduce splash",
-        "Direct irrigation to the root zone and use clean mulch to keep soil off foliage.",
-        ["bayer_eggplant"],
+        "Correct excess moisture",
+        "Improve drainage and avoid prolonged waterlogging or water collecting in the plant heart.",
+        ["uf_pineapple", "ph_pineapple"],
       ),
       GuidanceStep(
-        "Clear infection sources",
-        "Remove heavily affected tissue and crop debris while keeping enough healthy leaves. Improve airflow by appropriate pruning.",
-        ["ph_eggplant_ati"],
+        "Contain severe damage",
+        "Mark affected plants and remove badly rotted material according to local sanitation advice; clean tools between suspect and healthy plants.",
+        ["ph_pineapple"],
       ),
       GuidanceStep(
-        "Review progression",
-        "Compare newly formed leaves after sanitation. If fresh spots continue, seek a diagnosis and targeted control plan.",
-        ["ph_eggplant_ati"],
+        "Match control to the cause",
+        "Do not assume every blight is fungal. Use an FPA-registered product only after the target is identified and pineapple is on the label.",
+        ["fpa"],
       ),
     ],
     prevention: [
       GuidanceStep(
-        "Use clean seedlings",
-        "Select good-quality seed and inspect transplants before planting.",
-        ["ph_eggplant_spacing"],
+        "Plant healthy material",
+        "Inspect crowns, slips and suckers and reject material showing rot, blight or pest injury.",
+        ["ph_pineapple", "uf_pineapple"],
       ),
       GuidanceStep(
-        "Allow foliage to dry",
-        "Maintain spacing and avoid excessive overhead watering.",
-        ["bayer_eggplant"],
+        "Maintain drainage",
+        "Use well-drained ground and avoid irrigation practices that keep the crown and leaf bases continuously wet.",
+        ["ph_pineapple", "uf_pineapple"],
       ),
       GuidanceStep(
-        "Break carryover",
-        "Rotate crops and remove old residues and weeds between plantings.",
-        ["bayer_eggplant"],
-      ),
-    ],
-    seasonalPattern: SeasonalPattern.insufficient,
-    seasonalEvidence:
-        "Philippine surveys record several eggplant leaf-spot causes. Their presence does not establish a season-specific likelihood for this broad class.",
-    seasonalSourceIds: ["ph_icm"],
-  ),
-  CropGuide(
-    rawLabel: "eggplant_mosaic_virus",
-    crop: Crop.eggplant,
-    name: "Mosaic virus symptoms",
-    category: "Virus group",
-    summary:
-        "Several viruses cause mosaic and curled leaves; spray injury can look similar. The model cannot identify the virus or its vector.",
-    healthy: false,
-    treatment: [
-      GuidanceStep(
-        "Confirm suspicious plants",
-        "Inspect mottled new growth and fruit distortion; obtain a plant-health diagnosis before committing to a virus-specific programme.",
-        ["uc_eggvirus"],
-      ),
-      GuidanceStep(
-        "Remove infection sources",
-        "Rogue confirmed affected plants early and keep their material away from healthy seedlings.",
-        ["uc_eggvirus"],
-      ),
-      GuidanceStep(
-        "Reduce mechanical spread",
-        "Handle healthy plants first and minimize damage or unnecessary handling of affected plants.",
-        ["uc_eggvirus"],
-      ),
-      GuidanceStep(
-        "Address the right vector",
-        "Some viruses spread by aphids, others by contact or seed. Insecticides alone may not stop aphid-transmitted mosaics and do not cure infected plants.",
-        ["uc_eggvirus"],
-      ),
-    ],
-    prevention: [
-      GuidanceStep(
-        "Start with healthy plants",
-        "Inspect nursery plants and use good-quality seed.",
-        ["ph_eggplant_spacing"],
-      ),
-      GuidanceStep(
-        "Manage alternate hosts",
-        "Remove broadleaf weeds and discuss reflective mulch where aphid-borne virus is confirmed.",
-        ["uc_eggvirus"],
-      ),
-      GuidanceStep(
-        "Choose resistance carefully",
-        "Use varieties resistant to the identified virus where available; generic resistance claims are insufficient.",
-        ["uc_eggvirus"],
+        "Inspect after wet periods",
+        "Scout low areas and check new leaves after prolonged rain; remove accumulating diseased debris from the field.",
+        ["ph_pineapple"],
       ),
     ],
     seasonalPattern: SeasonalPattern.insufficient,
     seasonalEvidence:
-        "No Philippine seasonal relationship for this unspecified eggplant virus was established in the reviewed sources. Vector identity and infection sources matter.",
-    seasonalSourceIds: ["uc_eggvirus"],
+        "Wet conditions can favor several pineapple rots, but this broad image class does not identify a pathogen. The reviewed sources do not support a Philippine calendar prediction.",
+    seasonalSourceIds: ["ph_pineapple", "uf_pineapple"],
   ),
   CropGuide(
-    rawLabel: "eggplant_white_mold",
-    crop: Crop.eggplant,
-    name: "White mold",
-    category: "Confirm fungal cause",
+    rawLabel: "Pineapple_mealybug_wilt",
+    crop: Crop.pineapple,
+    name: "Mealybug wilt",
+    category: "Virus-vector disease complex",
     summary:
-        "White growth alone does not prove Sclerotinia. A technician should distinguish cottony stem rot from powdery mildew and other molds.",
+        "Pineapple mealybugs transmit wilt-associated viruses. Treating a wilted plant does not reverse viral infection; management focuses on confirming mealybugs and protecting healthy plants.",
     healthy: false,
     treatment: [
       GuidanceStep(
-        "Inspect stems and fruit",
-        "Look for watery rot, cottony growth and hard dark bodies; submit an affected sample for confirmation.",
-        ["bayer_eggplant"],
-      ),
-      GuidanceStep(
-        "Contain affected material",
-        "Remove severely diseased plants carefully and keep infected debris and contaminated soil out of clean beds.",
-        ["bayer_eggplant"],
-      ),
-      GuidanceStep(
-        "Dry the canopy",
-        "Improve ventilation and drainage. Avoid keeping leaves and stems continuously wet.",
-        ["ph_eggplant_ati"],
-      ),
-      GuidanceStep(
-        "Plan targeted management",
-        "Discuss treatment only after identifying the fungus. Do not assume a general leaf spray can restore a rotted stem.",
-        ["bayer_eggplant"],
-      ),
-    ],
-    prevention: [
-      GuidanceStep(
-        "Use clean beds",
-        "Do not transfer soil or infected debris from affected beds.",
-        ["bayer_eggplant"],
-      ),
-      GuidanceStep(
-        "Improve spacing",
-        "Prune overcrowded growth and maintain airflow around plants.",
-        ["ph_eggplant_ati"],
-      ),
-      GuidanceStep(
-        "Review crop rotation",
-        "If Sclerotinia is confirmed, obtain a rotation plan accounting for its many hosts.",
-        ["bayer_eggplant"],
-      ),
-    ],
-    seasonalPattern: SeasonalPattern.insufficient,
-    seasonalEvidence:
-        "International guidance links white mold with prolonged moisture. No Philippine validation specific to this model class was found; no calendar risk is assigned.",
-    seasonalSourceIds: ["bayer_eggplant"],
-  ),
-  CropGuide(
-    rawLabel: "eggplant_wilt",
-    crop: Crop.eggplant,
-    name: "Wilt",
-    category: "Cause needs confirmation",
-    summary:
-        "Wilting may result from bacterial wilt, Fusarium, other root diseases or water stress. The model cannot distinguish these causes.",
-    healthy: false,
-    treatment: [
-      GuidanceStep(
-        "Check roots and soil",
-        "Check for waterlogging, drought and root injury. Seek diagnosis when wilting persists despite appropriate watering.",
-        ["umass_wilt"],
+        "Verify symptoms and vectors",
+        "Inspect leaf bases and roots for mealybugs and ants, and check nearby plants for reddening, inward leaf curling and loss of rigidity.",
+        ["ph_pineapple", "uf_pineapple_mealybug"],
       ),
       GuidanceStep(
         "Contain affected plants",
-        "Mark the area; remove confirmed diseased plants with local disposal advice. Avoid spreading soil to healthy beds.",
-        ["ph_eggplant", "umass_wilt"],
+        "Remove confirmed severely affected plants and their residue using local disposal advice; do not reuse infested planting material.",
+        ["uf_pineapple_mealybug"],
       ),
       GuidanceStep(
-        "Correct water movement",
-        "Improve drainage, avoid low spots and keep runoff from affected plants away from clean areas.",
-        ["umass_wilt"],
+        "Manage ants and mealybugs",
+        "Reduce weeds and debris that shelter ants or mealybugs and use an integrated ant-and-mealybug plan to protect healthy plants.",
+        ["ph_pineapple", "uf_pineapple_mealybug"],
       ),
       GuidanceStep(
-        "Match management to cause",
-        "Discuss resistant planting material or an alternative planting site. Foliar sprays cannot be assumed to cure a soilborne wilt.",
-        ["ph_eggplant", "umass_wilt"],
+        "Select control locally",
+        "If monitoring justifies pesticide use, ask the agricultural technician for an FPA-registered pineapple/mealybug product and protect natural enemies.",
+        ["fpa", "ph_pineapple_research"],
       ),
     ],
     prevention: [
       GuidanceStep(
-        "Choose planting material",
-        "Use healthy transplants and locally suitable wilt-resistant varieties when the cause is known.",
-        ["ph_eggplant"],
+        "Start mealybug-free",
+        "Use clean planting material and inspect leaf bases and roots before moving it into a new field.",
+        ["ph_pineapple", "uf_pineapple_mealybug"],
       ),
       GuidanceStep(
-        "Rotate appropriately",
-        "Use non-host crops selected for the diagnosed pathogen; different wilts have different persistence and host ranges.",
-        ["umass_wilt"],
+        "Control ant shelter",
+        "Keep weeds and debris managed and monitor ant activity because ants protect mealybugs from natural enemies.",
+        ["uf_pineapple_mealybug", "ph_pineapple"],
       ),
       GuidanceStep(
-        "Avoid contaminated beds",
-        "Clean soil off tools and avoid transplanting into poorly drained or previously affected sites.",
-        ["umass_wilt"],
+        "Scout neighboring plants",
+        "Check adjacent rows routinely and act on new mealybug colonies before widespread wilt develops.",
+        ["ph_pineapple_research", "ph_pineapple"],
       ),
     ],
-    seasonalPattern: SeasonalPattern.yearRound,
+    seasonalPattern: SeasonalPattern.siteDependent,
     seasonalEvidence:
-        "Philippine guides identify bacterial and Fusarium wilt in eggplant. Exposure and the specific cause matter throughout the year; a month-only estimate is unsupported.",
-    seasonalSourceIds: ["ph_eggplant"],
+        "Philippine sources establish mealybugs and wilt risk, but do not provide a validated month-only forecast. Field infestation, ants and planting material determine local risk.",
+    seasonalSourceIds: ["ph_pineapple", "ph_pineapple_research"],
   ),
   CropGuide(
     rawLabel: "lettuce_Bacterial",
@@ -816,64 +674,12 @@ const cropGuides = <CropGuide>[
     seasonalSourceIds: ["ph_lettuce", "pagasa"],
   ),
   CropGuide(
-    rawLabel: "tomato_Bacterial_spot",
+    rawLabel: "tomato_early-late_blight",
     crop: Crop.tomato,
-    name: "Bacterial spot",
-    category: "Bacterial leaf disease",
+    name: "Early/late blight",
+    category: "Combined blight class",
     summary:
-        "Small water-soaked lesions can resemble other spots. Copper products protect healthy tissue only partly and do not cure established lesions.",
-    healthy: false,
-    treatment: [
-      GuidanceStep(
-        "Confirm the spots",
-        "Inspect transplants, older leaves and fruit; have uncertain cases checked before applying disease-specific products.",
-        ["uc_spot"],
-      ),
-      GuidanceStep(
-        "Reduce spread",
-        "Avoid sprinkler irrigation and remove infection sources such as diseased transplants and nearby cull piles.",
-        ["uc_spot"],
-      ),
-      GuidanceStep(
-        "Protect clean tissue",
-        "For confirmed spreading disease, ask about a locally registered bactericide. Copper resistance and incomplete control are possible.",
-        ["uc_spot"],
-      ),
-      GuidanceStep(
-        "Monitor new infection",
-        "Check new leaves and adjacent plants after management. Review irrigation and sanitation if fresh lesions appear.",
-        ["uc_spot"],
-      ),
-    ],
-    prevention: [
-      GuidanceStep(
-        "Use pathogen-free material",
-        "Start with tested seed and healthy transplants.",
-        ["uc_spot"],
-      ),
-      GuidanceStep(
-        "Break splash transmission",
-        "Water at the base and avoid working in a wet canopy.",
-        ["uc_spot"],
-      ),
-      GuidanceStep(
-        "Reduce carryover",
-        "Clear crop residues and rotate with suitable non-host crops.",
-        ["ph_tomato"],
-      ),
-    ],
-    seasonalPattern: SeasonalPattern.wet,
-    seasonalEvidence:
-        "Philippine extension guidance identifies warm, wet conditions as favorable. This is a scouting flag.",
-    seasonalSourceIds: ["ph_tomato", "pagasa"],
-  ),
-  CropGuide(
-    rawLabel: "tomato_Early_blight",
-    crop: Crop.tomato,
-    name: "Early blight",
-    category: "Fungal leaf disease",
-    summary:
-        "Concentric spots often begin on older leaves. Management aims to slow further infection and preserve healthy foliage.",
+        "The model combines early and late blight. Retain both existing management plans and confirm which disease is present because late blight is an oomycete and may spread rapidly.",
     healthy: false,
     treatment: [
       GuidanceStep(
@@ -896,6 +702,26 @@ const cropGuides = <CropGuide>[
         "If disease is advancing, discuss a registered protectant programme with the agricultural technician; monitor fresh growth after intervention.",
         ["uc_early"],
       ),
+      GuidanceStep(
+        "Act on rapid spread",
+        "Inspect plants around the affected plant and contact a crop-protection technician promptly when lesions expand quickly.",
+        ["uc_late"],
+      ),
+      GuidanceStep(
+        "Remove late-blight sources",
+        "Separate heavily affected material from the crop and remove volunteer tomatoes, potatoes and nightshade hosts nearby.",
+        ["uc_late"],
+      ),
+      GuidanceStep(
+        "Keep leaves dry",
+        "Avoid sprinkler irrigation and improve canopy airflow; look for persistent wetness even under shelters.",
+        ["uc_late"],
+      ),
+      GuidanceStep(
+        "Protect unaffected growth",
+        "If late blight is confirmed, ask for a locally registered late-blight programme. Products for unrelated fungi may not control this oomycete.",
+        ["uc_late"],
+      ),
     ],
     prevention: [
       GuidanceStep(
@@ -913,43 +739,6 @@ const cropGuides = <CropGuide>[
         "Use healthy seedlings and clear infected residues between crops.",
         ["ph_tomato"],
       ),
-    ],
-    seasonalPattern: SeasonalPattern.wet,
-    seasonalEvidence:
-        "Philippine extension guidance identifies warm, humid conditions as favorable. This is a scouting flag.",
-    seasonalSourceIds: ["ph_tomato", "pagasa"],
-  ),
-  CropGuide(
-    rawLabel: "tomato_Late_blight",
-    crop: Crop.tomato,
-    name: "Late blight",
-    category: "Oomycete disease",
-    summary:
-        "Rapidly expanding water-soaked lesions and stem blight need prompt attention, particularly during cool, moist conditions.",
-    healthy: false,
-    treatment: [
-      GuidanceStep(
-        "Act on rapid spread",
-        "Inspect plants around the affected plant and contact a crop-protection technician promptly when lesions expand quickly.",
-        ["uc_late"],
-      ),
-      GuidanceStep(
-        "Remove infection sources",
-        "Separate heavily affected material from the crop and remove volunteer tomatoes, potatoes and nightshade hosts nearby.",
-        ["uc_late"],
-      ),
-      GuidanceStep(
-        "Keep leaves dry",
-        "Avoid sprinkler irrigation and improve canopy airflow; look for persistent wetness even under shelters.",
-        ["uc_late"],
-      ),
-      GuidanceStep(
-        "Protect unaffected growth",
-        "Ask for a locally registered late-blight programme. Products for unrelated fungi may not control this oomycete.",
-        ["uc_late"],
-      ),
-    ],
-    prevention: [
       GuidanceStep(
         "Inspect transplants",
         "Plant healthy seedlings and reject those showing suspicious lesions.",
@@ -957,22 +746,22 @@ const cropGuides = <CropGuide>[
       ),
       GuidanceStep(
         "Choose appropriate resistance",
-        "Discuss resistant cultivars suited to locally occurring pathogen populations.",
-        ["uc_late"],
+        "Discuss resistant cultivars suited to locally occurring early- and late-blight pathogen populations.",
+        ["uc_early", "uc_late"],
       ),
       GuidanceStep(
         "Scout cool, wet sites",
-        "Scout damp upland plantings and neighboring host crops.",
+        "Scout damp upland plantings and neighboring host crops for rapidly spreading late-blight symptoms.",
         ["ph_tomato"],
       ),
     ],
-    seasonalPattern: SeasonalPattern.coolWet,
+    seasonalPattern: SeasonalPattern.wet,
     seasonalEvidence:
-        "DA/JICA identifies cool, moist uplands as favorable. The flag combines a wetter month with a cool-upland setting.",
-    seasonalSourceIds: ["ph_tomato", "pagasa"],
+        "Early blight can be favored by warm, humid conditions while late blight is associated with cool, moist conditions. Because the model combines them, wetter months trigger added scouting but do not identify which blight is present.",
+    seasonalSourceIds: ["ph_tomato", "uc_early", "uc_late", "pagasa"],
   ),
   CropGuide(
-    rawLabel: "tomato_Leaf_Mold",
+    rawLabel: "tomato_leaf_mold",
     crop: Crop.tomato,
     name: "Leaf mold",
     category: "Fungal leaf disease",
@@ -1024,165 +813,61 @@ const cropGuides = <CropGuide>[
     seasonalSourceIds: ["ph_icm", "umn_mold"],
   ),
   CropGuide(
-    rawLabel: "tomato_Septoria_leaf_spot",
+    rawLabel: "tomato_insect_damage",
     crop: Crop.tomato,
-    name: "Septoria leaf spot",
-    category: "Fungal leaf disease",
+    name: "Insect damage",
+    category: "Broad pest class",
     summary:
-        "Numerous small spots with pale centers may start low on the plant. Confirm look-alike diseases before treatment.",
+        "This class recognizes visible insect-type injury but does not identify the pest. Holes, mines, stippling and sap-feeding damage require different controls.",
     healthy: false,
     treatment: [
       GuidanceStep(
-        "Inspect early symptoms",
-        "Examine lower leaves and transplants for small gray-centered lesions, sometimes containing tiny dark fruiting bodies.",
-        ["umd_septoria"],
+        "Identify the pest",
+        "Inspect both leaf surfaces, stems and fruit for live insects, eggs, frass, mines or webbing before selecting a control.",
+        ["ph_tomato", "ph_tomato_production"],
       ),
       GuidanceStep(
-        "Manage lower foliage",
-        "Once established plants begin fruiting, remove badly affected low leaves and avoid excessive defoliation.",
-        ["umd_septoria"],
-      ),
-      GuidanceStep(
-        "Stop soil splash",
-        "Keep the soil mulched and water the base, avoiding wet foliage.",
-        ["umd_septoria"],
-      ),
-      GuidanceStep(
-        "Check continued spread",
-        "Inspect remaining foliage and improve spacing. Seek local diagnosis and registered-product advice if symptoms keep advancing.",
-        ["umd_septoria"],
-      ),
-    ],
-    prevention: [
-      GuidanceStep(
-        "Check seedlings",
-        "Do not introduce visibly spotted transplants to clean beds.",
-        ["umd_septoria"],
-      ),
-      GuidanceStep(
-        "Improve airflow",
-        "Provide adequate spacing and manage shoots near the plant base.",
-        ["umd_septoria"],
-      ),
-      GuidanceStep(
-        "Follow local sanitation",
-        "Use clean seedlings and remove crop residues as part of integrated disease management.",
-        ["ph_tomato"],
-      ),
-    ],
-    seasonalPattern: SeasonalPattern.insufficient,
-    seasonalEvidence:
-        "Philippine surveys confirm occurrence. International guidance identifies wet-weather favorability, but the reviewed Philippine work does not validate a month-based Septoria forecast.",
-    seasonalSourceIds: ["ph_icm", "umd_septoria"],
-  ),
-  CropGuide(
-    rawLabel: "tomato_Spider_mites Two-spotted_spider_mite",
-    crop: Crop.tomato,
-    name: "Two-spotted spider mites",
-    category: "Mite pest",
-    summary:
-        "Stippling, bronzing and fine webbing warrant close inspection. Mites are not a fungal disease.",
-    healthy: false,
-    treatment: [
-      GuidanceStep(
-        "Verify live mites",
-        "Inspect leaf undersides with magnification and compare affected areas with healthy plants.",
-        ["uconn_mites"],
-      ),
-      GuidanceStep(
-        "Reduce plant stress",
-        "Maintain adequate root-zone watering; inspect dry or dusty margins and protected growing areas.",
-        ["uconn_mites"],
+        "Remove local sources",
+        "Remove badly infested leaves or fruit when practical and clear crop residues and host weeds without over-defoliating plants.",
+        ["ph_tomato", "ph_tomato_production"],
       ),
       GuidanceStep(
         "Use targeted management",
-        "Preserve beneficial organisms. If control is needed, ask for a registered miticide matched to the pest rather than a general fungicide.",
-        ["uconn_mites"],
+        "Preserve beneficial organisms and ask the agricultural technician to match physical, biological or chemical control to the identified pest and life stage.",
+        ["ph_tomato", "fpa"],
       ),
       GuidanceStep(
-        "Recheck active infestation",
-        "Look for live mites and new injury after treatment; follow the product label for subsequent applications.",
-        ["uconn_mites"],
+        "Recheck new damage",
+        "Monitor for live pests and fresh injury after intervention. Old feeding marks alone do not show that a treatment failed.",
+        ["ph_tomato"],
       ),
     ],
     prevention: [
       GuidanceStep(
-        "Start with healthy seedlings",
-        "Inspect nursery stock before moving it into production.",
-        ["ph_tomato"],
+        "Inspect transplants",
+        "Reject nursery plants carrying insects, eggs or fresh feeding damage.",
+        ["ph_tomato", "ph_tomato_production"],
       ),
       GuidanceStep(
-        "Avoid drought stress",
-        "Maintain crop-appropriate irrigation and inspect hot, dry patches.",
-        ["ph_tomato"],
+        "Keep fields sanitary",
+        "Remove weeds, volunteer tomatoes and old crop residues that can shelter pests between plantings.",
+        ["ph_tomato_production"],
       ),
       GuidanceStep(
-        "Scout sheltered plants",
-        "Inspect warm, dry greenhouses throughout the year.",
-        ["ph_tomato"],
-      ),
-    ],
-    seasonalPattern: SeasonalPattern.dry,
-    seasonalEvidence:
-        "ATI reports hot, dry conditions favor mites; greenhouses can remain infested year-round.",
-    seasonalSourceIds: ["ph_tomato", "pagasa"],
-  ),
-  CropGuide(
-    rawLabel: "tomato_Target_Spot",
-    crop: Crop.tomato,
-    name: "Target spot",
-    category: "Fungal leaf disease",
-    summary:
-        "Corynespora target spot can resemble early blight or bacterial spot. Inspect inside the canopy and on fruit.",
-    healthy: false,
-    treatment: [
-      GuidanceStep(
-        "Check hidden damage",
-        "Part the canopy and inspect inner leaves and the shaded side of fruit for lesions; confirm the diagnosis.",
-        ["uf_target"],
-      ),
-      GuidanceStep(
-        "Reduce carryover",
-        "Remove infected residue, volunteers and host weeds; keep clean transplants apart from affected crops.",
-        ["uf_target"],
-      ),
-      GuidanceStep(
-        "Reduce persistent wetness",
-        "Manage canopy density and irrigation so the inner foliage does not remain wet.",
-        ["uf_target"],
-      ),
-      GuidanceStep(
-        "Review fungicide selection",
-        "For confirmed disease, obtain a registered protection programme and resistance advice; repeated use of one mode of action can fail.",
-        ["uf_target"],
-      ),
-    ],
-    prevention: [
-      GuidanceStep(
-        "Use healthy transplants",
-        "Inspect plants before field establishment and monitor them after transplanting.",
-        ["uf_target"],
-      ),
-      GuidanceStep(
-        "Rotate and sanitize",
-        "Rotate away from tomato with locally advised crops, considering the pathogen's broad host range.",
-        ["uf_target"],
-      ),
-      GuidanceStep(
-        "Apply local hygiene guidance",
-        "Use clean tools and remove residues as part of the DA integrated management approach.",
-        ["ph_tomato"],
+        "Scout routinely",
+        "Record the kind and location of injury and use need-based controls rather than calendar spraying.",
+        ["ph_tomato", "ph_tomato_production"],
       ),
     ],
     seasonalPattern: SeasonalPattern.insufficient,
     seasonalEvidence:
-        "Target spot is documented in southern Philippine surveys. Wet-canopy biology is supported internationally; local month-specific likelihood has not been established.",
-    seasonalSourceIds: ["ph_icm", "uf_target"],
+        "The broad class may represent pests with different life cycles and weather responses. A single rainfall or month rule would be misleading until the insect is identified.",
+    seasonalSourceIds: ["ph_tomato", "ph_tomato_production"],
   ),
   CropGuide(
-    rawLabel: "tomato_Tomato_Yellow_Leaf_Curl_Virus",
+    rawLabel: "tomato_leaf_curl_virus",
     crop: Crop.tomato,
-    name: "Tomato yellow leaf curl",
+    name: "Leaf curl virus",
     category: "Viral disease",
     summary:
         "Curled yellow leaves can have several causes. Confirm suspected virus; controlling whiteflies protects other plants but does not cure infected ones.",
@@ -1232,56 +917,56 @@ const cropGuides = <CropGuide>[
     seasonalSourceIds: ["ph_leafcurl"],
   ),
   CropGuide(
-    rawLabel: "tomato_Tomato_mosaic_virus",
+    rawLabel: "tomato_leaf_miner",
     crop: Crop.tomato,
-    name: "Tomato mosaic virus",
-    category: "Viral disease",
+    name: "Leaf miner",
+    category: "Insect pest",
     summary:
-        "ToMV and other viruses can resemble each other. Laboratory confirmation may be needed; there is no curative chemical treatment for ToMV.",
+        "Winding mines indicate larvae feeding inside leaves. Confirm active larvae or pupae because old mines remain visible after the pest is gone.",
     healthy: false,
     treatment: [
       GuidanceStep(
-        "Confirm the diagnosis",
-        "Have persistent mosaic and distorted growth assessed; herbicide injury and other viruses can look similar.",
-        ["umn_virus"],
+        "Confirm active mining",
+        "Inspect fresh winding mines for larvae and check below plants for pupae; distinguish leaf miners from surface chewing or disease lesions.",
+        ["uc_leafminer"],
       ),
       GuidanceStep(
-        "Remove affected plants",
-        "Remove confirmed infected plants, including roots, and keep material away from healthy seedlings.",
-        ["umn_virus"],
+        "Remove severe sources",
+        "Remove heavily mined leaves or infested transplants when practical, while retaining enough healthy foliage for the crop.",
+        ["uc_leafminer"],
       ),
       GuidanceStep(
-        "Prevent contact spread",
-        "Work healthy plants first. Clean hands, tools and reusable supports using an appropriate sanitation procedure.",
-        ["umn_virus"],
+        "Protect natural enemies",
+        "Avoid unnecessary broad-spectrum insecticides because they can kill parasitoid wasps and trigger larger leaf-miner outbreaks.",
+        ["uc_leafminer"],
       ),
       GuidanceStep(
-        "Protect the next planting",
-        "Use clean seed and transplants and varieties specifically rated for ToMV resistance; insect sprays do not cure mosaic.",
-        ["umn_virus"],
+        "Treat only when justified",
+        "If active populations keep increasing, ask for a locally registered selective option. Do not import foreign treatment thresholds or product rates.",
+        ["uc_leafminer", "fpa"],
       ),
     ],
     prevention: [
       GuidanceStep(
-        "Keep propagation clean",
-        "Use reliable planting material and clean nursery equipment.",
-        ["umn_virus"],
+        "Check transplants",
+        "Inspect seedlings for mines before planting and discard infested nursery plants.",
+        ["uc_leafminer", "ph_tomato_production"],
       ),
       GuidanceStep(
-        "Maintain handling hygiene",
-        "Avoid transferring sap between plants through hands and pruning tools.",
-        ["umn_virus"],
+        "Conserve parasitoids",
+        "Use pest-specific, need-based controls so natural enemies can suppress leaf-miner larvae.",
+        ["uc_leafminer"],
       ),
       GuidanceStep(
-        "Remove residual sources",
-        "Clear volunteer plants and old crop residue; follow the DA integrated management guidance.",
-        ["ph_tomato"],
+        "Clear old crops",
+        "Remove old tomato plantings and host weeds promptly so infestations do not move directly into the next crop.",
+        ["uc_leafminer", "ph_tomato_production"],
       ),
     ],
-    seasonalPattern: SeasonalPattern.yearRound,
+    seasonalPattern: SeasonalPattern.insufficient,
     seasonalEvidence:
-        "Contact, planting material and hygiene are central. No Philippine month-specific ToMV forecast was found; keep prevention in place throughout the year.",
-    seasonalSourceIds: ["umn_virus"],
+        "The Philippine production guide confirms leaf miner as a tomato pest, but the reviewed sources do not validate a nationwide month-only risk rule.",
+    seasonalSourceIds: ["ph_tomato_production", "uc_leafminer"],
   ),
   CropGuide(
     rawLabel: "banana_healthy",
@@ -1311,8 +996,8 @@ const cropGuides = <CropGuide>[
     seasonalSourceIds: [],
   ),
   CropGuide(
-    rawLabel: "eggplant_healthy",
-    crop: Crop.eggplant,
+    rawLabel: "Pineapple_healthy",
+    crop: Crop.pineapple,
     name: "Healthy crop care",
     category: "Healthy class",
     summary:
@@ -1321,15 +1006,15 @@ const cropGuides = <CropGuide>[
     treatment: [
       GuidanceStep(
         "Maintain routine care",
-        "Use healthy seedlings, suitable spacing and clean mulch; inspect shoots and fruit.",
-        ["ph_eggplant_spacing"],
+        "Maintain drainage, balanced crop care and routine checks of leaf bases, roots and fruit.",
+        ["ph_pineapple"],
       ),
     ],
     prevention: [
       GuidanceStep(
         "Keep preventive care",
-        "Use healthy seedlings, suitable spacing and clean mulch; inspect shoots and fruit.",
-        ["ph_eggplant_spacing"],
+        "Use clean planting material, maintain drainage and keep monitoring for mealybugs and new lesions.",
+        ["ph_pineapple"],
       ),
     ],
     seasonalPattern: SeasonalPattern.healthy,
@@ -1338,7 +1023,7 @@ const cropGuides = <CropGuide>[
     seasonalSourceIds: [],
   ),
   CropGuide(
-    rawLabel: "lettuce_healthy_new",
+    rawLabel: "lettuce_healthy",
     crop: Crop.lettuce,
     name: "Healthy crop care",
     category: "Healthy class",

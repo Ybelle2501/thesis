@@ -207,7 +207,7 @@ class _NoLeafView extends StatelessWidget {
                           _TipRow(
                             icon: Icons.eco_rounded,
                             text:
-                                'Scan only supported crops (banana, eggplant, lettuce, or tomato)',
+                                'Scan only supported crops (pineapple, banana, lettuce, or tomato)',
                           ),
                         ],
                       ),

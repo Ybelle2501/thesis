@@ -25,7 +25,7 @@ void main() {
     expect(rawLabels, unorderedEquals(labels.values));
     expect(rawLabels.toSet().length, rawLabels.length);
     expect(cropGuides.where((guide) => guide.healthy), hasLength(4));
-    expect(cropGuides.where((guide) => !guide.healthy), hasLength(19));
+    expect(cropGuides.where((guide) => !guide.healthy), hasLength(13));
     expect(guideForLabel('unsupported label'), isNull);
   });
 
@@ -107,46 +107,26 @@ void main() {
     );
   });
 
-  test(
-    'cool uplands change late blight and mite flags without guaranteeing safety',
-    () {
-      final station = climateStations.firstWhere(
-        (station) => station.id == 'baguio',
-      );
-      final lateBlight = guideForLabel('tomato_Late_blight')!;
-      final mites = guideForLabel(
-        'tomato_Spider_mites Two-spotted_spider_mite',
-      )!;
-      expect(
-        estimateSeasonalRisk(
-          lateBlight,
-          SeasonalContext(month: 8, station: station, coolUpland: true),
-        ).risk,
-        SeasonalRisk.elevated,
-      );
-      expect(
-        estimateSeasonalRisk(
-          lateBlight,
-          SeasonalContext(month: 8, station: station),
-        ).risk,
-        SeasonalRisk.watch,
-      );
-      expect(
-        estimateSeasonalRisk(
-          mites,
-          SeasonalContext(month: 1, station: station, coolUpland: true),
-        ).risk,
-        SeasonalRisk.watch,
-      );
-      expect(
-        estimateSeasonalRisk(
-          mites,
-          SeasonalContext(month: 1, station: station),
-        ).risk,
-        SeasonalRisk.elevated,
-      );
-    },
-  );
+  test('combined blight uses the retained wet-season scouting mechanic', () {
+    final station = climateStations.firstWhere(
+      (station) => station.id == 'baguio',
+    );
+    final blight = guideForLabel('tomato_early-late_blight')!;
+    expect(
+      estimateSeasonalRisk(
+        blight,
+        SeasonalContext(month: 8, station: station, coolUpland: true),
+      ).risk,
+      SeasonalRisk.elevated,
+    );
+    expect(
+      estimateSeasonalRisk(
+        blight,
+        SeasonalContext(month: 1, station: station),
+      ).risk,
+      SeasonalRisk.watch,
+    );
+  });
 
   test(
     'unknown location and insufficient evidence do not produce fabricated estimates',
@@ -173,7 +153,7 @@ void main() {
         );
         expect(
           estimateSeasonalRisk(
-            guideForLabel('tomato_Tomato_Yellow_Leaf_Curl_Virus')!,
+            guideForLabel('tomato_leaf_curl_virus')!,
             context,
           ).risk,
           SeasonalRisk.unknown,
@@ -200,16 +180,17 @@ void main() {
       for (final crop in Crop.values) {
         expect(find.text(crop.title), findsOneWidget);
       }
-      expect(find.text('Cordana leaf spot'), findsOneWidget);
-      await tester.tap(find.text('Eggplant'));
+      expect(find.text('Fusarium symptoms'), findsOneWidget);
+      await tester.tap(find.text('Banana'));
       await tester.pumpAndSettle();
-      expect(find.text('Insect damage'), findsOneWidget);
-      await tester.tap(
-        find.byKey(const ValueKey('guide-eggplant_insect_pest')),
-      );
+      expect(find.text('Cordana leaf spot'), findsOneWidget);
+      await tester.tap(find.text('Pineapple'));
+      await tester.pumpAndSettle();
+      expect(find.text('Fusarium symptoms'), findsOneWidget);
+      await tester.tap(find.byKey(const ValueKey('guide-Pineapple_fusarium')));
       await tester.pumpAndSettle();
       expect(find.text('Treatment plan'), findsOneWidget);
-      expect(find.text('1. Identify the pest'), findsOneWidget);
+      expect(find.text('1. Confirm the diagnosis'), findsOneWidget);
       expect(tester.takeException(), isNull);
     },
   );
@@ -301,7 +282,7 @@ void main() {
           child: child!,
         ),
         home: const DiseasePreventionScreen(
-          initialLabel: 'tomato_Tomato_Yellow_Leaf_Curl_Virus',
+          initialLabel: 'tomato_leaf_curl_virus',
         ),
       ),
     );

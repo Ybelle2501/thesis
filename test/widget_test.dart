@@ -79,7 +79,7 @@ void main() {
       MaterialApp(
         home: DiseaseResultScreen(
           result: ClassificationResult(
-            rawLabel: 'tomato_Early_blight',
+            rawLabel: 'tomato_early-late_blight',
             confidence: 0.92,
             classIndex: 14,
             status: ScanStatus.success,
@@ -170,8 +170,8 @@ void main() {
           confidence: index == 0 ? 1.2 : 0.72 + (index % 4) * 0.05,
           imagePath: '/scan_$index.jpg',
           rawLabel: index.isEven
-              ? 'tomato_Early_blight'
-              : 'lettuce_healthy_new',
+              ? 'tomato_early-late_blight'
+              : 'lettuce_healthy',
           classIndex: index.isEven ? 14 : 12,
           capturedAt: DateTime(2026, 9, 22, 12, index),
           source: 'Camera',
@@ -199,7 +199,7 @@ void main() {
     },
   );
 
-  testWidgets('bundled classifier labels match the 23-class model', (
+  testWidgets('bundled classifier labels match the 17-class model', (
     WidgetTester _,
   ) async {
     final source = await rootBundle.loadString(
@@ -208,13 +208,13 @@ void main() {
     final labels = PlantDiseaseClassifier.parseLabels(source);
 
     expect(labels, hasLength(PlantDiseaseClassifier.expectedClassCount));
-    expect(labels.first, 'banana_cordana');
-    expect(labels[14], 'tomato_Early_blight');
-    expect(labels.last, 'tomato_healthy');
+    expect(labels.first, 'Pineapple_fusarium');
+    expect(labels[11], 'tomato_early-late_blight');
+    expect(labels.last, 'tomato_leaf_mold');
   });
 
   testWidgets(
-    'bundled decision thresholds match the ResNet50 deployment rule',
+    'bundled decision thresholds retain the MobileNetV2 deployment rule',
     (WidgetTester _) async {
       final source = await rootBundle.loadString(
         PlantDiseaseClassifier.thresholdsAssetPath,
@@ -222,11 +222,11 @@ void main() {
       final thresholds = PlantDiseaseClassifier.parseThresholds(source);
 
       expect(thresholds.confidence, 0.6);
-      expect(thresholds.margin, 0.15);
+      expect(thresholds.margin, 0.38);
       expect(thresholds.suggestionConfidence, 0.1);
       expect(thresholds.accepts(topScore: 0.59, top1Top2Margin: 0.3), isFalse);
-      expect(thresholds.accepts(topScore: 0.8, top1Top2Margin: 0.14), isFalse);
-      expect(thresholds.accepts(topScore: 0.6, top1Top2Margin: 0.15), isTrue);
+      expect(thresholds.accepts(topScore: 0.8, top1Top2Margin: 0.37), isFalse);
+      expect(thresholds.accepts(topScore: 0.6, top1Top2Margin: 0.38), isTrue);
     },
   );
 
@@ -237,7 +237,7 @@ void main() {
       MaterialApp(
         home: DiseaseResultScreen(
           result: ClassificationResult(
-            rawLabel: 'tomato_Early_blight',
+            rawLabel: 'tomato_early-late_blight',
             confidence: 0.42,
             classIndex: 14,
             status: ScanStatus.lowConfidence,
@@ -258,7 +258,7 @@ void main() {
     'disease suggestions are thresholded, crop-scoped, and capped at two',
     () {
       final primary = RankedPrediction(
-        rawLabel: 'tomato_Early_blight',
+        rawLabel: 'tomato_early-late_blight',
         confidence: 0.46,
         classIndex: 14,
       );
@@ -270,7 +270,7 @@ void main() {
           classIndex: 11,
         ),
         RankedPrediction(
-          rawLabel: 'tomato_Late_blight',
+          rawLabel: 'tomato_leaf_mold',
           confidence: 0.22,
           classIndex: 15,
         ),
@@ -280,12 +280,12 @@ void main() {
           classIndex: 22,
         ),
         RankedPrediction(
-          rawLabel: 'tomato_Leaf_Mold',
+          rawLabel: 'tomato_insect_damage',
           confidence: 0.14,
           classIndex: 16,
         ),
         RankedPrediction(
-          rawLabel: 'tomato_Target_Spot',
+          rawLabel: 'tomato_leaf_miner',
           confidence: 0.09,
           classIndex: 19,
         ),
@@ -298,8 +298,8 @@ void main() {
       );
 
       expect(suggestions.map((prediction) => prediction.rawLabel), [
-        'tomato_Late_blight',
-        'tomato_Leaf_Mold',
+        'tomato_leaf_mold',
+        'tomato_insect_damage',
       ]);
       expect(suggestions, hasLength(2));
     },
@@ -320,12 +320,12 @@ void main() {
           classIndex: 11,
         ),
         RankedPrediction(
-          rawLabel: 'lettuce_healthy_new',
+          rawLabel: 'lettuce_healthy',
           confidence: 0.1,
           classIndex: 12,
         ),
         RankedPrediction(
-          rawLabel: 'tomato_Bacterial_spot',
+          rawLabel: 'tomato_insect_damage',
           confidence: 0.2,
           classIndex: 13,
         ),
@@ -340,13 +340,13 @@ void main() {
 
   test('new classifier labels are formatted without training artifacts', () {
     final lettuce = ClassificationResult(
-      rawLabel: 'lettuce_healthy_new',
+      rawLabel: 'lettuce_healthy',
       confidence: 0.9,
       classIndex: 12,
       status: ScanStatus.success,
     );
     final tomato = ClassificationResult(
-      rawLabel: 'tomato_Tomato_Yellow_Leaf_Curl_Virus',
+      rawLabel: 'tomato_leaf_curl_virus',
       confidence: 0.9,
       classIndex: 20,
       status: ScanStatus.success,
@@ -354,7 +354,7 @@ void main() {
 
     expect(lettuce.conditionName, 'Healthy');
     expect(lettuce.isHealthy, isTrue);
-    expect(tomato.conditionName, 'Yellow Leaf Curl Virus');
+    expect(tomato.conditionName, 'Leaf Curl Virus');
     expect(tomato.isHealthy, isFalse);
   });
 
@@ -367,7 +367,7 @@ void main() {
       status: 'Infected',
       confidence: 0.94,
       imagePath: '/saved/scan.jpg',
-      rawLabel: 'tomato_Early_blight',
+      rawLabel: 'tomato_early-late_blight',
       classIndex: 14,
       capturedAt: capturedAt,
       source: 'Camera',
@@ -379,7 +379,7 @@ void main() {
 
     expect(restored.id, 7);
     expect(restored.status, 'Infected');
-    expect(restored.rawLabel, 'tomato_Early_blight');
+    expect(restored.rawLabel, 'tomato_early-late_blight');
     expect(restored.imagePath, '/saved/scan.jpg');
     expect(restored.capturedAt, capturedAt);
     expect(restored.contextLabel, 'Camera - Single');
@@ -409,7 +409,7 @@ void main() {
         status: 'Infected',
         confidence: 0.9,
         imagePath: 'assets/leaflens_logo.png',
-        rawLabel: 'tomato_Early_blight',
+        rawLabel: 'tomato_early-late_blight',
         classIndex: 14,
         capturedAt: DateTime(2026, 9, 25, 9, index),
         source: 'Camera',

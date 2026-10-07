@@ -1,0 +1,21 @@
+{
+  "model_name": "MobileNetV2",
+  "source_keras_model": "best_model.keras",
+  "deployment_model": "MobileNetV2_best_model.tflite",
+  "conversion_runtime": "TensorFlow 2.21.0",
+  "input_shape": [1, 224, 224, 3],
+  "input_dtype": "float32",
+  "input_color_order": "RGB",
+  "input_range": [0, 255],
+  "preprocessing": "x / 127.5 - 1 is embedded in the model",
+  "output_shape": [1, 17],
+  "output_dtype": "float32",
+  "output_interpretation": "Softmax probabilities in assets/labels.json order",
+  "threshold_rule": "confidence >= 0.60 AND top1_minus_top2 >= 0.38",
+  "suggestion_confidence_threshold": 0.10,
+  "threshold_selection_rows": 1378,
+  "threshold_observed_coverage": 0.9550072568940493,
+  "threshold_observed_accepted_accuracy": 0.9506079027355623,
+  "threshold_observed_error_rejection": 0.29347826086956524,
+  "threshold_status": "Selected on exported held-out test predictions to target at least 95% accepted-result accuracy. Requires independent calibration and unsupported/non-leaf validation."
+}

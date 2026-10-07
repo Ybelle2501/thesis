@@ -97,6 +97,9 @@ String _plantName(String rawLabel) {
 }
 
 String _conditionName(String rawLabel) {
+  if (rawLabel.toLowerCase() == 'tomato_early-late_blight') {
+    return 'Early/late blight';
+  }
   final parts = _labelParts(rawLabel);
   if (parts.length < 2) return '';
 
@@ -137,13 +140,13 @@ bool _isHealthyLabel(String rawLabel) =>
     _labelParts(rawLabel).any((part) => part.toLowerCase() == 'healthy');
 
 class PlantDiseaseClassifier {
-  static const String modelAssetPath = 'assets/ResNet50_refined_best.tflite';
+  static const String modelAssetPath = 'assets/MobileNetV2_best_model.tflite';
   static const String labelsAssetPath = 'assets/labels.json';
   static const String thresholdsAssetPath =
-      'assets/ResNet50_decision_thresholds.json';
-  static const String modelName = 'ResNet50_refined_best.tflite';
+      'assets/MobileNetV2_decision_thresholds.json';
+  static const String modelName = 'MobileNetV2_best_model.tflite';
   static const int inputSize = 224;
-  static const int expectedClassCount = 23;
+  static const int expectedClassCount = 17;
   static const int maximumSuggestedDiseases = 2;
 
   Interpreter? _interpreter;
@@ -379,8 +382,8 @@ class PlantDiseaseClassifier {
       interpolation: img.Interpolation.linear,
     );
 
-    // ResNet50 preprocess_input is embedded in the exported model. Feed raw
-    // RGB values in the 0-255 range so preprocessing is applied exactly once.
+    // MobileNetV2 x / 127.5 - 1 preprocessing is embedded in the exported
+    // model. Feed raw RGB values in the 0-255 range so it runs exactly once.
     final buffer = Float32List(inputSize * inputSize * 3);
     int index = 0;
     for (int y = 0; y < inputSize; y++) {

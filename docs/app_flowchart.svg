@@ -79,7 +79,7 @@
   <text x="445" y="510" text-anchor="middle" class="node-title">Capture mode?</text>
   <text x="445" y="535" text-anchor="middle" class="node-sub">Single / 2×2 / 2×3</text>
   <text x="747" y="505" text-anchor="middle" class="node-title">TFLite classifier</text>
-  <text x="747" y="532" text-anchor="middle" class="node-sub">ResNet50 + decision thresholds</text>
+  <text x="747" y="532" text-anchor="middle" class="node-sub">MobileNetV2 + decision thresholds</text>
   <text x="1025" y="510" text-anchor="middle" class="node-title">Reliable result?</text>
   <text x="1025" y="535" text-anchor="middle" class="node-sub">success vs low confidence</text>
   <path class="edge" d="M1145 303 V420 H202 V470"/>
