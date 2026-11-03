@@ -1,4 +1,5 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Text;
+import '../l10n/localized_text.dart';
 import '../theme/app_theme.dart';
 import '../screens/dashboard_screen.dart';
 import '../screens/scanner_screen.dart';
@@ -354,7 +355,7 @@ class _NavItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onTap,
+      onTap: active ? null : onTap,
       behavior: HitTestBehavior.opaque,
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 200),

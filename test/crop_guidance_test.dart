@@ -25,7 +25,7 @@ void main() {
     expect(rawLabels, unorderedEquals(labels.values));
     expect(rawLabels.toSet().length, rawLabels.length);
     expect(cropGuides.where((guide) => guide.healthy), hasLength(4));
-    expect(cropGuides.where((guide) => !guide.healthy), hasLength(13));
+    expect(cropGuides.where((guide) => !guide.healthy), hasLength(14));
     expect(guideForLabel('unsupported label'), isNull);
   });
 
@@ -187,7 +187,7 @@ void main() {
       await tester.tap(find.text('Pineapple'));
       await tester.pumpAndSettle();
       expect(find.text('Fusarium symptoms'), findsOneWidget);
-      await tester.tap(find.byKey(const ValueKey('guide-Pineapple_fusarium')));
+      await tester.tap(find.byKey(const ValueKey('guide-pineapple_fusarium')));
       await tester.pumpAndSettle();
       expect(find.text('Treatment plan'), findsOneWidget);
       expect(find.text('1. Confirm the diagnosis'), findsOneWidget);

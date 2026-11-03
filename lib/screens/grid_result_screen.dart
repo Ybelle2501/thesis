@@ -1,6 +1,7 @@
 import 'dart:io';
 
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Text;
+import '../l10n/localized_text.dart';
 import 'package:flutter/services.dart';
 
 import '../services/classifier.dart';
@@ -314,9 +315,11 @@ class _GridResultScreenState extends State<GridResultScreen> {
               FilteringTextInputFormatter.allow(RegExp(r'[A-Za-z0-9 ]')),
             ],
             decoration: InputDecoration(
-              labelText: 'Crop location',
-              hintText: 'Example: Greenhouse 1',
-              errorText: _locationError,
+              labelText: localizeCopy(context, 'Crop location'),
+              hintText: localizeCopy(context, 'Example: Greenhouse 1'),
+              errorText: _locationError == null
+                  ? null
+                  : localizeCopy(context, _locationError!),
               prefixIcon: const Icon(Icons.location_on_outlined),
             ),
             onChanged: (_) {

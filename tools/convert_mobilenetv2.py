@@ -17,7 +17,7 @@ def main() -> None:
     model = tf.keras.models.load_model(args.source, compile=False)
     if model.input_shape != (None, 224, 224, 3):
         raise ValueError(f"Unexpected input shape: {model.input_shape}")
-    if model.output_shape != (None, 17):
+    if model.output_shape != (None, 18):
         raise ValueError(f"Unexpected output shape: {model.output_shape}")
 
     converter = tf.lite.TFLiteConverter.from_keras_model(model)

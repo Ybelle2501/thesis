@@ -1,0 +1,124 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1150" viewBox="0 0 1600 1150" role="img" aria-labelledby="title desc">
+  <title id="title">LeafLens Data Flow Diagram</title>
+  <desc id="desc">Level 1 data flow diagram of crop image capture, AI classification, scan history, reports, settings and language selection, data recovery, local database, model assets, guidance, and PDF export.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto"><path d="M0 0 L10 5 L0 10 Z" fill="#111"/></marker>
+    <style>
+      text { font-family: Arial, Helvetica, sans-serif; fill: #111; }
+      .heading { font-family: Georgia, 'Times New Roman', serif; font-size: 33px; font-weight: 700; letter-spacing: 1px; }
+      .caption { font: italic 16px Georgia, 'Times New Roman', serif; }
+      .label { font-size: 16px; font-weight: 600; text-anchor: middle; }
+      .small { font-size: 13px; text-anchor: middle; }
+      .flow { fill: none; stroke: #111; stroke-width: 2.2; marker-end: url(#arrow); }
+      .flow-noarrow { fill: none; stroke: #111; stroke-width: 2.2; }
+      .entity { fill: #fff; stroke: #111; stroke-width: 2.2; }
+      .process { fill: #fff; stroke: #111; stroke-width: 2.2; }
+      .store { fill: #fff; stroke: #111; stroke-width: 2.2; }
+      .flowlabel { font-size: 13px; font-weight: 600; paint-order: stroke; stroke: #fff; stroke-width: 5px; stroke-linejoin: round; }
+    </style>
+  </defs>
+  <rect width="1600" height="1150" fill="#fff"/>
+  <text x="800" y="64" text-anchor="middle" class="heading">DATA FLOW DIAGRAM</text>
+  <text x="800" y="94" text-anchor="middle" font-size="17">LeafLens: AI-Assisted Crop Disease Identification Application · Level 1</text>
+  <line x1="95" y1="116" x2="1505" y2="116" stroke="#111" stroke-width="1.5"/>
+
+  <!-- System boundary -->
+  <rect x="310" y="150" width="970" height="875" rx="4" fill="none" stroke="#111" stroke-width="2" stroke-dasharray="9 7"/>
+  <rect x="326" y="137" width="235" height="26" fill="#fff"/>
+  <text x="338" y="156" font-size="15" font-weight="700">LEAFLENS MOBILE APP</text>
+
+  <!-- External entities -->
+  <rect class="entity" x="55" y="260" width="205" height="92"/>
+  <text class="label" x="157" y="298">USER / SCOUT</text>
+  <text class="small" x="157" y="324">camera or gallery input</text>
+
+  <rect class="entity" x="55" y="775" width="205" height="92"/>
+  <text class="label" x="157" y="813">DEVICE STORAGE</text>
+  <text class="small" x="157" y="839">local files and Downloads</text>
+
+  <!-- Processes -->
+  <ellipse class="process" cx="455" cy="300" rx="116" ry="61"/>
+  <text class="label" x="455" y="294">1.0</text><text class="label" x="455" y="317">Capture image</text>
+
+  <ellipse class="process" cx="780" cy="300" rx="128" ry="61"/>
+  <text class="label" x="780" y="289">2.0</text><text class="label" x="780" y="312">Classify crop image</text>
+  <text class="small" x="780" y="333">single image or grid cells</text>
+
+  <ellipse class="process" cx="1095" cy="300" rx="128" ry="61"/>
+  <text class="label" x="1095" y="289">3.0</text><text class="label" x="1095" y="312">Review result</text>
+  <text class="small" x="1095" y="333">tag location and save</text>
+
+  <ellipse class="process" cx="565" cy="620" rx="128" ry="61"/>
+  <text class="label" x="565" y="609">4.0</text><text class="label" x="565" y="632">View scan history</text>
+  <text class="small" x="565" y="653">filter, edit, delete</text>
+
+  <ellipse class="process" cx="900" cy="620" rx="128" ry="61"/>
+  <text class="label" x="900" y="609">5.0</text><text class="label" x="900" y="632">Analyze scans</text>
+  <text class="small" x="900" y="653">dashboard metrics</text>
+
+  <ellipse class="process" cx="1110" cy="850" rx="130" ry="61"/>
+  <text class="label" x="1110" y="839">6.0</text><text class="label" x="1110" y="862">Export PDF report</text>
+  <text class="small" x="1110" y="883">by tagged crop location</text>
+
+  <ellipse class="process" cx="500" cy="850" rx="132" ry="61"/>
+  <text class="label" x="500" y="839">7.0</text><text class="label" x="500" y="862">Manage settings</text>
+  <text class="small" x="500" y="883">language choice + data recovery</text>
+
+  <!-- Data stores -->
+  <path class="store" d="M690 465 H980 M690 535 H980 M690 465 V535 M980 465 V535"/>
+  <text class="label" x="835" y="493">D1  SCAN HISTORY</text>
+  <text class="small" x="835" y="516">scan records + image paths</text>
+
+  <path class="store" d="M1045 465 H1240 M1045 535 H1240 M1045 465 V535 M1240 465 V535"/>
+  <text class="label" x="1142" y="493">D2  APP METADATA</text>
+  <text class="small" x="1142" y="508">language preference</text>
+  <text class="small" x="1142" y="525">next report number</text>
+
+  <path class="store" d="M660 165 H900 M660 220 H900 M660 165 V220 M900 165 V220"/>
+  <text class="label" x="780" y="188">D3  MODEL ASSETS</text>
+  <text class="small" x="780" y="207">TFLite model + labels + thresholds</text>
+
+  <!-- Data flows -->
+  <path class="flow" d="M260 287 H339"/>
+  <text class="flowlabel" x="269" y="274">image / mode</text>
+  <path class="flow" d="M571 300 H650"/>
+  <text class="flowlabel" x="576" y="286">captured image</text>
+  <path class="flow" d="M908 300 H965"/>
+  <text class="flowlabel" x="909" y="286">prediction + confidence</text>
+  <path class="flow" d="M1095 361 V429 H835 V465"/>
+  <text class="flowlabel" x="1005" y="418">successful scan + location</text>
+
+  <path class="flow" d="M690 500 V620 H693"/>
+  <text class="flowlabel" x="700" y="555">saved scan records</text>
+  <path class="flow" d="M1142 535 V580 H1175 V789"/>
+  <text class="flowlabel" x="1188" y="655">next report number</text>
+
+  <path class="flow" d="M780 220 V239"/>
+
+  <path class="flow" d="M437 620 H290 V306 H260"/>
+  <text class="flowlabel" x="300" y="590">history results</text>
+  <path class="flow" d="M693 620 H772"/>
+  <text class="flowlabel" x="700" y="606">scan records</text>
+  <path class="flow" d="M965 620 H1330 V819 H1240"/>
+  <text class="flowlabel" x="1190" y="606">filtered location scans</text>
+  <path class="flow" d="M260 340 H280 V850 H368"/>
+  <text class="flowlabel" x="294" y="834">settings choices</text>
+  <path class="flow" d="M632 850 H710 V700 H1040 V500 H1045"/>
+  <text class="flowlabel" x="790" y="692">save / load language preference</text>
+  <path class="flow" d="M260 820 H310 V900 H370" marker-start="url(#arrow)"/>
+  <text class="flowlabel" x="270" y="918">backup / restore files</text>
+  <text class="small" x="500" y="931">English or Tagalog applied across the app</text>
+  <!-- Output flows to external destinations -->
+  <path class="flow" d="M1110 911 V965 H157 V867"/>
+  <text class="flowlabel" x="687" y="953">PDF file</text>
+
+  <!-- Legend -->
+  <rect x="1330" y="205" width="220" height="170" fill="#fff" stroke="#111" stroke-width="1.5"/>
+  <text x="1440" y="232" class="label">LEGEND</text>
+  <rect x="1350" y="250" width="40" height="23" class="entity"/><text x="1403" y="267" font-size="14">External entity</text>
+  <ellipse cx="1370" cy="300" rx="21" ry="14" class="process"/><text x="1403" y="305" font-size="14">Process</text>
+  <path class="store" d="M1350 326 H1390 M1350 347 H1390 M1350 326 V347 M1390 326 V347"/><text x="1403" y="343" font-size="14">Data store</text>
+
+  <text x="800" y="1080" text-anchor="middle" class="caption">Figure 4.1. Data Flow Diagram for LeafLens: AI-Assisted Crop Disease Identification and Local Scan Reporting</text>
+  <text x="800" y="1108" text-anchor="middle" font-size="12" fill="#444">Derived from the implemented application. Inference assets and crop guidance are bundled locally; scans and report metadata are stored on device.</text>
+</svg>

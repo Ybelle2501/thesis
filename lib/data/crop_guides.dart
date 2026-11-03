@@ -1,6 +1,6 @@
 import '../models/crop_guide.dart';
 
-// Reviewed 2026-09-28. The raw labels must match assets/labels.json.
+// Reviewed 2026-10-07. The raw labels must match assets/labels.json.
 const guideSources = <String, GuideSource>{
   "ph_tomato": GuideSource(
     id: "ph_tomato",
@@ -120,7 +120,7 @@ const guideSources = <String, GuideSource>{
         "https://ati2.da.gov.ph/ati-car/content/sites/default/files/2022-12/urban_agriculture_for_upland.pdf",
     scope: "Philippine extension",
     note:
-        "Lettuce fungal rot: spacing, sunlight, aerated growing media and avoiding waterlogging.",
+        "Identifies aphids and semiloopers as common lettuce pests and recommends handpicking semiloopers and promptly removing aphid-infested plant parts. Also covers fungal-rot prevention.",
   ),
   "ph_lettuce_rot": GuideSource(
     id: "ph_lettuce_rot",
@@ -140,7 +140,7 @@ const guideSources = <String, GuideSource>{
         "https://ati2.da.gov.ph/ati-car/content/features/green-romance-romaine-lettuce-production-cloud-capped-mountains-bauko",
     scope: "Philippine field observations",
     note:
-        "Bauko demonstration reported greater soft-rot severity in the wet season. Applies to observed soft rot, not every bacterial lettuce disease.",
+        "Bauko demonstration reported cutworms and armyworms, plus greater soft-rot severity in the wet season. The seasonal observation applies to soft rot, not every bacterial disease or insect pest.",
   ),
   "ph_leafcurl": GuideSource(
     id: "ph_leafcurl",
@@ -234,6 +234,15 @@ const guideSources = <String, GuideSource>{
     scope: "International extension",
     note:
         "Bacterial leaf spot differs from soft rot; seed health, moisture and sanitation guidance.",
+  ),
+  "uc_lettuce_ipm": GuideSource(
+    id: "uc_lettuce_ipm",
+    title: "Lettuce Pest Management Guidelines",
+    publisher: "University of California IPM",
+    url: "https://ipm.ucanr.edu/agriculture/lettuce/",
+    scope: "International extension",
+    note:
+        "Pest identification, field monitoring and integrated management references for aphids, caterpillars, leafminers and other lettuce pests. Foreign pesticide labels and thresholds are not imported.",
   ),
   "ph_tomato_production": GuideSource(
     id: "ph_tomato_production",
@@ -414,7 +423,7 @@ const cropGuides = <CropGuide>[
     seasonalSourceIds: ["ph_sigatoka", "pagasa"],
   ),
   CropGuide(
-    rawLabel: "Pineapple_fusarium",
+    rawLabel: "pineapple_fusarium",
     crop: Crop.pineapple,
     name: "Fusarium symptoms",
     category: "Fungal disease; confirm the cause",
@@ -466,7 +475,7 @@ const cropGuides = <CropGuide>[
     seasonalSourceIds: ["ph_pineapple", "mx_pineapple_fusarium"],
   ),
   CropGuide(
-    rawLabel: "Pineapple_leaf_blight",
+    rawLabel: "pineapple_leaf_blight",
     crop: Crop.pineapple,
     name: "Leaf blight",
     category: "Blight symptoms; confirm the cause",
@@ -518,7 +527,7 @@ const cropGuides = <CropGuide>[
     seasonalSourceIds: ["ph_pineapple", "uf_pineapple"],
   ),
   CropGuide(
-    rawLabel: "Pineapple_mealybug_wilt",
+    rawLabel: "pineapple_mealybug_wilt",
     crop: Crop.pineapple,
     name: "Mealybug wilt",
     category: "Virus-vector disease complex",
@@ -570,7 +579,7 @@ const cropGuides = <CropGuide>[
     seasonalSourceIds: ["ph_pineapple", "ph_pineapple_research"],
   ),
   CropGuide(
-    rawLabel: "lettuce_Bacterial",
+    rawLabel: "lettuce_bacterial",
     crop: Crop.lettuce,
     name: "Bacterial disease",
     category: "Bacterial group",
@@ -672,6 +681,58 @@ const cropGuides = <CropGuide>[
     seasonalEvidence:
         "ATI Cordillera links lettuce fungal rot with excess moisture and waterlogging. Rainfall is only a proxy; fungal identity and growing conditions remain important.",
     seasonalSourceIds: ["ph_lettuce", "pagasa"],
+  ),
+  CropGuide(
+    rawLabel: "lettuce_insect_pest",
+    crop: Crop.lettuce,
+    name: "Insect pest damage",
+    category: "Broad insect-pest group",
+    summary:
+        "This broad label can represent aphids, semiloopers or other insects. Inspect the plant and identify the active pest before choosing a control.",
+    healthy: false,
+    treatment: [
+      GuidanceStep(
+        "Identify the active pest",
+        "Check both sides of leaves and the plant base for aphid colonies, caterpillars, eggs, feeding holes, mines or frass. A broad image label does not identify the insect species.",
+        ["ph_lettuce", "uc_lettuce_ipm"],
+      ),
+      GuidanceStep(
+        "Remove limited infestations",
+        "Handpick visible semiloopers and promptly remove badly aphid-infested plant parts when the infestation is still localized.",
+        ["ph_lettuce"],
+      ),
+      GuidanceStep(
+        "Recheck nearby plants",
+        "Inspect neighboring lettuce, especially leaf undersides and sheltered inner leaves, and repeat physical removal before the pest spreads.",
+        ["ph_lettuce", "uc_lettuce_ipm"],
+      ),
+      GuidanceStep(
+        "Use a matched control only when needed",
+        "If damage continues, ask the agricultural technician to identify the pest and select an FPA-registered product whose current label includes lettuce and that pest. Follow the label and preharvest interval.",
+        ["fpa", "uc_lettuce_ipm"],
+      ),
+    ],
+    prevention: [
+      GuidanceStep(
+        "Scout leaves routinely",
+        "Inspect both leaf surfaces from the seedling stage onward so aphids and young caterpillars can be managed while numbers are low.",
+        ["ph_lettuce", "uc_lettuce_ipm"],
+      ),
+      GuidanceStep(
+        "Remove early pest sources",
+        "Promptly handpick semiloopers and remove localized aphid-infested plant parts instead of leaving them in the growing area.",
+        ["ph_lettuce"],
+      ),
+      GuidanceStep(
+        "Use integrated pest management",
+        "Base action on the pest found and fresh damage, and avoid unnecessary broad-spectrum spraying that can disrupt natural enemies.",
+        ["uc_lettuce_ipm", "fpa"],
+      ),
+    ],
+    seasonalPattern: SeasonalPattern.insufficient,
+    seasonalEvidence:
+        "The class can include insects with different life cycles and weather responses. The reviewed Philippine sources identify common pests but do not support a single month- or rainfall-based risk rule.",
+    seasonalSourceIds: ["ph_lettuce", "ph_lettuce_season"],
   ),
   CropGuide(
     rawLabel: "tomato_early-late_blight",
@@ -996,7 +1057,7 @@ const cropGuides = <CropGuide>[
     seasonalSourceIds: [],
   ),
   CropGuide(
-    rawLabel: "Pineapple_healthy",
+    rawLabel: "pineapple_healthy",
     crop: Crop.pineapple,
     name: "Healthy crop care",
     category: "Healthy class",
@@ -1083,6 +1144,46 @@ CropGuide? guideForLabel(String? rawLabel) {
     if (guide.rawLabel == rawLabel) return guide;
   }
   return null;
+}
+
+String diseaseDescriptionForLabel(String? rawLabel) {
+  const descriptions = <String, String>{
+    'banana_cordana':
+        'Cordana leaf spot causes dark, diamond-shaped marks on banana leaves.',
+    'banana_healthy': 'The leaf looks healthy, with no clear disease signs.',
+    'banana_panama_wilt':
+        'Panama wilt affects the plant’s water flow, causing leaves to yellow and wilt.',
+    'banana_sigatoka':
+        'Sigatoka causes dark streaks and spots that damage banana leaves.',
+    'lettuce_bacterial':
+        'Bacterial disease can cause wet-looking spots or soft rot on lettuce.',
+    'lettuce_fungal':
+        'Fungal disease can cause spots, patches, or mold on lettuce leaves.',
+    'lettuce_healthy': 'The leaf looks healthy, with no clear disease signs.',
+    'lettuce_insect_pest':
+        'Insect pests feed on lettuce leaves and may leave holes or other marks.',
+    'pineapple_fusarium':
+        'Fusarium can cause rot and wilting in pineapple plants or fruit.',
+    'pineapple_healthy': 'The leaf looks healthy, with no clear disease signs.',
+    'pineapple_leaf_blight':
+        'Leaf blight causes damaged or dying patches on pineapple leaves.',
+    'pineapple_mealybug_wilt':
+        'Mealybugs spread this disease, which can make pineapple leaves red and wilted.',
+    'tomato_early-late_blight':
+        'Blight causes spreading dark spots on tomato leaves and sometimes stems.',
+    'tomato_healthy': 'The leaf looks healthy, with no clear disease signs.',
+    'tomato_insect_damage':
+        'Insects can chew, pierce, or mark tomato leaves in different ways.',
+    'tomato_leaf_curl_virus':
+        'Leaf curl virus can make tomato leaves curl, turn yellow, and grow poorly.',
+    'tomato_leaf_miner':
+        'Leaf miner larvae make winding tunnels inside tomato leaves.',
+    'tomato_leaf_mold':
+        'Leaf mold can cause yellow patches and fuzzy growth under tomato leaves.',
+  };
+
+  return descriptions[rawLabel] ??
+      'This condition can affect the plant’s leaves. Check the plant for other signs.';
 }
 
 List<CropGuide> guidesForCrop(Crop crop) =>

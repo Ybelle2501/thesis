@@ -1,6 +1,7 @@
 import 'dart:io';
 
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Text;
+import '../l10n/localized_text.dart';
 import '../theme/app_theme.dart';
 import '../models/models.dart';
 import '../services/classifier.dart';
@@ -12,6 +13,7 @@ import 'result_screen.dart';
 import 'treatment_screen.dart';
 import 'scan_history_screen.dart';
 import 'reports_screen.dart';
+import 'settings_screen.dart';
 
 // ─── DASHBOARD SCREEN ─────────────────────────────────────────────────────────
 
@@ -215,6 +217,16 @@ class _DashHeader extends StatelessWidget {
                 ),
               ),
             ],
+          ),
+          const SizedBox(width: 10),
+          AppCard(
+            padding: const EdgeInsets.all(10),
+            onTap: () => onNav(context, const SettingsScreen()),
+            child: const Icon(
+              Icons.settings_rounded,
+              color: AppColors.primary,
+              size: 22,
+            ),
           ),
         ],
       ),

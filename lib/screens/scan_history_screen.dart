@@ -1,6 +1,7 @@
 import 'dart:io';
 
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Text;
+import '../l10n/localized_text.dart';
 
 import '../models/models.dart';
 import '../services/classifier.dart';
@@ -627,7 +628,7 @@ class ScanHistoryOverflowMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PopupMenuButton<_ScanHistoryMenuAction>(
-      tooltip: 'Record options',
+      tooltip: localizeCopy(context, 'Record options'),
       icon: const Icon(Icons.more_vert_rounded, size: 22),
       onSelected: (_) => onRenameLocation(),
       itemBuilder: (context) => [

@@ -1,4 +1,5 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Text;
+import '../l10n/localized_text.dart';
 
 import '../services/seasonal_risk.dart';
 import '../theme/app_theme.dart';
@@ -89,7 +90,9 @@ Future<void> _showSeasonSettings(BuildContext context) async {
           20,
           0,
           20,
-          24 + MediaQuery.viewInsetsOf(context).bottom,
+          24 +
+              MediaQuery.viewPaddingOf(context).bottom +
+              MediaQuery.viewInsetsOf(context).bottom,
         ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -105,8 +108,8 @@ Future<void> _showSeasonSettings(BuildContext context) async {
               key: const ValueKey('station-picker'),
               initialValue: selected.station?.id ?? 'none',
               isExpanded: true,
-              decoration: const InputDecoration(
-                labelText: 'Nearby PAGASA station',
+              decoration: InputDecoration(
+                labelText: localizeCopy(context, 'Nearby PAGASA station'),
                 border: OutlineInputBorder(),
               ),
               items: [
@@ -138,8 +141,8 @@ Future<void> _showSeasonSettings(BuildContext context) async {
             DropdownButtonFormField<int>(
               key: const ValueKey('month-picker'),
               initialValue: selected.month,
-              decoration: const InputDecoration(
-                labelText: 'Month',
+              decoration: InputDecoration(
+                labelText: localizeCopy(context, 'Month'),
                 border: OutlineInputBorder(),
               ),
               items: [

@@ -1,4 +1,5 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Text;
+import '../l10n/localized_text.dart';
 
 import '../models/models.dart';
 import '../services/scan_history_database.dart';

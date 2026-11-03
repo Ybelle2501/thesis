@@ -199,7 +199,7 @@ void main() {
     },
   );
 
-  testWidgets('bundled classifier labels match the 17-class model', (
+  testWidgets('bundled classifier labels match the 18-class model', (
     WidgetTester _,
   ) async {
     final source = await rootBundle.loadString(
@@ -208,25 +208,26 @@ void main() {
     final labels = PlantDiseaseClassifier.parseLabels(source);
 
     expect(labels, hasLength(PlantDiseaseClassifier.expectedClassCount));
-    expect(labels.first, 'Pineapple_fusarium');
-    expect(labels[11], 'tomato_early-late_blight');
+    expect(labels.first, 'banana_cordana');
+    expect(labels[7], 'lettuce_insect_pest');
+    expect(labels[12], 'tomato_early-late_blight');
     expect(labels.last, 'tomato_leaf_mold');
   });
 
   testWidgets(
-    'bundled decision thresholds retain the MobileNetV2 deployment rule',
+    'bundled decision thresholds use the adjusted MobileNetV2 deployment rule',
     (WidgetTester _) async {
       final source = await rootBundle.loadString(
         PlantDiseaseClassifier.thresholdsAssetPath,
       );
       final thresholds = PlantDiseaseClassifier.parseThresholds(source);
 
-      expect(thresholds.confidence, 0.6);
-      expect(thresholds.margin, 0.38);
+      expect(thresholds.confidence, 0.5);
+      expect(thresholds.margin, 0.3);
       expect(thresholds.suggestionConfidence, 0.1);
-      expect(thresholds.accepts(topScore: 0.59, top1Top2Margin: 0.3), isFalse);
-      expect(thresholds.accepts(topScore: 0.8, top1Top2Margin: 0.37), isFalse);
-      expect(thresholds.accepts(topScore: 0.6, top1Top2Margin: 0.38), isTrue);
+      expect(thresholds.accepts(topScore: 0.49, top1Top2Margin: 0.4), isFalse);
+      expect(thresholds.accepts(topScore: 0.8, top1Top2Margin: 0.29), isFalse);
+      expect(thresholds.accepts(topScore: 0.5, top1Top2Margin: 0.3), isTrue);
     },
   );
 
@@ -307,9 +308,9 @@ void main() {
 
   test('a crop with two diseases can return one eligible alternative', () {
     final primary = RankedPrediction(
-      rawLabel: 'lettuce_Bacterial',
+      rawLabel: 'lettuce_bacterial',
       confidence: 0.55,
-      classIndex: 10,
+      classIndex: 4,
     );
     final suggestions = PlantDiseaseClassifier.selectDiseaseSuggestions(
       rankedPredictions: [
@@ -317,17 +318,17 @@ void main() {
         RankedPrediction(
           rawLabel: 'lettuce_fungal',
           confidence: 0.35,
-          classIndex: 11,
+          classIndex: 5,
         ),
         RankedPrediction(
           rawLabel: 'lettuce_healthy',
           confidence: 0.1,
-          classIndex: 12,
+          classIndex: 6,
         ),
         RankedPrediction(
           rawLabel: 'tomato_insect_damage',
           confidence: 0.2,
-          classIndex: 13,
+          classIndex: 14,
         ),
       ],
       primary: primary,
@@ -342,13 +343,13 @@ void main() {
     final lettuce = ClassificationResult(
       rawLabel: 'lettuce_healthy',
       confidence: 0.9,
-      classIndex: 12,
+      classIndex: 6,
       status: ScanStatus.success,
     );
     final tomato = ClassificationResult(
       rawLabel: 'tomato_leaf_curl_virus',
       confidence: 0.9,
-      classIndex: 20,
+      classIndex: 15,
       status: ScanStatus.success,
     );
 

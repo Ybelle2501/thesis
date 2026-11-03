@@ -12,6 +12,7 @@ class ScanHistoryDatabase {
 
   static const _databaseName = 'scan_history.db';
   static const _tableName = 'scan_history';
+  static const schemaVersion = 2;
 
   Database? _database;
 
@@ -23,7 +24,7 @@ class ScanHistoryDatabase {
     final path = '$databasesDirectory${Platform.pathSeparator}$_databaseName';
     final database = await openDatabase(
       path,
-      version: 2,
+      version: schemaVersion,
       onCreate: (db, _) async {
         await db.execute('''
           CREATE TABLE $_tableName (
@@ -112,6 +113,90 @@ class ScanHistoryDatabase {
     }
   }
 
+  Future<Map<String, Object?>> exportBackupData() async {
+    final database = await _db;
+    return {
+      'scans': await database.query(_tableName, orderBy: 'id ASC'),
+      'metadata': await database.query('app_metadata', orderBy: 'key ASC'),
+    };
+  }
+
+  Future<void> restoreBackupData({
+    required List<Map<String, Object?>> scans,
+    required List<Map<String, Object?>> metadata,
+    required Map<String, List<int>> imageFiles,
+  }) async {
+    final database = await _db;
+    final oldRows = await database.query(
+      _tableName,
+      columns: const ['image_path'],
+    );
+    final databasesDirectory = await getDatabasesPath();
+    final imagesDirectory = Directory(
+      '$databasesDirectory${Platform.pathSeparator}scan_history_images',
+    );
+    await imagesDirectory.create(recursive: true);
+
+    final copiedImages = <String>[];
+    final restoredScans = <Map<String, Object?>>[];
+    try {
+      for (var index = 0; index < scans.length; index++) {
+        final row = Map<String, Object?>.from(scans[index]);
+        final imageEntry = row.remove('image_entry') as String?;
+        if (imageEntry == null) {
+          final id = row['id'] as int? ?? index;
+          row['image_path'] =
+              '${imagesDirectory.path}${Platform.pathSeparator}missing_scan_$id.jpg';
+        } else {
+          final bytes = imageFiles[imageEntry];
+          if (bytes == null) {
+            throw FormatException('Backup image is missing: $imageEntry');
+          }
+          final entryName = imageEntry.split('/').last;
+          final extensionIndex = entryName.lastIndexOf('.');
+          final candidateExtension = extensionIndex < 0
+              ? ''
+              : entryName.substring(extensionIndex);
+          final extension =
+              RegExp(r'^\.[a-zA-Z0-9]{1,8}$').hasMatch(candidateExtension)
+              ? candidateExtension
+              : '.jpg';
+          final fileName =
+              'restored_${DateTime.now().microsecondsSinceEpoch}_$index$extension';
+          final destination =
+              '${imagesDirectory.path}${Platform.pathSeparator}$fileName';
+          copiedImages.add(destination);
+          await File(destination).writeAsBytes(bytes, flush: true);
+          row['image_path'] = destination;
+        }
+        restoredScans.add(row);
+      }
+
+      await database.transaction((txn) async {
+        await txn.delete(_tableName);
+        await txn.delete('app_metadata');
+        for (final row in restoredScans) {
+          await txn.insert(_tableName, row);
+        }
+        for (final row in metadata) {
+          await txn.insert('app_metadata', row);
+        }
+      });
+    } catch (_) {
+      for (final path in copiedImages) {
+        await _deleteFileIfPresent(path);
+      }
+      rethrow;
+    }
+
+    for (final row in oldRows) {
+      final oldPath = row['image_path'] as String?;
+      if (oldPath != null && oldPath.isNotEmpty) {
+        await _deleteFileIfPresent(oldPath);
+      }
+    }
+  }
+
   Future<void> updateLocation(int id, String location) async {
     final database = await _db;
     await database.update(
@@ -120,6 +205,26 @@ class ScanHistoryDatabase {
       where: 'id = ?',
       whereArgs: [id],
     );
+  }
+
+  Future<String?> getAppSetting(String key) async {
+    final database = await _db;
+    final rows = await database.query(
+      'app_metadata',
+      columns: const ['value'],
+      where: 'key = ?',
+      whereArgs: [key],
+      limit: 1,
+    );
+    return rows.isEmpty ? null : rows.first['value'] as String?;
+  }
+
+  Future<void> setAppSetting(String key, String value) async {
+    final database = await _db;
+    await database.insert('app_metadata', {
+      'key': key,
+      'value': value,
+    }, conflictAlgorithm: ConflictAlgorithm.replace);
   }
 
   Future<int> takeNextReportNumber() async {

@@ -1,5 +1,6 @@
 import 'dart:io';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Text;
+import '../l10n/localized_text.dart';
 import 'package:flutter/services.dart';
 import '../theme/app_theme.dart';
 import '../widgets/shared_widgets.dart';
@@ -578,6 +579,27 @@ class _SuccessViewState extends State<_SuccessView> {
                     ),
                     const SizedBox(height: 14),
 
+                    if (!isHealthy) ...[
+                      AppCard(
+                        padding: const EdgeInsets.all(18),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text(
+                              'About this condition',
+                              style: AppTextStyles.titleMedium,
+                            ),
+                            const SizedBox(height: 6),
+                            Text(
+                              diseaseDescriptionForLabel(result.rawLabel),
+                              style: AppTextStyles.bodyMedium,
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 14),
+                    ],
+
                     AppCard(
                       padding: const EdgeInsets.all(18),
                       color: _saved ? AppColors.accent : null,
@@ -623,9 +645,14 @@ class _SuccessViewState extends State<_SuccessView> {
                               ),
                             ],
                             decoration: InputDecoration(
-                              labelText: 'Crop location',
-                              hintText: 'Example: Greenhouse 1',
-                              errorText: _locationError,
+                              labelText: localizeCopy(context, 'Crop location'),
+                              hintText: localizeCopy(
+                                context,
+                                'Example: Greenhouse 1',
+                              ),
+                              errorText: _locationError == null
+                                  ? null
+                                  : localizeCopy(context, _locationError!),
                               prefixIcon: const Icon(
                                 Icons.location_on_outlined,
                               ),

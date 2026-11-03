@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1050" viewBox="0 0 1600 1050" role="img" aria-labelledby="title desc">
+  <title id="title">LeafLens Entity Relationship Diagram</title>
+  <desc id="desc">ERD of LeafLens SQLite database with scan_history and app_metadata entities. There are no foreign key relationships. Scan images are stored as files and referenced by image_path.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0 0 L9 4.5 L0 9 Z" fill="#111"/></marker>
+    <style>
+      text { font-family: Arial, Helvetica, sans-serif; fill: #111; }
+      .heading { font-family: Georgia, 'Times New Roman', serif; font-size: 33px; font-weight: 700; letter-spacing: 1px; }
+      .caption { font: italic 16px Georgia, 'Times New Roman', serif; }
+      .table-head { font-size: 19px; font-weight: 700; text-anchor: middle; }
+      .field { font: 15px 'Courier New', monospace; }
+      .type { font: 14px 'Courier New', monospace; fill: #333; }
+      .key { font-size: 12px; font-weight: 700; }
+      .note { font-size: 14px; }
+      .box { fill: #fff; stroke: #111; stroke-width: 2; }
+      .grid { stroke: #444; stroke-width: 1; }
+    </style>
+  </defs>
+  <rect width="1600" height="1050" fill="#fff"/>
+  <text x="800" y="65" text-anchor="middle" class="heading">ENTITY RELATIONSHIP DIAGRAM</text>
+  <text x="800" y="96" text-anchor="middle" font-size="17">LeafLens Local SQLite Database · scan_history.db · Schema Version 2</text>
+  <line x1="90" y1="119" x2="1510" y2="119" stroke="#111" stroke-width="1.5"/>
+
+  <!-- scan_history -->
+  <rect x="100" y="175" width="865" height="650" class="box"/>
+  <rect x="100" y="175" width="865" height="48" fill="#eee" stroke="#111" stroke-width="2"/>
+  <text x="532" y="207" class="table-head">SCAN_HISTORY</text>
+  <line x1="155" y1="223" x2="155" y2="825" class="grid"/>
+  <line x1="460" y1="223" x2="460" y2="825" class="grid"/>
+  <text x="115" y="251" class="key">KEY</text><text x="180" y="251" class="key">ATTRIBUTE</text><text x="485" y="251" class="key">DATA TYPE / CONSTRAINT</text>
+  <line x1="100" y1="263" x2="965" y2="263" class="grid"/>
+  <g class="field">
+    <text x="117" y="293" class="key">PK</text><text x="180" y="293">id</text><text x="485" y="293" class="type">INTEGER PRIMARY KEY AUTOINCREMENT</text>
+    <text x="180" y="333">plant</text><text x="485" y="333" class="type">TEXT NOT NULL</text>
+    <text x="180" y="373">disease</text><text x="485" y="373" class="type">TEXT NOT NULL</text>
+    <text x="180" y="413">status</text><text x="485" y="413" class="type">TEXT NOT NULL CHECK (Healthy, Infected)</text>
+    <text x="180" y="453">confidence</text><text x="485" y="453" class="type">REAL NOT NULL</text>
+    <text x="180" y="493">image_path</text><text x="485" y="493" class="type">TEXT NOT NULL</text>
+    <text x="180" y="533">raw_label</text><text x="485" y="533" class="type">TEXT NOT NULL</text>
+    <text x="180" y="573">class_index</text><text x="485" y="573" class="type">INTEGER NOT NULL</text>
+    <text x="180" y="613">captured_at</text><text x="485" y="613" class="type">INTEGER NOT NULL (UTC epoch ms)</text>
+    <text x="180" y="653">source</text><text x="485" y="653" class="type">TEXT NOT NULL</text>
+    <text x="180" y="693">scan_mode</text><text x="485" y="693" class="type">TEXT NOT NULL</text>
+    <text x="180" y="733">grid_cell</text><text x="485" y="733" class="type">INTEGER NULL</text>
+    <text x="180" y="773">location</text><text x="485" y="773" class="type">TEXT NOT NULL DEFAULT ''</text>
+  </g>
+  <g stroke="#eee" stroke-width="1">
+    <line x1="100" y1="303" x2="965" y2="303"/><line x1="100" y1="343" x2="965" y2="343"/><line x1="100" y1="383" x2="965" y2="383"/><line x1="100" y1="423" x2="965" y2="423"/><line x1="100" y1="463" x2="965" y2="463"/><line x1="100" y1="503" x2="965" y2="503"/><line x1="100" y1="543" x2="965" y2="543"/><line x1="100" y1="583" x2="965" y2="583"/><line x1="100" y1="623" x2="965" y2="623"/><line x1="100" y1="663" x2="965" y2="663"/><line x1="100" y1="703" x2="965" y2="703"/><line x1="100" y1="743" x2="965" y2="743"/><line x1="100" y1="783" x2="965" y2="783"/>
+  </g>
+
+  <!-- app_metadata -->
+  <rect x="1080" y="230" width="420" height="235" class="box"/>
+  <rect x="1080" y="230" width="420" height="48" fill="#eee" stroke="#111" stroke-width="2"/>
+  <text x="1290" y="262" class="table-head">APP_METADATA</text>
+  <line x1="1100" y1="312" x2="1480" y2="312" class="grid"/>
+  <text x="1105" y="301" class="key">KEY</text><text x="1160" y="301" class="key">ATTRIBUTE</text><text x="1350" y="301" class="key">DATA TYPE</text>
+  <line x1="1335" y1="278" x2="1335" y2="420" class="grid"/>
+  <text x="1104" y="346" class="key">PK</text><text x="1160" y="346" class="field">key</text><text x="1350" y="346" class="type">TEXT</text>
+  <line x1="1100" y1="365" x2="1480" y2="365" class="grid"/>
+  <text x="1160" y="405" class="field">value</text><text x="1350" y="405" class="type">TEXT NOT NULL</text>
+  <text x="1290" y="438" text-anchor="middle" class="note">Keys include next_report_number and language</text>
+  <text x="1290" y="458" text-anchor="middle" class="note">language value: en or tl</text>
+
+  <!-- external file artifact -->
+  <rect x="1080" y="585" width="420" height="155" class="box" stroke-dasharray="7 5"/>
+  <text x="1290" y="620" class="table-head">SCAN IMAGE FILES</text>
+  <text x="1110" y="660" class="field">scan_history_images/scan_*.jpg</text>
+  <text x="1110" y="697" class="note">External to SQLite; path stored in</text>
+  <text x="1110" y="718" class="note">scan_history.image_path</text>
+  <path d="M965 493 H1018 V663 H1080" fill="none" stroke="#111" stroke-width="2" stroke-dasharray="7 5" marker-end="url(#arrow)"/>
+  <text x="1025" y="478" class="note">file reference</text>
+
+  <!-- no relationship note / indexes -->
+  <rect x="1080" y="790" width="420" height="115" fill="#fff" stroke="#111" stroke-width="1.5"/>
+  <text x="1105" y="822" font-size="16" font-weight="700">RELATIONSHIP AND INDEX NOTES</text>
+  <text x="1105" y="850" class="note">No foreign keys are defined between the two tables.</text>
+  <text x="1105" y="875" class="note">Indexes: captured_at DESC, status.</text>
+
+  <text x="800" y="956" text-anchor="middle" class="caption">Figure 4.2. Entity Relationship Diagram for LeafLens Scan History and Report Metadata</text>
+  <text x="800" y="987" text-anchor="middle" font-size="12" fill="#444">Schema derived from lib/services/scan_history_database.dart. app_metadata is an independent key/value table.</text>
+</svg>

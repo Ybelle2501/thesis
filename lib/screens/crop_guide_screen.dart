@@ -1,4 +1,5 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Text;
+import '../l10n/localized_text.dart';
 
 import '../data/crop_guides.dart';
 import '../models/crop_guide.dart';
@@ -31,10 +32,10 @@ class CropGuideLibraryScreen extends StatelessWidget {
           tabAlignment: TabAlignment.center,
           labelColor: AppColors.primary,
           tabs: [
-            Tab(text: 'Pineapple'),
-            Tab(text: 'Banana'),
-            Tab(text: 'Lettuce'),
-            Tab(text: 'Tomato'),
+            Tab(child: Text('Pineapple')),
+            Tab(child: Text('Banana')),
+            Tab(child: Text('Lettuce')),
+            Tab(child: Text('Tomato')),
           ],
         ),
       ),
@@ -172,7 +173,7 @@ class _CropGuideDetailScreenState extends State<CropGuideDetailScreen> {
         title: Text(guide.crop.title),
         actions: [
           IconButton(
-            tooltip: 'View all sources',
+            tooltip: localizeCopy(context, 'View all sources'),
             onPressed: () => showGuideSources(context, references),
             icon: const Icon(Icons.menu_book_outlined),
           ),

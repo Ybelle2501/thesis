@@ -5,8 +5,14 @@ import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:printing/printing.dart';
 
+import '../l10n/app_language.dart';
+import '../l10n/localized_text.dart' as app_l10n;
 import '../models/models.dart';
 import 'scan_history_database.dart';
+
+String _t(String value) => AppLanguage.locale.value.languageCode == 'tl'
+    ? app_l10n.translateToTagalog(value)
+    : value;
 
 class PapusoyReportService {
   const PapusoyReportService._();
@@ -60,9 +66,9 @@ class PapusoyReportService {
     required DateTime exportedAt,
   }) async {
     final document = pw.Document(
-      title: 'Papusoy Hydrofarm Scouting Report',
+      title: _t('Papusoy Hydrofarm Scouting Report'),
       author: scoutedBy,
-      subject: 'Crop scouting report for $location',
+      subject: _t('Crop scouting report for $location'),
     );
     final logoData = await _loadBrandLogo();
     final logo = pw.MemoryImage(_optimizedLogo(logoData.buffer.asUint8List()));
@@ -116,7 +122,7 @@ class PapusoyReportService {
                 ),
               ),
               pw.Text(
-                'Page ${context.pageNumber} of ${context.pagesCount}',
+                _t('Page ${context.pageNumber} of ${context.pagesCount}'),
                 style: const pw.TextStyle(
                   fontSize: 8,
                   color: PdfColors.grey700,
@@ -143,7 +149,7 @@ class PapusoyReportService {
           ),
           pw.SizedBox(height: 14),
           pw.Text(
-            'Location: $location',
+            _t('Location: $location'),
             style: pw.TextStyle(
               fontSize: 11,
               fontWeight: pw.FontWeight.bold,
@@ -154,13 +160,13 @@ class PapusoyReportService {
           _cropTable(cropGroups, location),
           pw.SizedBox(height: 12),
           pw.Text(
-            'Diseases recorded at this location',
+            _t('Diseases recorded at this location'),
             style: pw.TextStyle(fontSize: 10, fontWeight: pw.FontWeight.bold),
           ),
           pw.SizedBox(height: 5),
           pw.Text(
             diseaseCounts.isEmpty
-                ? 'None detected'
+                ? _t('None detected')
                 : diseaseCounts.entries
                       .map((entry) => '${entry.key} (${entry.value})')
                       .join(', '),
@@ -179,8 +185,10 @@ class PapusoyReportService {
               ),
               child: pw.Text(
                 infected.isEmpty
-                    ? 'No affected crops were recorded at this location.'
-                    : 'Affected crop images are no longer available on this device.',
+                    ? _t('No affected crops were recorded at this location.')
+                    : _t(
+                        'Affected crop images are no longer available on this device.',
+                      ),
                 style: const pw.TextStyle(
                   fontSize: 9,
                   color: PdfColors.grey700,
@@ -235,20 +243,20 @@ class PapusoyReportService {
           crossAxisAlignment: pw.CrossAxisAlignment.end,
           children: [
             pw.Text(
-              'SCOUTING REPORT',
+              _t('SCOUTING REPORT'),
               style: pw.TextStyle(fontSize: 9, fontWeight: pw.FontWeight.bold),
             ),
             pw.SizedBox(height: 4),
             pw.Text(
-              'Location: $location',
+              _t('Location: $location'),
               style: const pw.TextStyle(fontSize: 8),
             ),
             pw.Text(
-              'Scouted date: ${_dateLabel(date)}',
+              _t('Scouted date: ${_dateLabel(date)}'),
               style: const pw.TextStyle(fontSize: 8),
             ),
             pw.Text(
-              'Scouted by: $scoutedBy',
+              _t('Scouted by: $scoutedBy'),
               style: const pw.TextStyle(fontSize: 8),
             ),
           ],
@@ -266,7 +274,7 @@ class PapusoyReportService {
       ),
     ),
     child: pw.Text(
-      value,
+      _t(value),
       style: pw.TextStyle(
         fontSize: 15,
         fontWeight: pw.FontWeight.bold,
@@ -283,17 +291,21 @@ class PapusoyReportService {
   }) {
     return pw.Row(
       children: [
-        _summaryCard('Healthy', '$healthy', PdfColors.green700),
+        _summaryCard(_t('Healthy'), '$healthy', PdfColors.green700),
         pw.SizedBox(width: 6),
-        _summaryCard('Infected', '$infected', PdfColors.red700),
+        _summaryCard(_t('Infected'), '$infected', PdfColors.red700),
         pw.SizedBox(width: 6),
         _summaryCard(
-          'Most active disease',
+          _t('Most active disease'),
           mostActiveDisease,
           PdfColors.orange800,
         ),
         pw.SizedBox(width: 6),
-        _summaryCard('Most affected crop', mostAffectedCrop, PdfColors.red800),
+        _summaryCard(
+          _t('Most affected crop'),
+          mostAffectedCrop,
+          PdfColors.red800,
+        ),
       ],
     );
   }
@@ -313,7 +325,7 @@ class PapusoyReportService {
           mainAxisAlignment: pw.MainAxisAlignment.center,
           children: [
             pw.Text(
-              label,
+              _t(label),
               style: const pw.TextStyle(fontSize: 7, color: PdfColors.grey700),
             ),
             pw.SizedBox(height: 3),
@@ -347,23 +359,23 @@ class PapusoyReportService {
               .toSet()
               .join(', ');
           return [
-            entry.key,
+            _t(entry.key),
             location,
             '${entry.value.length}',
             '${entry.value.length - affected}',
             '$affected',
-            diseases.isEmpty ? 'None' : diseases,
+            diseases.isEmpty ? _t('None') : _t(diseases),
           ];
         })
         .toList(growable: false);
     return pw.TableHelper.fromTextArray(
-      headers: const [
-        'Crop',
-        'Location tag',
-        'Scans',
-        'Healthy',
-        'Infected',
-        'Diseases',
+      headers: [
+        _t('Crop'),
+        _t('Location tag'),
+        _t('Scans'),
+        _t('Healthy'),
+        _t('Infected'),
+        _t('Diseases'),
       ],
       data: rows,
       headerStyle: pw.TextStyle(
@@ -409,7 +421,9 @@ class PapusoyReportService {
             padding: const pw.EdgeInsets.all(8),
             color: PdfColors.grey100,
             child: pw.Text(
-              '$number. ${attachment.scan.plant} - ${attachment.scan.disease}',
+              _t(
+                '$number. ${attachment.scan.plant} - ${attachment.scan.disease}',
+              ),
               style: pw.TextStyle(fontSize: 9, fontWeight: pw.FontWeight.bold),
             ),
           ),
@@ -421,7 +435,8 @@ class PapusoyReportService {
   static Map<String, int> _counts(Iterable<String> values) {
     final counts = <String, int>{};
     for (final value in values) {
-      counts.update(value, (count) => count + 1, ifAbsent: () => 1);
+      final label = _t(value);
+      counts.update(label, (count) => count + 1, ifAbsent: () => 1);
     }
     return counts;
   }
@@ -476,7 +491,7 @@ class PapusoyReportService {
       'November',
       'December',
     ];
-    return '${months[value.month - 1]} ${value.day}, ${value.year}';
+    return '${_t(months[value.month - 1])} ${value.day}, ${value.year}';
   }
 }
 

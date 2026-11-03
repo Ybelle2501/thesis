@@ -1,7 +1,7 @@
 # Crop guidance and seasonal outlook
 
-The Treatment Advice and Disease Prevention libraries cover the exact 17 labels
-in `assets/labels.json`: 13 disease/pest conditions and four healthy classes.
+The Treatment Advice and Disease Prevention libraries cover the exact 18 labels
+in `assets/labels.json`: 14 disease/pest conditions and four healthy classes.
 Broad labels remain broad. They are not silently converted into a confirmed
 pathogen diagnosis.
 
@@ -69,6 +69,9 @@ invent a period such as 1991–2020. The source page is retained in the bibliogr
   do not establish a pathogen species or justify a fungicide without diagnosis.
 - The combined tomato blight label retains all earlier early- and late-blight
   treatment/prevention steps, but a field diagnosis is still required.
+- The lettuce insect-pest label is a broad visual class. It does not distinguish
+  aphids, semiloopers, cutworms, armyworms, leafminers or other pests, so the
+  guide requires inspection before treatment selection.
 - Healthy classifications are not future disease predictions.
 
 A statistically validated probability feature would require a defined disease,
@@ -82,8 +85,9 @@ Tests check exact model-label coverage, references and local prevention sources,
 regional rainfall differences, upland effects, missing-evidence behavior,
 crop navigation, settings, source copying and narrow-screen layouts.
 
-## Bibliography (reviewed 28 September 2026)
+## Bibliography (reviewed 7 October 2026)
 
+- [Lettuce Pest Management Guidelines](https://ipm.ucanr.edu/agriculture/lettuce/) — University of California IPM. International extension.
 - [Long-Term Harvesting of Tomato and Sweet Pepper (2026)](https://ati2.da.gov.ph/ati-car/content/sites/default/files/2026-01/DA%20%26%20JICA%20MV2C%20Training%20Module%20on%20Long%20Term%20Harvesting%20of%20Tomato%20and%20Sweet%20Pepper%20%28for%20online%20upload%20in%20web%29_1.pdf) — DA / JICA / ATI Cordillera. Philippine extension.
 - [Philippine Banana Industry Roadmap 2021–2025](https://www.da.gov.ph/wp-content/uploads/2023/05/Philippine-Banana-Industry-Roadmap.pdf) — Department of Agriculture. Philippine extension.
 - [Banana Production Manual](https://hvcdp.da.gov.ph/wp-content/uploads/2022/05/Banana-Production-Manual.pdf) — DA High Value Crops Development Program. Philippine extension.

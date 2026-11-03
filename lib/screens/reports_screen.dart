@@ -1,6 +1,7 @@
 // ignore_for_file: unused_element
 
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Text;
+import '../l10n/localized_text.dart';
 import '../theme/app_theme.dart';
 import '../widgets/shared_widgets.dart';
 import 'scan_history_screen.dart';

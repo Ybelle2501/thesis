@@ -79,7 +79,8 @@
   <text x="967" y="349" text-anchor="middle" class="tag">PK</text>
   <text x="998" y="350" class="field">key</text><text x="1195" y="350" class="type">TEXT</text>
   <text x="955" y="402" class="field">value</text><text x="1195" y="402" class="type">TEXT NOT NULL</text>
-  <text x="955" y="446" class="note">Used key: next_report_number</text>
+  <text x="955" y="438" class="note">Keys: next_report_number, language</text>
+  <text x="955" y="461" class="note">language value: en or tl</text>
 
   <!-- indexes -->
   <rect x="925" y="530" width="500" height="145" rx="18" fill="#F2F7FF" stroke="#CCD9EA" stroke-width="2"/>

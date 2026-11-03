@@ -146,7 +146,7 @@ class PlantDiseaseClassifier {
       'assets/MobileNetV2_decision_thresholds.json';
   static const String modelName = 'MobileNetV2_best_model.tflite';
   static const int inputSize = 224;
-  static const int expectedClassCount = 17;
+  static const int expectedClassCount = 18;
   static const int maximumSuggestedDiseases = 2;
 
   Interpreter? _interpreter;

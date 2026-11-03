@@ -1,4 +1,5 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Text;
+import '../l10n/localized_text.dart';
 import 'package:flutter/services.dart';
 
 import '../models/models.dart';
@@ -143,10 +144,12 @@ class _ReportExportScreenState extends State<ReportExportScreen> {
                   FilteringTextInputFormatter.allow(RegExp(r'[A-Za-z0-9 ]')),
                 ],
                 decoration: InputDecoration(
-                  labelText: 'Crop location',
-                  hintText: 'Example: Greenhouse 1',
+                  labelText: localizeCopy(context, 'Crop location'),
+                  hintText: localizeCopy(context, 'Example: Greenhouse 1'),
                   prefixIcon: const Icon(Icons.location_on_outlined),
-                  errorText: _locationError,
+                  errorText: _locationError == null
+                      ? null
+                      : localizeCopy(context, _locationError!),
                 ),
                 onChanged: (_) {
                   if (_locationError != null) {
@@ -155,9 +158,14 @@ class _ReportExportScreenState extends State<ReportExportScreen> {
                 },
                 validator: (value) {
                   final normalized = normalizeLocationTag(value ?? '');
-                  if (normalized.isEmpty) return 'Enter a crop location.';
+                  if (normalized.isEmpty) {
+                    return localizeCopy(context, 'Enter a crop location.');
+                  }
                   if (!locationTagPattern.hasMatch(normalized)) {
-                    return 'Use letters, numbers, and spaces only.';
+                    return localizeCopy(
+                      context,
+                      'Use letters, numbers, and spaces only.',
+                    );
                   }
                   return null;
                 },
@@ -186,13 +194,13 @@ class _ReportExportScreenState extends State<ReportExportScreen> {
               TextFormField(
                 controller: _nameController,
                 textCapitalization: TextCapitalization.words,
-                decoration: const InputDecoration(
-                  labelText: 'Scout name',
-                  hintText: 'Name shown as Scouted by',
+                decoration: InputDecoration(
+                  labelText: localizeCopy(context, 'Scout name'),
+                  hintText: localizeCopy(context, 'Name shown as Scouted by'),
                   prefixIcon: Icon(Icons.person_outline_rounded),
                 ),
                 validator: (value) => value == null || value.trim().isEmpty
-                    ? 'Enter the scout name.'
+                    ? localizeCopy(context, 'Enter the scout name.')
                     : null,
               ),
               const SizedBox(height: 22),

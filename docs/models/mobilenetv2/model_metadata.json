@@ -8,14 +8,14 @@
   "input_color_order": "RGB",
   "input_range": [0, 255],
   "preprocessing": "x / 127.5 - 1 is embedded in the model",
-  "output_shape": [1, 17],
+  "output_shape": [1, 18],
   "output_dtype": "float32",
   "output_interpretation": "Softmax probabilities in assets/labels.json order",
-  "threshold_rule": "confidence >= 0.60 AND top1_minus_top2 >= 0.38",
+  "threshold_rule": "confidence >= 0.50 AND top1_minus_top2 >= 0.30",
   "suggestion_confidence_threshold": 0.10,
-  "threshold_selection_rows": 1378,
-  "threshold_observed_coverage": 0.9550072568940493,
-  "threshold_observed_accepted_accuracy": 0.9506079027355623,
-  "threshold_observed_error_rejection": 0.29347826086956524,
-  "threshold_status": "Selected on exported held-out test predictions to target at least 95% accepted-result accuracy. Requires independent calibration and unsupported/non-leaf validation."
+  "threshold_evaluation_rows": 1173,
+  "threshold_observed_coverage": 0.96845694799659,
+  "threshold_observed_accepted_accuracy": 0.939260563380282,
+  "threshold_observed_error_rejection": 0.168674698795181,
+  "threshold_status": "Confidence 0.50 and margin 0.30 are a conservative usability adjustment evaluated on the supplied 18-class plant test export. Requires independent calibration and unsupported/non-leaf validation."
 }
