@@ -233,6 +233,61 @@ const Map<String, String> _tagalog = {
   'Scan Results': 'Mga Resulta ng Scan',
   'Diagnosis': 'Pagsusuri',
   'About this condition': 'Tungkol sa kondisyong ito',
+  'Cause:': 'Sanhi:',
+  'Symptoms:': 'Sintomas:',
+  'A fungal infection.': 'Impeksiyong dulot ng fungus.',
+  'A soilborne Fusarium fungus.': 'Fungus na Fusarium na nananatili sa lupa.',
+  'A fungal infection spread by spores.':
+      'Impeksiyong dulot ng fungus na kumakalat sa pamamagitan ng mga spora.',
+  'Bacteria; the exact type can vary.':
+      'Bakterya; maaaring mag-iba ang eksaktong uri nito.',
+  'Fungi; the exact type can vary.':
+      'Mga fungus; maaaring mag-iba ang eksaktong uri nito.',
+  'Feeding by insects such as aphids or caterpillars.':
+      'Pagkain ng mga insekto tulad ng aphid o uod.',
+  'A Fusarium fungus.': 'Fungus na Fusarium.',
+  'Several problems can look similar, including fungi, rot, excess moisture, or injury.':
+      'Magkakahawig ang hitsura ng ilang problema, gaya ng fungus, pagkabulok, sobrang tubig, o pinsala.',
+  'Wilt-associated viruses spread by pineapple mealybugs.':
+      'Mga virus na kaugnay ng pagkalanta na ipinapasa ng mealybug sa pinya.',
+  'Fungal or fungus-like pathogens, depending on which blight is present.':
+      'Fungus o kahawig nitong pathogen, depende sa uri ng blight.',
+  'Feeding by chewing or sap-sucking insects.':
+      'Pagkain ng mga insektong ngumunguya o sumisipsip ng katas ng halaman.',
+  'A virus commonly spread by whiteflies.':
+      'Virus na karaniwang ipinapasa ng mga whitefly.',
+  'Small insect larvae feeding inside the leaf.':
+      'Maliliit na uod ng insekto na kumakain sa loob ng dahon.',
+  'A fungus that grows on tomato leaves.':
+      'Fungus na tumutubo sa dahon ng kamatis.',
+  'Dark, diamond-shaped spots on the leaves.':
+      'Maiitim at hugis-diyamanteng batik sa mga dahon.',
+  'Yellowing and wilting leaves; the plant may decline.':
+      'Paninilaw at pagkalanta ng mga dahon; maaaring humina ang halaman.',
+  'Dark streaks or spots that spread across the leaves.':
+      'Maiitim na guhit o batik na kumakalat sa mga dahon.',
+  'Wet-looking leaf spots or soft, rotting tissue.':
+      'Mukhang basang batik o malambot at nabubulok na bahagi ng dahon.',
+  'Leaf spots, patches, or fuzzy growth.':
+      'Mga batik, tuyong bahagi, o malambot na amag sa dahon.',
+  'Holes, chewed edges, or other feeding marks.':
+      'Mga butas, nginatngat na gilid, o iba pang bakas ng pagkain ng insekto.',
+  'Rot, discoloration, or wilting in plant tissue or fruit.':
+      'Pagkabulok, pagbabago ng kulay, o pagkalanta ng halaman o bunga.',
+  'Brown or dying patches, often near leaf tips or edges.':
+      'Kayumanggi o natutuyong bahagi, madalas malapit sa dulo o gilid ng dahon.',
+  'Reddening, curling, and wilting leaves.':
+      'Pamumula, pagkakulot, at pagkalanta ng mga dahon.',
+  'Dark leaf spots that may spread to stems or fruit.':
+      'Maiitim na batik sa dahon na maaaring kumalat sa tangkay o bunga.',
+  'Holes, pale speckles, curling, or other leaf marks.':
+      'Mga butas, mapuputlang tuldok, pagkakulot, o iba pang marka sa dahon.',
+  'Curled or yellow leaves and stunted plant growth.':
+      'Nakakulot o naninilaw na dahon at mabagal na paglaki ng halaman.',
+  'Thin, winding trails inside the leaves.':
+      'Manipis at paikot-ikot na mga bakas sa loob ng dahon.',
+  'Yellow patches above and fuzzy growth under the leaves.':
+      'Dilaw na mga bahagi sa ibabaw at malambot na amag sa ilalim ng dahon.',
   'What to do next': 'Mga susunod na hakbang',
   'Recommended treatment': 'Inirerekomendang paggamot',
   'Recommended prevention': 'Inirerekomendang pag-iwas',
@@ -468,8 +523,8 @@ const Map<String, String> _tagalog = {
   'Crop Guide': 'Gabay sa Pananim',
   'Choose a condition for treatment steps and supporting references.':
       'Pumili ng kondisyon para makita ang mga hakbang sa paggamot at mga sanggunian.',
-  'Choose a condition for prevention steps and the evidence behind its seasonal outlook.':
-      'Pumili ng kondisyon para makita ang mga hakbang sa pag-iwas at ebidensya tungkol sa panganib nito ayon sa panahon.',
+  'Choose a condition for prevention steps and the evidence behind its predictive outlook.':
+      'Pumili ng kondisyon para makita ang mga hakbang sa pag-iwas at ebidensya sa pagtataya nito ayon sa panahon.',
   'Routine crop care': 'Regular na pangangalaga sa pananim',
   'Treatment plan': 'Plano ng paggamot',
   'Prevention steps': 'Mga hakbang sa pag-iwas',
@@ -673,7 +728,7 @@ const Map<String, String> _tagalog = {
   'Fusarium symptoms': 'Mga sintomas ng Fusarium',
   'Leaf blight': 'Leaf blight',
   'Mealybug wilt': 'Pagkalanta na dulot ng mealybug',
-  'Bacterial group': 'Pangkat ng bakterya',
+  'Bacterial disease group': 'Pangkat ng mga sakit na bacterial',
   'Fungal group': 'Pangkat ng amag',
   'Broad insect-pest group': 'Malawak na pangkat ng peste ng insekto',
   'Combined blight class': 'Pinagsamang kategorya ng blight',
@@ -693,8 +748,8 @@ const Map<String, String> _tagalog = {
       'Inilalarawan ng leaf blight ang sirang tissue, hindi ang kumpirmadong sanhi. Maaaring magkahawig ang pagkabulok, amag, kakulangan sa tubig, at pinsala.',
   'Pineapple mealybugs transmit wilt-associated viruses. Treating a wilted plant does not reverse viral infection; management focuses on confirming mealybugs and protecting healthy plants.':
       'Nagpapasa ang mealybug ng pinya ng mga virus na kaugnay ng pagkalanta. Hindi naibabalik ng paggamot ang halamang nalanta dahil sa virus; ituon ang pamamahala sa pagkumpirma ng mealybug at pagprotekta sa malulusog na halaman.',
-  'The label does not distinguish leaf spot from soft rot or wilt. Identify the cause before selecting a treatment.':
-      'Hindi naihihiwalay ng label ang batik sa dahon, malambot na pagkabulok, o pagkalanta. Tukuyin muna ang sanhi bago pumili ng paggamot.',
+  'This model category groups several bacterial conditions, including leaf spot, soft rot, and wilt. These can look similar in an image, so confirm the specific cause before choosing a treatment.':
+      'Pinagsasama ng kategorya ng modelo ang ilang sakit na bacterial, kabilang ang batik sa dahon, soft rot, at pagkalanta. Maaaring magkahawig ang mga ito sa larawan, kaya kumpirmahin ang tiyak na sanhi bago pumili ng paggamot.',
   'Different fungi can cause leaf lesions and rotting. This broad class needs confirmation before fungicide selection.':
       'Maaaring magdulot ng sugat sa dahon at pagkabulok ang iba’t ibang amag. Kailangang kumpirmahin muna ang malawak na kategoryang ito bago pumili ng fungicide.',
   'This broad label can represent aphids, semiloopers or other insects. Inspect the plant and identify the active pest before choosing a control.':
@@ -840,7 +895,7 @@ const Map<String, String> _tagalog = {
       'Hindi nakumpirma ang suportadong halaman sa tile na ito. Hindi ito isinama sa resulta ng grid at hindi ise-save.',
   'The model recognized chewing, scarring, holes, or other visible patterns consistent with insect feeding.':
       'Nakilala ng modelo ang mga marka ng kagat, peklat, butas, o iba pang nakikitang padron na tugma sa pagkain ng insekto.',
-  'Seasonal outlook': 'Pana-panahong pananaw',
+  'Predictive outlook': 'Pagtataya ayon sa panahon',
   'Choose your area': 'Piliin ang lugar mo',
   'Growing site: cool upland': 'Lugar na tinataniman: malamig na kabundukan',
   'Growing site: warm / lowland': 'Lugar na tinataniman: mainit / mababang lugar',
@@ -1031,8 +1086,14 @@ String _translate(String source) {
   if (rainfall != null) {
     return '${_translate(rainfall.group(1)!)} • ${rainfall.group(2)} mm ang karaniwang ulan';
   }
-  final selectedHealthy = RegExp(r'^Healthy (\d+)$').firstMatch(source);
-  if (selectedHealthy != null) return 'Malusog ${selectedHealthy.group(1)}';
+  final selectedHealthy = RegExp(r'^Healthy: (\d+)$').firstMatch(source);
+  if (selectedHealthy != null) return 'Malusog: ${selectedHealthy.group(1)}';
+  final infectedCount = RegExp(
+    r'^Infected: (\d+) \((\d+%)\)$',
+  ).firstMatch(source);
+  if (infectedCount != null) {
+    return 'May sakit: ${infectedCount.group(1)} (${infectedCount.group(2)})';
+  }
   final selectedAffected = RegExp(
     r'^Affected (\d+) \((\d+%)\)$',
   ).firstMatch(source);

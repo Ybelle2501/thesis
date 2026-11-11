@@ -411,13 +411,13 @@ class _HealthOverview extends StatelessWidget {
           Row(
             children: [
               _LegendDot(
-                label: 'Healthy $healthy',
+                label: 'Healthy: $healthy',
                 color: AppColors.primaryLight,
               ),
               const SizedBox(width: 18),
               _LegendDot(
                 label:
-                    'Affected $infected (${(infectedRate * 100).toStringAsFixed(0)}%)',
+                    'Infected: $infected (${(infectedRate * 100).toStringAsFixed(0)}%)',
                 color: AppColors.error,
               ),
             ],

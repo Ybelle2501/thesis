@@ -1,0 +1,5 @@
+{
+  "confidence_threshold": 0.65,
+  "margin_threshold": 0.15,
+  "calibration_status": "Provisional starting thresholds only; validate and calibrate on supported crops and diverse unsupported plants before deployment. Model outputs are not calibrated probabilities."
+}

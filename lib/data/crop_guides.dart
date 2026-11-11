@@ -582,9 +582,9 @@ const cropGuides = <CropGuide>[
     rawLabel: "lettuce_bacterial",
     crop: Crop.lettuce,
     name: "Bacterial disease",
-    category: "Bacterial group",
+    category: "Bacterial disease group",
     summary:
-        "The label does not distinguish leaf spot from soft rot or wilt. Identify the cause before selecting a treatment.",
+        "This model category groups several bacterial conditions, including leaf spot, soft rot, and wilt. These can look similar in an image, so confirm the specific cause before choosing a treatment.",
     healthy: false,
     treatment: [
       GuidanceStep(
@@ -1162,7 +1162,7 @@ String diseaseDescriptionForLabel(String? rawLabel) {
     'lettuce_healthy': 'The leaf looks healthy, with no clear disease signs.',
     'lettuce_insect_pest':
         'Insect pests feed on lettuce leaves and may leave holes or other marks.',
-    'pineapple_fusarium':
+        'pineapple_fusarium':
         'Fusarium can cause rot and wilting in pineapple plants or fruit.',
     'pineapple_healthy': 'The leaf looks healthy, with no clear disease signs.',
     'pineapple_leaf_blight':
@@ -1184,6 +1184,51 @@ String diseaseDescriptionForLabel(String? rawLabel) {
 
   return descriptions[rawLabel] ??
       'This condition can affect the plant’s leaves. Check the plant for other signs.';
+}
+
+String diseaseCauseForLabel(String? rawLabel) {
+  const causes = <String, String>{
+    'banana_cordana': 'A fungal infection.',
+    'banana_panama_wilt': 'A soilborne Fusarium fungus.',
+    'banana_sigatoka': 'A fungal infection spread by spores.',
+    'lettuce_bacterial': 'Bacteria; the exact type can vary.',
+    'lettuce_fungal': 'Fungi; the exact type can vary.',
+    'lettuce_insect_pest': 'Feeding by insects such as aphids or caterpillars.',
+        'pineapple_fusarium': 'A Fusarium fungus.',
+    'pineapple_leaf_blight':
+        'Several problems can look similar, including fungi, rot, excess moisture, or injury.',
+    'pineapple_mealybug_wilt':
+        'Wilt-associated viruses spread by pineapple mealybugs.',
+    'tomato_early-late_blight':
+        'Fungal or fungus-like pathogens, depending on which blight is present.',
+    'tomato_insect_damage': 'Feeding by chewing or sap-sucking insects.',
+    'tomato_leaf_curl_virus': 'A virus commonly spread by whiteflies.',
+    'tomato_leaf_miner': 'Small insect larvae feeding inside the leaf.',
+    'tomato_leaf_mold': 'A fungus that grows on tomato leaves.',
+  };
+
+  return causes[rawLabel] ?? 'The cause is not identified by this scan.';
+}
+
+String diseaseSymptomsForLabel(String? rawLabel) {
+  const symptoms = <String, String>{
+    'banana_cordana': 'Dark, diamond-shaped spots on the leaves.',
+    'banana_panama_wilt': 'Yellowing and wilting leaves; the plant may decline.',
+    'banana_sigatoka': 'Dark streaks or spots that spread across the leaves.',
+    'lettuce_bacterial': 'Wet-looking leaf spots or soft, rotting tissue.',
+    'lettuce_fungal': 'Leaf spots, patches, or fuzzy growth.',
+    'lettuce_insect_pest': 'Holes, chewed edges, or other feeding marks.',
+        'pineapple_fusarium': 'Rot, discoloration, or wilting in plant tissue or fruit.',
+    'pineapple_leaf_blight': 'Brown or dying patches, often near leaf tips or edges.',
+    'pineapple_mealybug_wilt': 'Reddening, curling, and wilting leaves.',
+    'tomato_early-late_blight': 'Dark leaf spots that may spread to stems or fruit.',
+    'tomato_insect_damage': 'Holes, pale speckles, curling, or other leaf marks.',
+    'tomato_leaf_curl_virus': 'Curled or yellow leaves and stunted plant growth.',
+    'tomato_leaf_miner': 'Thin, winding trails inside the leaves.',
+    'tomato_leaf_mold': 'Yellow patches above and fuzzy growth under the leaves.',
+  };
+
+  return symptoms[rawLabel] ?? 'Symptoms can vary; inspect the whole plant.';
 }
 
 List<CropGuide> guidesForCrop(Crop crop) =>

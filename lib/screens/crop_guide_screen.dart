@@ -73,7 +73,7 @@ class _CropGuideList extends StatelessWidget {
         Text(
           mode == GuideMode.treatment
               ? 'Choose a condition for treatment steps and supporting references.'
-              : 'Choose a condition for prevention steps and the evidence behind its seasonal outlook.',
+              : 'Choose a condition for prevention steps and the evidence behind its predictive outlook.',
         ),
         const SizedBox(height: 16),
         for (final guide in guides)

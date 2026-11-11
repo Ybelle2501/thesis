@@ -32,16 +32,15 @@ void main() {
     expect(find.byIcon(Icons.notifications_none_rounded), findsNothing);
   });
 
-  test('grid scan modes have the requested independent cell layouts', () {
+  test('scanner offers single scan and 2x3 landscape modes only', () {
+    expect(ScanCaptureMode.values.map((mode) => mode.title), [
+      'Single scan',
+      '2x3 grid - landscape cells',
+    ]);
     expect(ScanCaptureMode.single.cellCount, 1);
-    expect(ScanCaptureMode.grid2x2.cellCount, 4);
     expect(
       (ScanCaptureMode.grid2x3.rows, ScanCaptureMode.grid2x3.columns),
       (2, 3),
-    );
-    expect(
-      (ScanCaptureMode.grid3x2.rows, ScanCaptureMode.grid3x2.columns),
-      (3, 2),
     );
   });
 
@@ -222,12 +221,12 @@ void main() {
       );
       final thresholds = PlantDiseaseClassifier.parseThresholds(source);
 
-      expect(thresholds.confidence, 0.5);
+      expect(thresholds.confidence, 0.6);
       expect(thresholds.margin, 0.3);
       expect(thresholds.suggestionConfidence, 0.1);
       expect(thresholds.accepts(topScore: 0.49, top1Top2Margin: 0.4), isFalse);
       expect(thresholds.accepts(topScore: 0.8, top1Top2Margin: 0.29), isFalse);
-      expect(thresholds.accepts(topScore: 0.5, top1Top2Margin: 0.3), isTrue);
+      expect(thresholds.accepts(topScore: 0.6, top1Top2Margin: 0.3), isTrue);
     },
   );
 

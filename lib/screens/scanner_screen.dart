@@ -4,8 +4,8 @@ import 'package:camera/camera.dart';
 import 'package:image_picker/image_picker.dart';
 import '../theme/app_theme.dart';
 import '../widgets/shared_widgets.dart';
-import '../widgets/grid_overlay.dart';
 import '../services/classifier.dart';
+import '../services/three_stage_scan_service.dart';
 import '../services/grid_scan_service.dart';
 import 'grid_result_screen.dart';
 import 'result_screen.dart';
@@ -37,6 +37,9 @@ class _CropScannerScreenState extends State<CropScannerScreen>
 
   // ── Classifier ────────────────────────────────────────────────────────────
   final PlantDiseaseClassifier _classifier = PlantDiseaseClassifier();
+  late final ThreeStageScanService _scanPipeline = ThreeStageScanService(
+    diseaseClassifier: _classifier,
+  );
   late final GridScanService _gridScanService;
 
   // ── Gallery ───────────────────────────────────────────────────────────────
@@ -50,7 +53,7 @@ class _CropScannerScreenState extends State<CropScannerScreen>
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
-    _gridScanService = GridScanService(_classifier);
+    _gridScanService = GridScanService(_scanPipeline);
     _initCamera();
     _classifier.loadModel(); // pre-load model in background
   }
@@ -59,6 +62,7 @@ class _CropScannerScreenState extends State<CropScannerScreen>
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
     _controller?.dispose();
+    _scanPipeline.dispose();
     _classifier.dispose();
     super.dispose();
   }
@@ -191,6 +195,9 @@ class _CropScannerScreenState extends State<CropScannerScreen>
               );
             }
           },
+          onStageProgress: (message) {
+            if (mounted) setState(() => _statusText = message);
+          },
         );
 
         if (!mounted) return;
@@ -209,7 +216,12 @@ class _CropScannerScreenState extends State<CropScannerScreen>
       }
 
       setState(() => _statusText = 'Running AI model…');
-      final ClassificationResult result = await _classifier.classify(imagePath);
+      final ClassificationResult result = await _scanPipeline.classify(
+        imagePath,
+        onStage: (message) {
+          if (mounted) setState(() => _statusText = message);
+        },
+      );
 
       if (!mounted) return;
 
@@ -225,9 +237,11 @@ class _CropScannerScreenState extends State<CropScannerScreen>
         ),
       );
     } on CameraException catch (e) {
-      _showError('Capture failed: ${e.description}');
-    } catch (e) {
-      _showError('Error: $e');
+      _showError(e.description ?? 'Camera capture failed. Please try again.');
+    } catch (_) {
+      _showError(
+        'The image could not be analyzed. Please try again with a clear photo.',
+      );
     } finally {
       if (mounted) setState(() => _processing = false);
     }
@@ -411,11 +425,6 @@ class _CropScannerScreenState extends State<CropScannerScreen>
           children: [
             _buildCameraLayer(),
             ..._buildCornerBrackets(),
-            if (_captureMode.isGrid)
-              GridOverlay(
-                rows: _captureMode.rows,
-                columns: _captureMode.columns,
-              ),
             if (_processing) const ScanLineWidget(),
             if (_cameraReady && !_processing) _buildIdleOverlay(),
             if (_processing) _buildProcessingOverlay(),

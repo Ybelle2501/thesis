@@ -3,21 +3,15 @@ import 'dart:io';
 import 'package:image/image.dart' as img;
 
 import 'classifier.dart';
+import 'three_stage_scan_service.dart';
 
 enum ScanCaptureMode {
   single(title: 'Single scan', shortLabel: 'Single', rows: 1, columns: 1),
-  grid2x2(title: '2x2 grid', shortLabel: '2x2', rows: 2, columns: 2),
   grid2x3(
     title: '2x3 grid - landscape cells',
     shortLabel: '2x3 H',
     rows: 2,
     columns: 3,
-  ),
-  grid3x2(
-    title: '2x3 grid - portrait cells',
-    shortLabel: '2x3 V',
-    rows: 3,
-    columns: 2,
   );
 
   const ScanCaptureMode({
@@ -55,20 +49,22 @@ class GridCellScan {
   /// are kept for on-screen feedback but excluded from totals and history.
   bool get isIgnored =>
       result?.status == ScanStatus.noLeafDetected ||
+      result?.status == ScanStatus.rejected ||
       result?.status == ScanStatus.lowConfidence;
 
   bool get hasPlantResult => result?.status == ScanStatus.success;
 }
 
 class GridScanService {
-  const GridScanService(this.classifier);
+  const GridScanService(this.pipeline);
 
-  final PlantDiseaseClassifier classifier;
+  final ThreeStageScanService pipeline;
 
   Future<List<GridCellScan>> scanImage({
     required String imagePath,
     required ScanCaptureMode mode,
     void Function(int cellNumber, int totalCells)? onProgress,
+    void Function(String message)? onStageProgress,
   }) async {
     if (!mode.isGrid) {
       throw ArgumentError.value(mode, 'mode', 'A grid mode is required.');
@@ -111,7 +107,12 @@ class GridScanService {
 
       onProgress?.call(cellNumber, mode.cellCount);
       try {
-        final result = await classifier.classify(cellPath);
+        final result = await pipeline.classify(
+          cellPath,
+          onStage: (stage) => onStageProgress?.call(
+            'Analyzing cell $cellNumber of ${mode.cellCount}: $stage',
+          ),
+        );
         scans.add(
           GridCellScan(
             cellNumber: cellNumber,

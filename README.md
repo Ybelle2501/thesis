@@ -18,12 +18,17 @@ is embedded in the model, so Flutter supplies raw RGB values in the 0-255
 range. The output is `[1, 18]` float32 softmax probabilities.
 
 The deployment rule accepts a result only when both its top score is at least
-`0.50` and its top-1/top-2 margin is at least `0.30`; disease alternatives
+`0.60` and its top-1/top-2 margin is at least `0.30`; disease alternatives
 require `0.10`. This usability adjustment accepts 96.85% of the 1,173 exported
 held-out plant predictions at 93.93% accepted-result accuracy and rejects 16.87%
 of errors. Because this is not independent calibration and contains no
 unsupported/non-leaf images, independent calibration and out-of-distribution
 validation are still required before deployment claims.
+
+Single-image scans now pass through the local Stage 1 plant gate and Stage 2
+crop gate before reaching this disease model. See
+[`docs/three-stage-scan.md`](docs/three-stage-scan.md) for contracts, decisions,
+and threshold calibration notes.
 
 Conversion and contract notes are in `docs/models/mobilenetv2/`. The previous
 ResNet50 documentation remains in `docs/models/resnet50/` as historical reference.

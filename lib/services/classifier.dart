@@ -32,6 +32,9 @@ enum ScanStatus {
 
   /// Reserved for classifiers that explicitly support no-leaf detection.
   noLeafDetected,
+
+  /// A gate in the sequential scan rejected the captured image.
+  rejected,
 }
 
 class RankedPrediction {
@@ -65,6 +68,8 @@ class ClassificationResult {
   final ScanStatus status;
   final List<RankedPrediction> rankedPredictions;
   final List<RankedPrediction> suggestedDiseases;
+  final String? rejectionMessage;
+  final String? detectedCrop;
 
   ClassificationResult({
     required this.rawLabel,
@@ -73,6 +78,8 @@ class ClassificationResult {
     required this.status,
     this.rankedPredictions = const [],
     this.suggestedDiseases = const [],
+    this.rejectionMessage,
+    this.detectedCrop,
   }) : label = _formatLabel(rawLabel),
        plantName = _plantName(rawLabel),
        conditionName = _conditionName(rawLabel);

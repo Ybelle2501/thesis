@@ -1,0 +1,5 @@
+{
+  "confidence_threshold": 0.5,
+  "margin_threshold": 0.1,
+  "calibration_status": "Values from the supplied Stage 1 thresholds.json export; exported validation reported all targets met but contained zero unknown validation images. Treat as provisional for app deployment and validate on representative camera images. Model outputs are not calibrated probabilities."
+}

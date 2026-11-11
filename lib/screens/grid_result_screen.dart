@@ -623,14 +623,27 @@ class _CellPresentation {
           showRankedFindings: false,
         );
       case ScanStatus.lowConfidence:
-        return const _CellPresentation(
+        return _CellPresentation(
           statusCode: 'ignored',
           color: AppColors.warning,
           plantVisible: 'Not confirmed',
           crop: 'None recorded',
           finding: 'Tile disregarded',
           description:
+              result.rejectionMessage ??
               'A supported plant could not be confirmed in this tile. It was excluded from the grid results and will not be saved.',
+          showRankedFindings: false,
+        );
+      case ScanStatus.rejected:
+        return _CellPresentation(
+          statusCode: 'ignored',
+          color: AppColors.warning,
+          plantVisible: 'Not confirmed',
+          crop: 'None recorded',
+          finding: 'Tile disregarded',
+          description:
+              result.rejectionMessage ??
+              'This tile did not pass the scan acceptance checks.',
           showRankedFindings: false,
         );
       case ScanStatus.success:

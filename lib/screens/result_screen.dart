@@ -45,6 +45,14 @@ class DiseaseResultScreen extends StatelessWidget {
             result: result!,
           );
 
+        case ScanStatus.rejected:
+          return _RejectedView(
+            imagePath: capturedImagePath,
+            message:
+                result!.rejectionMessage ??
+                'This image could not be accepted. Please scan again.',
+          );
+
         case ScanStatus.success:
           return _SuccessView(
             imagePath: capturedImagePath,
@@ -58,6 +66,74 @@ class DiseaseResultScreen extends StatelessWidget {
     }
     return _FallbackView(imagePath: capturedImagePath);
   }
+}
+
+class _RejectedView extends StatelessWidget {
+  const _RejectedView({required this.imagePath, required this.message});
+  final String? imagePath;
+  final String message;
+
+  @override
+  Widget build(BuildContext context) => Scaffold(
+    backgroundColor: AppColors.surface,
+    bottomNavigationBar: const AiDisclaimer(),
+    body: SafeArea(
+      child: Column(
+        children: [
+          const _BackHeader(title: 'Scan Result'),
+          Expanded(
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.all(24),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  if (imagePath != null) ...[
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(20),
+                      child: Image.file(
+                        File(imagePath!),
+                        height: 210,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    const SizedBox(height: 24),
+                  ],
+                  const Icon(
+                    Icons.eco_outlined,
+                    size: 58,
+                    color: AppColors.warning,
+                  ),
+                  const SizedBox(height: 16),
+                  const Text(
+                    'Image not supported',
+                    textAlign: TextAlign.center,
+                    style: AppTextStyles.titleLarge,
+                  ),
+                  const SizedBox(height: 10),
+                  Text(
+                    message,
+                    textAlign: TextAlign.center,
+                    style: AppTextStyles.bodyMedium,
+                  ),
+                  const SizedBox(height: 24),
+                  AppButton(
+                    label: 'Scan Again',
+                    icon: Icons.camera_alt_rounded,
+                    onPressed: () => Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => const CropScannerScreen(),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    ),
+  );
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
@@ -312,10 +388,11 @@ class _LowConfidenceView extends StatelessWidget {
                                 ),
                                 const SizedBox(height: 2),
                                 Text(
-                                  'This may not be a supported plant, or the photo '
-                                  'may be unclear. The classifier confidence was '
-                                  '${result.confidencePercent}. Please scan again '
-                                  'or take a clear picture.',
+                                  result.rejectionMessage ??
+                                      'This may not be a supported plant, or the photo '
+                                          'may be unclear. The classifier confidence was '
+                                          '${result.confidencePercent}. Please scan again '
+                                          'or take a clear picture.',
                                   style: AppTextStyles.bodyMedium,
                                 ),
                               ],
@@ -592,6 +669,28 @@ class _SuccessViewState extends State<_SuccessView> {
                             const SizedBox(height: 6),
                             Text(
                               diseaseDescriptionForLabel(result.rawLabel),
+                              style: AppTextStyles.bodyMedium,
+                            ),
+                            const SizedBox(height: 10),
+                            Text(
+                              'Cause:',
+                              style: AppTextStyles.bodyMedium.copyWith(
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                            Text(
+                              diseaseCauseForLabel(result.rawLabel),
+                              style: AppTextStyles.bodyMedium,
+                            ),
+                            const SizedBox(height: 4),
+                            Text(
+                              'Symptoms:',
+                              style: AppTextStyles.bodyMedium.copyWith(
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                            Text(
+                              diseaseSymptomsForLabel(result.rawLabel),
                               style: AppTextStyles.bodyMedium,
                             ),
                           ],

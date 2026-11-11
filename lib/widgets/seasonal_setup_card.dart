@@ -32,7 +32,7 @@ class SeasonalSetupCard extends StatelessWidget {
                   SizedBox(width: 8),
                   Expanded(
                     child: Text(
-                      'Seasonal outlook',
+                      'Predictive outlook',
                       style: AppTextStyles.titleLarge,
                     ),
                   ),
