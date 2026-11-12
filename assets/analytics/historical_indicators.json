@@ -1,0 +1,3749 @@
+{
+  "dataset_name": "Papusoy Farm Historical Monthly Disease Dataset",
+  "schema_version": "2.0",
+  "source_file": "papusoy_historical_analytics_offline.json",
+  "description": "Climate-free monthly historical disease dataset for offline monthly analytics.",
+  "crops": [
+    "banana",
+    "tomato",
+    "lettuce",
+    "pineapple"
+  ],
+  "month_source": "The application reads the current month from the device date.",
+  "percentage_definition": {
+    "historical_mean_incidence_pct": "Historical mean incidence percentage supplied by the source dataset. Display as historical average incidence, not as the probability that a disease will occur next month.",
+    "historical_index_0_100": "A normalized historical index from the source dataset. Display as a historical risk index, not a calibrated probability.",
+    "occurrence_probability_pct": null,
+    "historical_frequency_share_pct": "Omitted because the source values are uniform across disease classes and do not distinguish disease likelihood."
+  },
+  "limitations": [
+    "The source contains monthly aggregated indicators, not individual year-by-year disease outcome records.",
+    "The dataset does not provide a calibrated probability of future disease occurrence.",
+    "Climate fields have been removed from this application dataset.",
+    "Local farm records can be analyzed separately after confirmed observations are collected."
+  ],
+  "monthly_disease_records": [
+    {
+      "crop": "banana",
+      "disease_class": "banana_cordana",
+      "month": 1,
+      "month_name": "January",
+      "historical_mean_incidence_pct": 41.3778,
+      "historical_index_0_100": 15.1732,
+      "historical_indicator": "low",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "banana",
+      "disease_class": "banana_cordana",
+      "month": 2,
+      "month_name": "February",
+      "historical_mean_incidence_pct": 38.5556,
+      "historical_index_0_100": 0.0,
+      "historical_indicator": "low",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "banana",
+      "disease_class": "banana_cordana",
+      "month": 3,
+      "month_name": "March",
+      "historical_mean_incidence_pct": 42.9778,
+      "historical_index_0_100": 23.7754,
+      "historical_indicator": "low",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "banana",
+      "disease_class": "banana_cordana",
+      "month": 4,
+      "month_name": "April",
+      "historical_mean_incidence_pct": 41.1111,
+      "historical_index_0_100": 13.7395,
+      "historical_indicator": "low",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "banana",
+      "disease_class": "banana_cordana",
+      "month": 5,
+      "month_name": "May",
+      "historical_mean_incidence_pct": 43.4444,
+      "historical_index_0_100": 26.2843,
+      "historical_indicator": "low",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "banana",
+      "disease_class": "banana_cordana",
+      "month": 6,
+      "month_name": "June",
+      "historical_mean_incidence_pct": 53.8889,
+      "historical_index_0_100": 82.4373,
+      "historical_indicator": "elevated",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "banana",
+      "disease_class": "banana_cordana",
+      "month": 7,
+      "month_name": "July",
+      "historical_mean_incidence_pct": 57.1556,
+      "historical_index_0_100": 100.0,
+      "historical_indicator": "elevated",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "banana",
+      "disease_class": "banana_cordana",
+      "month": 8,
+      "month_name": "August",
+      "historical_mean_incidence_pct": 56.6889,
+      "historical_index_0_100": 97.491,
+      "historical_indicator": "elevated",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "banana",
+      "disease_class": "banana_cordana",
+      "month": 9,
+      "month_name": "September",
+      "historical_mean_incidence_pct": 56.0,
+      "historical_index_0_100": 93.7873,
+      "historical_indicator": "elevated",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "banana",
+      "disease_class": "banana_cordana",
+      "month": 10,
+      "month_name": "October",
+      "historical_mean_incidence_pct": 50.4667,
+      "historical_index_0_100": 64.0382,
+      "historical_indicator": "moderate",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "banana",
+      "disease_class": "banana_cordana",
+      "month": 11,
+      "month_name": "November",
+      "historical_mean_incidence_pct": 50.8444,
+      "historical_index_0_100": 66.0693,
+      "historical_indicator": "moderate",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "banana",
+      "disease_class": "banana_cordana",
+      "month": 12,
+      "month_name": "December",
+      "historical_mean_incidence_pct": 47.5556,
+      "historical_index_0_100": 48.3871,
+      "historical_indicator": "moderate",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "banana",
+      "disease_class": "banana_panama_wilt",
+      "month": 1,
+      "month_name": "January",
+      "historical_mean_incidence_pct": 44.8889,
+      "historical_index_0_100": 6.4865,
+      "historical_indicator": "low",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "banana",
+      "disease_class": "banana_panama_wilt",
+      "month": 2,
+      "month_name": "February",
+      "historical_mean_incidence_pct": 43.5556,
+      "historical_index_0_100": 0.0,
+      "historical_indicator": "low",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "banana",
+      "disease_class": "banana_panama_wilt",
+      "month": 3,
+      "month_name": "March",
+      "historical_mean_incidence_pct": 47.6667,
+      "historical_index_0_100": 20.0,
+      "historical_indicator": "low",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "banana",
+      "disease_class": "banana_panama_wilt",
+      "month": 4,
+      "month_name": "April",
+      "historical_mean_incidence_pct": 49.3778,
+      "historical_index_0_100": 28.3243,
+      "historical_indicator": "low",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "banana",
+      "disease_class": "banana_panama_wilt",
+      "month": 5,
+      "month_name": "May",
+      "historical_mean_incidence_pct": 52.0889,
+      "historical_index_0_100": 41.5135,
+      "historical_indicator": "moderate",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "banana",
+      "disease_class": "banana_panama_wilt",
+      "month": 6,
+      "month_name": "June",
+      "historical_mean_incidence_pct": 62.8444,
+      "historical_index_0_100": 93.8378,
+      "historical_indicator": "elevated",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "banana",
+      "disease_class": "banana_panama_wilt",
+      "month": 7,
+      "month_name": "July",
+      "historical_mean_incidence_pct": 64.1111,
+      "historical_index_0_100": 100.0,
+      "historical_indicator": "elevated",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "banana",
+      "disease_class": "banana_panama_wilt",
+      "month": 8,
+      "month_name": "August",
+      "historical_mean_incidence_pct": 61.5333,
+      "historical_index_0_100": 87.4595,
+      "historical_indicator": "elevated",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "banana",
+      "disease_class": "banana_panama_wilt",
+      "month": 9,
+      "month_name": "September",
+      "historical_mean_incidence_pct": 63.4222,
+      "historical_index_0_100": 96.6486,
+      "historical_indicator": "elevated",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "banana",
+      "disease_class": "banana_panama_wilt",
+      "month": 10,
+      "month_name": "October",
+      "historical_mean_incidence_pct": 58.2889,
+      "historical_index_0_100": 71.6757,
+      "historical_indicator": "elevated",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "banana",
+      "disease_class": "banana_panama_wilt",
+      "month": 11,
+      "month_name": "November",
+      "historical_mean_incidence_pct": 56.2,
+      "historical_index_0_100": 61.5135,
+      "historical_indicator": "moderate",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "banana",
+      "disease_class": "banana_panama_wilt",
+      "month": 12,
+      "month_name": "December",
+      "historical_mean_incidence_pct": 53.0889,
+      "historical_index_0_100": 46.3784,
+      "historical_indicator": "moderate",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "banana",
+      "disease_class": "banana_sigatoka",
+      "month": 1,
+      "month_name": "January",
+      "historical_mean_incidence_pct": 44.2444,
+      "historical_index_0_100": 1.906,
+      "historical_indicator": "low",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "banana",
+      "disease_class": "banana_sigatoka",
+      "month": 2,
+      "month_name": "February",
+      "historical_mean_incidence_pct": 43.9111,
+      "historical_index_0_100": 0.0,
+      "historical_indicator": "low",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "banana",
+      "disease_class": "banana_sigatoka",
+      "month": 3,
+      "month_name": "March",
+      "historical_mean_incidence_pct": 46.0889,
+      "historical_index_0_100": 12.4524,
+      "historical_indicator": "low",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "banana",
+      "disease_class": "banana_sigatoka",
+      "month": 4,
+      "month_name": "April",
+      "historical_mean_incidence_pct": 44.3778,
+      "historical_index_0_100": 2.6684,
+      "historical_indicator": "low",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "banana",
+      "disease_class": "banana_sigatoka",
+      "month": 5,
+      "month_name": "May",
+      "historical_mean_incidence_pct": 46.2889,
+      "historical_index_0_100": 13.5959,
+      "historical_indicator": "low",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "banana",
+      "disease_class": "banana_sigatoka",
+      "month": 6,
+      "month_name": "June",
+      "historical_mean_incidence_pct": 58.6889,
+      "historical_index_0_100": 84.4981,
+      "historical_indicator": "elevated",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "banana",
+      "disease_class": "banana_sigatoka",
+      "month": 7,
+      "month_name": "July",
+      "historical_mean_incidence_pct": 61.4,
+      "historical_index_0_100": 100.0,
+      "historical_indicator": "elevated",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "banana",
+      "disease_class": "banana_sigatoka",
+      "month": 8,
+      "month_name": "August",
+      "historical_mean_incidence_pct": 60.4889,
+      "historical_index_0_100": 94.7903,
+      "historical_indicator": "elevated",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "banana",
+      "disease_class": "banana_sigatoka",
+      "month": 9,
+      "month_name": "September",
+      "historical_mean_incidence_pct": 60.3111,
+      "historical_index_0_100": 93.7738,
+      "historical_indicator": "elevated",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "banana",
+      "disease_class": "banana_sigatoka",
+      "month": 10,
+      "month_name": "October",
+      "historical_mean_incidence_pct": 54.3111,
+      "historical_index_0_100": 59.4663,
+      "historical_indicator": "moderate",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "banana",
+      "disease_class": "banana_sigatoka",
+      "month": 11,
+      "month_name": "November",
+      "historical_mean_incidence_pct": 53.4889,
+      "historical_index_0_100": 54.7649,
+      "historical_indicator": "moderate",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "banana",
+      "disease_class": "banana_sigatoka",
+      "month": 12,
+      "month_name": "December",
+      "historical_mean_incidence_pct": 50.2667,
+      "historical_index_0_100": 36.3405,
+      "historical_indicator": "moderate",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "lettuce",
+      "disease_class": "lettuce_bacterial",
+      "month": 1,
+      "month_name": "January",
+      "historical_mean_incidence_pct": 31.6,
+      "historical_index_0_100": 5.7758,
+      "historical_indicator": "low",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "lettuce",
+      "disease_class": "lettuce_bacterial",
+      "month": 2,
+      "month_name": "February",
+      "historical_mean_incidence_pct": 30.4667,
+      "historical_index_0_100": 0.0,
+      "historical_indicator": "low",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "lettuce",
+      "disease_class": "lettuce_bacterial",
+      "month": 3,
+      "month_name": "March",
+      "historical_mean_incidence_pct": 32.9111,
+      "historical_index_0_100": 12.4575,
+      "historical_indicator": "low",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "lettuce",
+      "disease_class": "lettuce_bacterial",
+      "month": 4,
+      "month_name": "April",
+      "historical_mean_incidence_pct": 32.2889,
+      "historical_index_0_100": 9.2865,
+      "historical_indicator": "low",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "lettuce",
+      "disease_class": "lettuce_bacterial",
+      "month": 5,
+      "month_name": "May",
+      "historical_mean_incidence_pct": 35.5778,
+      "historical_index_0_100": 26.0476,
+      "historical_indicator": "low",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "lettuce",
+      "disease_class": "lettuce_bacterial",
+      "month": 6,
+      "month_name": "June",
+      "historical_mean_incidence_pct": 47.0,
+      "historical_index_0_100": 84.2582,
+      "historical_indicator": "elevated",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "lettuce",
+      "disease_class": "lettuce_bacterial",
+      "month": 7,
+      "month_name": "July",
+      "historical_mean_incidence_pct": 50.0889,
+      "historical_index_0_100": 100.0,
+      "historical_indicator": "elevated",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "lettuce",
+      "disease_class": "lettuce_bacterial",
+      "month": 8,
+      "month_name": "August",
+      "historical_mean_incidence_pct": 47.7333,
+      "historical_index_0_100": 87.9955,
+      "historical_indicator": "elevated",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "lettuce",
+      "disease_class": "lettuce_bacterial",
+      "month": 9,
+      "month_name": "September",
+      "historical_mean_incidence_pct": 48.3556,
+      "historical_index_0_100": 91.1665,
+      "historical_indicator": "elevated",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "lettuce",
+      "disease_class": "lettuce_bacterial",
+      "month": 10,
+      "month_name": "October",
+      "historical_mean_incidence_pct": 41.8222,
+      "historical_index_0_100": 57.8709,
+      "historical_indicator": "moderate",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "lettuce",
+      "disease_class": "lettuce_bacterial",
+      "month": 11,
+      "month_name": "November",
+      "historical_mean_incidence_pct": 42.2444,
+      "historical_index_0_100": 60.0227,
+      "historical_indicator": "moderate",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "lettuce",
+      "disease_class": "lettuce_bacterial",
+      "month": 12,
+      "month_name": "December",
+      "historical_mean_incidence_pct": 38.4444,
+      "historical_index_0_100": 40.6569,
+      "historical_indicator": "moderate",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "lettuce",
+      "disease_class": "lettuce_fungal",
+      "month": 1,
+      "month_name": "January",
+      "historical_mean_incidence_pct": 44.0667,
+      "historical_index_0_100": 31.864,
+      "historical_indicator": "low",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "lettuce",
+      "disease_class": "lettuce_fungal",
+      "month": 2,
+      "month_name": "February",
+      "historical_mean_incidence_pct": 39.4667,
+      "historical_index_0_100": 5.7935,
+      "historical_indicator": "low",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "lettuce",
+      "disease_class": "lettuce_fungal",
+      "month": 3,
+      "month_name": "March",
+      "historical_mean_incidence_pct": 42.8889,
+      "historical_index_0_100": 25.1889,
+      "historical_indicator": "low",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "lettuce",
+      "disease_class": "lettuce_fungal",
+      "month": 4,
+      "month_name": "April",
+      "historical_mean_incidence_pct": 38.4444,
+      "historical_index_0_100": 0.0,
+      "historical_indicator": "low",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "lettuce",
+      "disease_class": "lettuce_fungal",
+      "month": 5,
+      "month_name": "May",
+      "historical_mean_incidence_pct": 43.0667,
+      "historical_index_0_100": 26.1965,
+      "historical_indicator": "low",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "lettuce",
+      "disease_class": "lettuce_fungal",
+      "month": 6,
+      "month_name": "June",
+      "historical_mean_incidence_pct": 51.4222,
+      "historical_index_0_100": 73.5516,
+      "historical_indicator": "elevated",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "lettuce",
+      "disease_class": "lettuce_fungal",
+      "month": 7,
+      "month_name": "July",
+      "historical_mean_incidence_pct": 55.5556,
+      "historical_index_0_100": 96.9773,
+      "historical_indicator": "elevated",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "lettuce",
+      "disease_class": "lettuce_fungal",
+      "month": 8,
+      "month_name": "August",
+      "historical_mean_incidence_pct": 54.4222,
+      "historical_index_0_100": 90.5542,
+      "historical_indicator": "elevated",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "lettuce",
+      "disease_class": "lettuce_fungal",
+      "month": 9,
+      "month_name": "September",
+      "historical_mean_incidence_pct": 56.0889,
+      "historical_index_0_100": 100.0,
+      "historical_indicator": "elevated",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "lettuce",
+      "disease_class": "lettuce_fungal",
+      "month": 10,
+      "month_name": "October",
+      "historical_mean_incidence_pct": 47.5778,
+      "historical_index_0_100": 51.7632,
+      "historical_indicator": "moderate",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "lettuce",
+      "disease_class": "lettuce_fungal",
+      "month": 11,
+      "month_name": "November",
+      "historical_mean_incidence_pct": 49.3111,
+      "historical_index_0_100": 61.5869,
+      "historical_indicator": "moderate",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "lettuce",
+      "disease_class": "lettuce_fungal",
+      "month": 12,
+      "month_name": "December",
+      "historical_mean_incidence_pct": 47.8667,
+      "historical_index_0_100": 53.4005,
+      "historical_indicator": "moderate",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "lettuce",
+      "disease_class": "lettuce_insect_pest",
+      "month": 1,
+      "month_name": "January",
+      "historical_mean_incidence_pct": 39.9778,
+      "historical_index_0_100": 15.0479,
+      "historical_indicator": "low",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "lettuce",
+      "disease_class": "lettuce_insect_pest",
+      "month": 2,
+      "month_name": "February",
+      "historical_mean_incidence_pct": 40.0667,
+      "historical_index_0_100": 15.5951,
+      "historical_indicator": "low",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "lettuce",
+      "disease_class": "lettuce_insect_pest",
+      "month": 3,
+      "month_name": "March",
+      "historical_mean_incidence_pct": 48.2222,
+      "historical_index_0_100": 65.8003,
+      "historical_indicator": "moderate",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "lettuce",
+      "disease_class": "lettuce_insect_pest",
+      "month": 4,
+      "month_name": "April",
+      "historical_mean_incidence_pct": 51.5778,
+      "historical_index_0_100": 86.4569,
+      "historical_indicator": "elevated",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "lettuce",
+      "disease_class": "lettuce_insect_pest",
+      "month": 5,
+      "month_name": "May",
+      "historical_mean_incidence_pct": 50.4222,
+      "historical_index_0_100": 79.3434,
+      "historical_indicator": "elevated",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "lettuce",
+      "disease_class": "lettuce_insect_pest",
+      "month": 6,
+      "month_name": "June",
+      "historical_mean_incidence_pct": 53.7111,
+      "historical_index_0_100": 99.5896,
+      "historical_indicator": "elevated",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "lettuce",
+      "disease_class": "lettuce_insect_pest",
+      "month": 7,
+      "month_name": "July",
+      "historical_mean_incidence_pct": 52.8222,
+      "historical_index_0_100": 94.1176,
+      "historical_indicator": "elevated",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "lettuce",
+      "disease_class": "lettuce_insect_pest",
+      "month": 8,
+      "month_name": "August",
+      "historical_mean_incidence_pct": 53.0222,
+      "historical_index_0_100": 95.3488,
+      "historical_indicator": "elevated",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "lettuce",
+      "disease_class": "lettuce_insect_pest",
+      "month": 9,
+      "month_name": "September",
+      "historical_mean_incidence_pct": 53.7778,
+      "historical_index_0_100": 100.0,
+      "historical_indicator": "elevated",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "lettuce",
+      "disease_class": "lettuce_insect_pest",
+      "month": 10,
+      "month_name": "October",
+      "historical_mean_incidence_pct": 43.0222,
+      "historical_index_0_100": 33.7893,
+      "historical_indicator": "moderate",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "lettuce",
+      "disease_class": "lettuce_insect_pest",
+      "month": 11,
+      "month_name": "November",
+      "historical_mean_incidence_pct": 41.8667,
+      "historical_index_0_100": 26.6758,
+      "historical_indicator": "low",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "lettuce",
+      "disease_class": "lettuce_insect_pest",
+      "month": 12,
+      "month_name": "December",
+      "historical_mean_incidence_pct": 37.5333,
+      "historical_index_0_100": 0.0,
+      "historical_indicator": "low",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "pineapple",
+      "disease_class": "pineapple_fusarium",
+      "month": 1,
+      "month_name": "January",
+      "historical_mean_incidence_pct": 26.5333,
+      "historical_index_0_100": 2.8153,
+      "historical_indicator": "low",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "pineapple",
+      "disease_class": "pineapple_fusarium",
+      "month": 2,
+      "month_name": "February",
+      "historical_mean_incidence_pct": 25.9778,
+      "historical_index_0_100": 0.0,
+      "historical_indicator": "low",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "pineapple",
+      "disease_class": "pineapple_fusarium",
+      "month": 3,
+      "month_name": "March",
+      "historical_mean_incidence_pct": 31.3333,
+      "historical_index_0_100": 27.1396,
+      "historical_indicator": "low",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "pineapple",
+      "disease_class": "pineapple_fusarium",
+      "month": 4,
+      "month_name": "April",
+      "historical_mean_incidence_pct": 31.8,
+      "historical_index_0_100": 29.5045,
+      "historical_indicator": "low",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "pineapple",
+      "disease_class": "pineapple_fusarium",
+      "month": 5,
+      "month_name": "May",
+      "historical_mean_incidence_pct": 35.1556,
+      "historical_index_0_100": 46.509,
+      "historical_indicator": "moderate",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "pineapple",
+      "disease_class": "pineapple_fusarium",
+      "month": 6,
+      "month_name": "June",
+      "historical_mean_incidence_pct": 44.9556,
+      "historical_index_0_100": 96.1712,
+      "historical_indicator": "elevated",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "pineapple",
+      "disease_class": "pineapple_fusarium",
+      "month": 7,
+      "month_name": "July",
+      "historical_mean_incidence_pct": 45.7111,
+      "historical_index_0_100": 100.0,
+      "historical_indicator": "elevated",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "pineapple",
+      "disease_class": "pineapple_fusarium",
+      "month": 8,
+      "month_name": "August",
+      "historical_mean_incidence_pct": 45.4444,
+      "historical_index_0_100": 98.6486,
+      "historical_indicator": "elevated",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "pineapple",
+      "disease_class": "pineapple_fusarium",
+      "month": 9,
+      "month_name": "September",
+      "historical_mean_incidence_pct": 45.0,
+      "historical_index_0_100": 96.3964,
+      "historical_indicator": "elevated",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "pineapple",
+      "disease_class": "pineapple_fusarium",
+      "month": 10,
+      "month_name": "October",
+      "historical_mean_incidence_pct": 39.4889,
+      "historical_index_0_100": 68.4685,
+      "historical_indicator": "elevated",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "pineapple",
+      "disease_class": "pineapple_fusarium",
+      "month": 11,
+      "month_name": "November",
+      "historical_mean_incidence_pct": 38.4222,
+      "historical_index_0_100": 63.0631,
+      "historical_indicator": "moderate",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "pineapple",
+      "disease_class": "pineapple_fusarium",
+      "month": 12,
+      "month_name": "December",
+      "historical_mean_incidence_pct": 35.2667,
+      "historical_index_0_100": 47.0721,
+      "historical_indicator": "moderate",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "pineapple",
+      "disease_class": "pineapple_leaf_blight",
+      "month": 1,
+      "month_name": "January",
+      "historical_mean_incidence_pct": 38.8222,
+      "historical_index_0_100": 13.9019,
+      "historical_indicator": "low",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "pineapple",
+      "disease_class": "pineapple_leaf_blight",
+      "month": 2,
+      "month_name": "February",
+      "historical_mean_incidence_pct": 36.1778,
+      "historical_index_0_100": 0.0,
+      "historical_indicator": "low",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "pineapple",
+      "disease_class": "pineapple_leaf_blight",
+      "month": 3,
+      "month_name": "March",
+      "historical_mean_incidence_pct": 41.9333,
+      "historical_index_0_100": 30.257,
+      "historical_indicator": "low",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "pineapple",
+      "disease_class": "pineapple_leaf_blight",
+      "month": 4,
+      "month_name": "April",
+      "historical_mean_incidence_pct": 41.6889,
+      "historical_index_0_100": 28.972,
+      "historical_indicator": "low",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "pineapple",
+      "disease_class": "pineapple_leaf_blight",
+      "month": 5,
+      "month_name": "May",
+      "historical_mean_incidence_pct": 43.8889,
+      "historical_index_0_100": 40.5374,
+      "historical_indicator": "moderate",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "pineapple",
+      "disease_class": "pineapple_leaf_blight",
+      "month": 6,
+      "month_name": "June",
+      "historical_mean_incidence_pct": 53.0889,
+      "historical_index_0_100": 88.9019,
+      "historical_indicator": "elevated",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "pineapple",
+      "disease_class": "pineapple_leaf_blight",
+      "month": 7,
+      "month_name": "July",
+      "historical_mean_incidence_pct": 55.1333,
+      "historical_index_0_100": 99.6495,
+      "historical_indicator": "elevated",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "pineapple",
+      "disease_class": "pineapple_leaf_blight",
+      "month": 8,
+      "month_name": "August",
+      "historical_mean_incidence_pct": 55.0,
+      "historical_index_0_100": 98.9486,
+      "historical_indicator": "elevated",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "pineapple",
+      "disease_class": "pineapple_leaf_blight",
+      "month": 9,
+      "month_name": "September",
+      "historical_mean_incidence_pct": 55.2,
+      "historical_index_0_100": 100.0,
+      "historical_indicator": "elevated",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "pineapple",
+      "disease_class": "pineapple_leaf_blight",
+      "month": 10,
+      "month_name": "October",
+      "historical_mean_incidence_pct": 47.0222,
+      "historical_index_0_100": 57.0093,
+      "historical_indicator": "moderate",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "pineapple",
+      "disease_class": "pineapple_leaf_blight",
+      "month": 11,
+      "month_name": "November",
+      "historical_mean_incidence_pct": 46.6889,
+      "historical_index_0_100": 55.257,
+      "historical_indicator": "moderate",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "pineapple",
+      "disease_class": "pineapple_leaf_blight",
+      "month": 12,
+      "month_name": "December",
+      "historical_mean_incidence_pct": 43.6889,
+      "historical_index_0_100": 39.486,
+      "historical_indicator": "moderate",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "pineapple",
+      "disease_class": "pineapple_mealybug_wilt",
+      "month": 1,
+      "month_name": "January",
+      "historical_mean_incidence_pct": 22.8444,
+      "historical_index_0_100": 2.9207,
+      "historical_indicator": "low",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "pineapple",
+      "disease_class": "pineapple_mealybug_wilt",
+      "month": 2,
+      "month_name": "February",
+      "historical_mean_incidence_pct": 24.3778,
+      "historical_index_0_100": 12.5174,
+      "historical_indicator": "low",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "pineapple",
+      "disease_class": "pineapple_mealybug_wilt",
+      "month": 3,
+      "month_name": "March",
+      "historical_mean_incidence_pct": 31.5556,
+      "historical_index_0_100": 57.4409,
+      "historical_indicator": "moderate",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "pineapple",
+      "disease_class": "pineapple_mealybug_wilt",
+      "month": 4,
+      "month_name": "April",
+      "historical_mean_incidence_pct": 35.4222,
+      "historical_index_0_100": 81.6412,
+      "historical_indicator": "elevated",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "pineapple",
+      "disease_class": "pineapple_mealybug_wilt",
+      "month": 5,
+      "month_name": "May",
+      "historical_mean_incidence_pct": 34.7111,
+      "historical_index_0_100": 77.1905,
+      "historical_indicator": "elevated",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "pineapple",
+      "disease_class": "pineapple_mealybug_wilt",
+      "month": 6,
+      "month_name": "June",
+      "historical_mean_incidence_pct": 38.3556,
+      "historical_index_0_100": 100.0,
+      "historical_indicator": "elevated",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "pineapple",
+      "disease_class": "pineapple_mealybug_wilt",
+      "month": 7,
+      "month_name": "July",
+      "historical_mean_incidence_pct": 37.2667,
+      "historical_index_0_100": 93.185,
+      "historical_indicator": "elevated",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "pineapple",
+      "disease_class": "pineapple_mealybug_wilt",
+      "month": 8,
+      "month_name": "August",
+      "historical_mean_incidence_pct": 36.0889,
+      "historical_index_0_100": 85.8136,
+      "historical_indicator": "elevated",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "pineapple",
+      "disease_class": "pineapple_mealybug_wilt",
+      "month": 9,
+      "month_name": "September",
+      "historical_mean_incidence_pct": 36.4,
+      "historical_index_0_100": 87.7608,
+      "historical_indicator": "elevated",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "pineapple",
+      "disease_class": "pineapple_mealybug_wilt",
+      "month": 10,
+      "month_name": "October",
+      "historical_mean_incidence_pct": 26.0444,
+      "historical_index_0_100": 22.9485,
+      "historical_indicator": "low",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "pineapple",
+      "disease_class": "pineapple_mealybug_wilt",
+      "month": 11,
+      "month_name": "November",
+      "historical_mean_incidence_pct": 24.9333,
+      "historical_index_0_100": 15.9944,
+      "historical_indicator": "low",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "pineapple",
+      "disease_class": "pineapple_mealybug_wilt",
+      "month": 12,
+      "month_name": "December",
+      "historical_mean_incidence_pct": 22.3778,
+      "historical_index_0_100": 0.0,
+      "historical_indicator": "low",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "tomato",
+      "disease_class": "tomato_early-late_blight",
+      "month": 1,
+      "month_name": "January",
+      "historical_mean_incidence_pct": 44.6444,
+      "historical_index_0_100": 24.1423,
+      "historical_indicator": "low",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "tomato",
+      "disease_class": "tomato_early-late_blight",
+      "month": 2,
+      "month_name": "February",
+      "historical_mean_incidence_pct": 43.0667,
+      "historical_index_0_100": 15.1207,
+      "historical_indicator": "low",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "tomato",
+      "disease_class": "tomato_early-late_blight",
+      "month": 3,
+      "month_name": "March",
+      "historical_mean_incidence_pct": 43.7778,
+      "historical_index_0_100": 19.1868,
+      "historical_indicator": "low",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "tomato",
+      "disease_class": "tomato_early-late_blight",
+      "month": 4,
+      "month_name": "April",
+      "historical_mean_incidence_pct": 40.4222,
+      "historical_index_0_100": 0.0,
+      "historical_indicator": "low",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "tomato",
+      "disease_class": "tomato_early-late_blight",
+      "month": 5,
+      "month_name": "May",
+      "historical_mean_incidence_pct": 44.2889,
+      "historical_index_0_100": 22.1093,
+      "historical_indicator": "low",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "tomato",
+      "disease_class": "tomato_early-late_blight",
+      "month": 6,
+      "month_name": "June",
+      "historical_mean_incidence_pct": 53.7778,
+      "historical_index_0_100": 76.3659,
+      "historical_indicator": "elevated",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "tomato",
+      "disease_class": "tomato_early-late_blight",
+      "month": 7,
+      "month_name": "July",
+      "historical_mean_incidence_pct": 56.7111,
+      "historical_index_0_100": 93.1385,
+      "historical_indicator": "elevated",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "tomato",
+      "disease_class": "tomato_early-late_blight",
+      "month": 8,
+      "month_name": "August",
+      "historical_mean_incidence_pct": 57.2,
+      "historical_index_0_100": 95.9339,
+      "historical_indicator": "elevated",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "tomato",
+      "disease_class": "tomato_early-late_blight",
+      "month": 9,
+      "month_name": "September",
+      "historical_mean_incidence_pct": 57.9111,
+      "historical_index_0_100": 100.0,
+      "historical_indicator": "elevated",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "tomato",
+      "disease_class": "tomato_early-late_blight",
+      "month": 10,
+      "month_name": "October",
+      "historical_mean_incidence_pct": 50.6667,
+      "historical_index_0_100": 58.5769,
+      "historical_indicator": "moderate",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "tomato",
+      "disease_class": "tomato_early-late_blight",
+      "month": 11,
+      "month_name": "November",
+      "historical_mean_incidence_pct": 51.7556,
+      "historical_index_0_100": 64.803,
+      "historical_indicator": "moderate",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "tomato",
+      "disease_class": "tomato_early-late_blight",
+      "month": 12,
+      "month_name": "December",
+      "historical_mean_incidence_pct": 48.9111,
+      "historical_index_0_100": 48.5388,
+      "historical_indicator": "moderate",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "tomato",
+      "disease_class": "tomato_insect_damage",
+      "month": 1,
+      "month_name": "January",
+      "historical_mean_incidence_pct": 39.1778,
+      "historical_index_0_100": 11.6711,
+      "historical_indicator": "low",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "tomato",
+      "disease_class": "tomato_insect_damage",
+      "month": 2,
+      "month_name": "February",
+      "historical_mean_incidence_pct": 40.9111,
+      "historical_index_0_100": 22.0159,
+      "historical_indicator": "low",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "tomato",
+      "disease_class": "tomato_insect_damage",
+      "month": 3,
+      "month_name": "March",
+      "historical_mean_incidence_pct": 49.4444,
+      "historical_index_0_100": 72.9443,
+      "historical_indicator": "elevated",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "tomato",
+      "disease_class": "tomato_insect_damage",
+      "month": 4,
+      "month_name": "April",
+      "historical_mean_incidence_pct": 50.8889,
+      "historical_index_0_100": 81.565,
+      "historical_indicator": "elevated",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "tomato",
+      "disease_class": "tomato_insect_damage",
+      "month": 5,
+      "month_name": "May",
+      "historical_mean_incidence_pct": 51.1556,
+      "historical_index_0_100": 83.1565,
+      "historical_indicator": "elevated",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "tomato",
+      "disease_class": "tomato_insect_damage",
+      "month": 6,
+      "month_name": "June",
+      "historical_mean_incidence_pct": 53.9778,
+      "historical_index_0_100": 100.0,
+      "historical_indicator": "elevated",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "tomato",
+      "disease_class": "tomato_insect_damage",
+      "month": 7,
+      "month_name": "July",
+      "historical_mean_incidence_pct": 52.4889,
+      "historical_index_0_100": 91.1141,
+      "historical_indicator": "elevated",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "tomato",
+      "disease_class": "tomato_insect_damage",
+      "month": 8,
+      "month_name": "August",
+      "historical_mean_incidence_pct": 52.7111,
+      "historical_index_0_100": 92.4403,
+      "historical_indicator": "elevated",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "tomato",
+      "disease_class": "tomato_insect_damage",
+      "month": 9,
+      "month_name": "September",
+      "historical_mean_incidence_pct": 52.5111,
+      "historical_index_0_100": 91.2467,
+      "historical_indicator": "elevated",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "tomato",
+      "disease_class": "tomato_insect_damage",
+      "month": 10,
+      "month_name": "October",
+      "historical_mean_incidence_pct": 42.6,
+      "historical_index_0_100": 32.0955,
+      "historical_indicator": "low",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "tomato",
+      "disease_class": "tomato_insect_damage",
+      "month": 11,
+      "month_name": "November",
+      "historical_mean_incidence_pct": 41.0222,
+      "historical_index_0_100": 22.679,
+      "historical_indicator": "low",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "tomato",
+      "disease_class": "tomato_insect_damage",
+      "month": 12,
+      "month_name": "December",
+      "historical_mean_incidence_pct": 37.2222,
+      "historical_index_0_100": 0.0,
+      "historical_indicator": "low",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "tomato",
+      "disease_class": "tomato_leaf_curl_virus",
+      "month": 1,
+      "month_name": "January",
+      "historical_mean_incidence_pct": 41.5333,
+      "historical_index_0_100": 4.8023,
+      "historical_indicator": "low",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "tomato",
+      "disease_class": "tomato_leaf_curl_virus",
+      "month": 2,
+      "month_name": "February",
+      "historical_mean_incidence_pct": 42.8667,
+      "historical_index_0_100": 13.2768,
+      "historical_indicator": "low",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "tomato",
+      "disease_class": "tomato_leaf_curl_virus",
+      "month": 3,
+      "month_name": "March",
+      "historical_mean_incidence_pct": 49.7778,
+      "historical_index_0_100": 57.2034,
+      "historical_indicator": "moderate",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "tomato",
+      "disease_class": "tomato_leaf_curl_virus",
+      "month": 4,
+      "month_name": "April",
+      "historical_mean_incidence_pct": 54.3556,
+      "historical_index_0_100": 86.2994,
+      "historical_indicator": "elevated",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "tomato",
+      "disease_class": "tomato_leaf_curl_virus",
+      "month": 5,
+      "month_name": "May",
+      "historical_mean_incidence_pct": 51.6889,
+      "historical_index_0_100": 69.3503,
+      "historical_indicator": "elevated",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "tomato",
+      "disease_class": "tomato_leaf_curl_virus",
+      "month": 6,
+      "month_name": "June",
+      "historical_mean_incidence_pct": 56.0444,
+      "historical_index_0_100": 97.0339,
+      "historical_indicator": "elevated",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "tomato",
+      "disease_class": "tomato_leaf_curl_virus",
+      "month": 7,
+      "month_name": "July",
+      "historical_mean_incidence_pct": 55.1111,
+      "historical_index_0_100": 91.1017,
+      "historical_indicator": "elevated",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "tomato",
+      "disease_class": "tomato_leaf_curl_virus",
+      "month": 8,
+      "month_name": "August",
+      "historical_mean_incidence_pct": 56.5111,
+      "historical_index_0_100": 100.0,
+      "historical_indicator": "elevated",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "tomato",
+      "disease_class": "tomato_leaf_curl_virus",
+      "month": 9,
+      "month_name": "September",
+      "historical_mean_incidence_pct": 54.0889,
+      "historical_index_0_100": 84.6045,
+      "historical_indicator": "elevated",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "tomato",
+      "disease_class": "tomato_leaf_curl_virus",
+      "month": 10,
+      "month_name": "October",
+      "historical_mean_incidence_pct": 44.1778,
+      "historical_index_0_100": 21.6102,
+      "historical_indicator": "low",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "tomato",
+      "disease_class": "tomato_leaf_curl_virus",
+      "month": 11,
+      "month_name": "November",
+      "historical_mean_incidence_pct": 44.3556,
+      "historical_index_0_100": 22.7401,
+      "historical_indicator": "low",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "tomato",
+      "disease_class": "tomato_leaf_curl_virus",
+      "month": 12,
+      "month_name": "December",
+      "historical_mean_incidence_pct": 40.7778,
+      "historical_index_0_100": 0.0,
+      "historical_indicator": "low",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "tomato",
+      "disease_class": "tomato_leaf_miner",
+      "month": 1,
+      "month_name": "January",
+      "historical_mean_incidence_pct": 40.4444,
+      "historical_index_0_100": 17.4583,
+      "historical_indicator": "low",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "tomato",
+      "disease_class": "tomato_leaf_miner",
+      "month": 2,
+      "month_name": "February",
+      "historical_mean_incidence_pct": 42.1333,
+      "historical_index_0_100": 27.2144,
+      "historical_indicator": "low",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "tomato",
+      "disease_class": "tomato_leaf_miner",
+      "month": 3,
+      "month_name": "March",
+      "historical_mean_incidence_pct": 48.0444,
+      "historical_index_0_100": 61.3607,
+      "historical_indicator": "moderate",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "tomato",
+      "disease_class": "tomato_leaf_miner",
+      "month": 4,
+      "month_name": "April",
+      "historical_mean_incidence_pct": 51.2667,
+      "historical_index_0_100": 79.9743,
+      "historical_indicator": "elevated",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "tomato",
+      "disease_class": "tomato_leaf_miner",
+      "month": 5,
+      "month_name": "May",
+      "historical_mean_incidence_pct": 51.3111,
+      "historical_index_0_100": 80.2311,
+      "historical_indicator": "elevated",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "tomato",
+      "disease_class": "tomato_leaf_miner",
+      "month": 6,
+      "month_name": "June",
+      "historical_mean_incidence_pct": 54.7333,
+      "historical_index_0_100": 100.0,
+      "historical_indicator": "elevated",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "tomato",
+      "disease_class": "tomato_leaf_miner",
+      "month": 7,
+      "month_name": "July",
+      "historical_mean_incidence_pct": 51.6889,
+      "historical_index_0_100": 82.4134,
+      "historical_indicator": "elevated",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "tomato",
+      "disease_class": "tomato_leaf_miner",
+      "month": 8,
+      "month_name": "August",
+      "historical_mean_incidence_pct": 52.8444,
+      "historical_index_0_100": 89.0886,
+      "historical_indicator": "elevated",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "tomato",
+      "disease_class": "tomato_leaf_miner",
+      "month": 9,
+      "month_name": "September",
+      "historical_mean_incidence_pct": 51.9333,
+      "historical_index_0_100": 83.8254,
+      "historical_indicator": "elevated",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "tomato",
+      "disease_class": "tomato_leaf_miner",
+      "month": 10,
+      "month_name": "October",
+      "historical_mean_incidence_pct": 41.8667,
+      "historical_index_0_100": 25.6739,
+      "historical_indicator": "low",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "tomato",
+      "disease_class": "tomato_leaf_miner",
+      "month": 11,
+      "month_name": "November",
+      "historical_mean_incidence_pct": 40.2222,
+      "historical_index_0_100": 16.1746,
+      "historical_indicator": "low",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "tomato",
+      "disease_class": "tomato_leaf_miner",
+      "month": 12,
+      "month_name": "December",
+      "historical_mean_incidence_pct": 37.4222,
+      "historical_index_0_100": 0.0,
+      "historical_indicator": "low",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "tomato",
+      "disease_class": "tomato_leaf_mold",
+      "month": 1,
+      "month_name": "January",
+      "historical_mean_incidence_pct": 36.9333,
+      "historical_index_0_100": 22.9686,
+      "historical_indicator": "low",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "tomato",
+      "disease_class": "tomato_leaf_mold",
+      "month": 2,
+      "month_name": "February",
+      "historical_mean_incidence_pct": 32.2222,
+      "historical_index_0_100": 0.0,
+      "historical_indicator": "low",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "tomato",
+      "disease_class": "tomato_leaf_mold",
+      "month": 3,
+      "month_name": "March",
+      "historical_mean_incidence_pct": 36.8889,
+      "historical_index_0_100": 22.7519,
+      "historical_indicator": "low",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "tomato",
+      "disease_class": "tomato_leaf_mold",
+      "month": 4,
+      "month_name": "April",
+      "historical_mean_incidence_pct": 35.7333,
+      "historical_index_0_100": 17.1181,
+      "historical_indicator": "low",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "tomato",
+      "disease_class": "tomato_leaf_mold",
+      "month": 5,
+      "month_name": "May",
+      "historical_mean_incidence_pct": 37.7111,
+      "historical_index_0_100": 26.7606,
+      "historical_indicator": "low",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "tomato",
+      "disease_class": "tomato_leaf_mold",
+      "month": 6,
+      "month_name": "June",
+      "historical_mean_incidence_pct": 50.0667,
+      "historical_index_0_100": 86.9989,
+      "historical_indicator": "elevated",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "tomato",
+      "disease_class": "tomato_leaf_mold",
+      "month": 7,
+      "month_name": "July",
+      "historical_mean_incidence_pct": 52.7333,
+      "historical_index_0_100": 100.0,
+      "historical_indicator": "elevated",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "tomato",
+      "disease_class": "tomato_leaf_mold",
+      "month": 8,
+      "month_name": "August",
+      "historical_mean_incidence_pct": 51.0889,
+      "historical_index_0_100": 91.9827,
+      "historical_indicator": "elevated",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "tomato",
+      "disease_class": "tomato_leaf_mold",
+      "month": 9,
+      "month_name": "September",
+      "historical_mean_incidence_pct": 52.6,
+      "historical_index_0_100": 99.3499,
+      "historical_indicator": "elevated",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "tomato",
+      "disease_class": "tomato_leaf_mold",
+      "month": 10,
+      "month_name": "October",
+      "historical_mean_incidence_pct": 45.2889,
+      "historical_index_0_100": 63.7053,
+      "historical_indicator": "moderate",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "tomato",
+      "disease_class": "tomato_leaf_mold",
+      "month": 11,
+      "month_name": "November",
+      "historical_mean_incidence_pct": 46.7778,
+      "historical_index_0_100": 70.9642,
+      "historical_indicator": "elevated",
+      "years_with_observations": 45,
+      "observation_records": 45
+    },
+    {
+      "crop": "tomato",
+      "disease_class": "tomato_leaf_mold",
+      "month": 12,
+      "month_name": "December",
+      "historical_mean_incidence_pct": 41.9778,
+      "historical_index_0_100": 47.5623,
+      "historical_indicator": "moderate",
+      "years_with_observations": 45,
+      "observation_records": 45
+    }
+  ],
+  "monthly_crop_summaries": [
+    {
+      "crop": "banana",
+      "month": 1,
+      "month_name": "January",
+      "disease_count": 3,
+      "top_historical_disease": "banana_cordana",
+      "top_historical_incidence_pct": 41.3778,
+      "top_historical_risk_index_0_100": 15.1732,
+      "diseases": [
+        {
+          "disease_class": "banana_cordana",
+          "historical_mean_incidence_pct": 41.3778,
+          "historical_risk_index_0_100": 15.1732,
+          "historical_indicator": "low",
+          "years_with_observations": 45,
+          "observation_records": 45
+        },
+        {
+          "disease_class": "banana_panama_wilt",
+          "historical_mean_incidence_pct": 44.8889,
+          "historical_risk_index_0_100": 6.4865,
+          "historical_indicator": "low",
+          "years_with_observations": 45,
+          "observation_records": 45
+        },
+        {
+          "disease_class": "banana_sigatoka",
+          "historical_mean_incidence_pct": 44.2444,
+          "historical_risk_index_0_100": 1.906,
+          "historical_indicator": "low",
+          "years_with_observations": 45,
+          "observation_records": 45
+        }
+      ]
+    },
+    {
+      "crop": "banana",
+      "month": 2,
+      "month_name": "February",
+      "disease_count": 3,
+      "top_historical_disease": "banana_cordana",
+      "top_historical_incidence_pct": 38.5556,
+      "top_historical_risk_index_0_100": 0.0,
+      "diseases": [
+        {
+          "disease_class": "banana_cordana",
+          "historical_mean_incidence_pct": 38.5556,
+          "historical_risk_index_0_100": 0.0,
+          "historical_indicator": "low",
+          "years_with_observations": 45,
+          "observation_records": 45
+        },
+        {
+          "disease_class": "banana_panama_wilt",
+          "historical_mean_incidence_pct": 43.5556,
+          "historical_risk_index_0_100": 0.0,
+          "historical_indicator": "low",
+          "years_with_observations": 45,
+          "observation_records": 45
+        },
+        {
+          "disease_class": "banana_sigatoka",
+          "historical_mean_incidence_pct": 43.9111,
+          "historical_risk_index_0_100": 0.0,
+          "historical_indicator": "low",
+          "years_with_observations": 45,
+          "observation_records": 45
+        }
+      ]
+    },
+    {
+      "crop": "banana",
+      "month": 3,
+      "month_name": "March",
+      "disease_count": 3,
+      "top_historical_disease": "banana_cordana",
+      "top_historical_incidence_pct": 42.9778,
+      "top_historical_risk_index_0_100": 23.7754,
+      "diseases": [
+        {
+          "disease_class": "banana_cordana",
+          "historical_mean_incidence_pct": 42.9778,
+          "historical_risk_index_0_100": 23.7754,
+          "historical_indicator": "low",
+          "years_with_observations": 45,
+          "observation_records": 45
+        },
+        {
+          "disease_class": "banana_panama_wilt",
+          "historical_mean_incidence_pct": 47.6667,
+          "historical_risk_index_0_100": 20.0,
+          "historical_indicator": "low",
+          "years_with_observations": 45,
+          "observation_records": 45
+        },
+        {
+          "disease_class": "banana_sigatoka",
+          "historical_mean_incidence_pct": 46.0889,
+          "historical_risk_index_0_100": 12.4524,
+          "historical_indicator": "low",
+          "years_with_observations": 45,
+          "observation_records": 45
+        }
+      ]
+    },
+    {
+      "crop": "banana",
+      "month": 4,
+      "month_name": "April",
+      "disease_count": 3,
+      "top_historical_disease": "banana_panama_wilt",
+      "top_historical_incidence_pct": 49.3778,
+      "top_historical_risk_index_0_100": 28.3243,
+      "diseases": [
+        {
+          "disease_class": "banana_panama_wilt",
+          "historical_mean_incidence_pct": 49.3778,
+          "historical_risk_index_0_100": 28.3243,
+          "historical_indicator": "low",
+          "years_with_observations": 45,
+          "observation_records": 45
+        },
+        {
+          "disease_class": "banana_cordana",
+          "historical_mean_incidence_pct": 41.1111,
+          "historical_risk_index_0_100": 13.7395,
+          "historical_indicator": "low",
+          "years_with_observations": 45,
+          "observation_records": 45
+        },
+        {
+          "disease_class": "banana_sigatoka",
+          "historical_mean_incidence_pct": 44.3778,
+          "historical_risk_index_0_100": 2.6684,
+          "historical_indicator": "low",
+          "years_with_observations": 45,
+          "observation_records": 45
+        }
+      ]
+    },
+    {
+      "crop": "banana",
+      "month": 5,
+      "month_name": "May",
+      "disease_count": 3,
+      "top_historical_disease": "banana_panama_wilt",
+      "top_historical_incidence_pct": 52.0889,
+      "top_historical_risk_index_0_100": 41.5135,
+      "diseases": [
+        {
+          "disease_class": "banana_panama_wilt",
+          "historical_mean_incidence_pct": 52.0889,
+          "historical_risk_index_0_100": 41.5135,
+          "historical_indicator": "moderate",
+          "years_with_observations": 45,
+          "observation_records": 45
+        },
+        {
+          "disease_class": "banana_cordana",
+          "historical_mean_incidence_pct": 43.4444,
+          "historical_risk_index_0_100": 26.2843,
+          "historical_indicator": "low",
+          "years_with_observations": 45,
+          "observation_records": 45
+        },
+        {
+          "disease_class": "banana_sigatoka",
+          "historical_mean_incidence_pct": 46.2889,
+          "historical_risk_index_0_100": 13.5959,
+          "historical_indicator": "low",
+          "years_with_observations": 45,
+          "observation_records": 45
+        }
+      ]
+    },
+    {
+      "crop": "banana",
+      "month": 6,
+      "month_name": "June",
+      "disease_count": 3,
+      "top_historical_disease": "banana_panama_wilt",
+      "top_historical_incidence_pct": 62.8444,
+      "top_historical_risk_index_0_100": 93.8378,
+      "diseases": [
+        {
+          "disease_class": "banana_panama_wilt",
+          "historical_mean_incidence_pct": 62.8444,
+          "historical_risk_index_0_100": 93.8378,
+          "historical_indicator": "elevated",
+          "years_with_observations": 45,
+          "observation_records": 45
+        },
+        {
+          "disease_class": "banana_sigatoka",
+          "historical_mean_incidence_pct": 58.6889,
+          "historical_risk_index_0_100": 84.4981,
+          "historical_indicator": "elevated",
+          "years_with_observations": 45,
+          "observation_records": 45
+        },
+        {
+          "disease_class": "banana_cordana",
+          "historical_mean_incidence_pct": 53.8889,
+          "historical_risk_index_0_100": 82.4373,
+          "historical_indicator": "elevated",
+          "years_with_observations": 45,
+          "observation_records": 45
+        }
+      ]
+    },
+    {
+      "crop": "banana",
+      "month": 7,
+      "month_name": "July",
+      "disease_count": 3,
+      "top_historical_disease": "banana_cordana",
+      "top_historical_incidence_pct": 57.1556,
+      "top_historical_risk_index_0_100": 100.0,
+      "diseases": [
+        {
+          "disease_class": "banana_cordana",
+          "historical_mean_incidence_pct": 57.1556,
+          "historical_risk_index_0_100": 100.0,
+          "historical_indicator": "elevated",
+          "years_with_observations": 45,
+          "observation_records": 45
+        },
+        {
+          "disease_class": "banana_panama_wilt",
+          "historical_mean_incidence_pct": 64.1111,
+          "historical_risk_index_0_100": 100.0,
+          "historical_indicator": "elevated",
+          "years_with_observations": 45,
+          "observation_records": 45
+        },
+        {
+          "disease_class": "banana_sigatoka",
+          "historical_mean_incidence_pct": 61.4,
+          "historical_risk_index_0_100": 100.0,
+          "historical_indicator": "elevated",
+          "years_with_observations": 45,
+          "observation_records": 45
+        }
+      ]
+    },
+    {
+      "crop": "banana",
+      "month": 8,
+      "month_name": "August",
+      "disease_count": 3,
+      "top_historical_disease": "banana_cordana",
+      "top_historical_incidence_pct": 56.6889,
+      "top_historical_risk_index_0_100": 97.491,
+      "diseases": [
+        {
+          "disease_class": "banana_cordana",
+          "historical_mean_incidence_pct": 56.6889,
+          "historical_risk_index_0_100": 97.491,
+          "historical_indicator": "elevated",
+          "years_with_observations": 45,
+          "observation_records": 45
+        },
+        {
+          "disease_class": "banana_sigatoka",
+          "historical_mean_incidence_pct": 60.4889,
+          "historical_risk_index_0_100": 94.7903,
+          "historical_indicator": "elevated",
+          "years_with_observations": 45,
+          "observation_records": 45
+        },
+        {
+          "disease_class": "banana_panama_wilt",
+          "historical_mean_incidence_pct": 61.5333,
+          "historical_risk_index_0_100": 87.4595,
+          "historical_indicator": "elevated",
+          "years_with_observations": 45,
+          "observation_records": 45
+        }
+      ]
+    },
+    {
+      "crop": "banana",
+      "month": 9,
+      "month_name": "September",
+      "disease_count": 3,
+      "top_historical_disease": "banana_panama_wilt",
+      "top_historical_incidence_pct": 63.4222,
+      "top_historical_risk_index_0_100": 96.6486,
+      "diseases": [
+        {
+          "disease_class": "banana_panama_wilt",
+          "historical_mean_incidence_pct": 63.4222,
+          "historical_risk_index_0_100": 96.6486,
+          "historical_indicator": "elevated",
+          "years_with_observations": 45,
+          "observation_records": 45
+        },
+        {
+          "disease_class": "banana_cordana",
+          "historical_mean_incidence_pct": 56.0,
+          "historical_risk_index_0_100": 93.7873,
+          "historical_indicator": "elevated",
+          "years_with_observations": 45,
+          "observation_records": 45
+        },
+        {
+          "disease_class": "banana_sigatoka",
+          "historical_mean_incidence_pct": 60.3111,
+          "historical_risk_index_0_100": 93.7738,
+          "historical_indicator": "elevated",
+          "years_with_observations": 45,
+          "observation_records": 45
+        }
+      ]
+    },
+    {
+      "crop": "banana",
+      "month": 10,
+      "month_name": "October",
+      "disease_count": 3,
+      "top_historical_disease": "banana_panama_wilt",
+      "top_historical_incidence_pct": 58.2889,
+      "top_historical_risk_index_0_100": 71.6757,
+      "diseases": [
+        {
+          "disease_class": "banana_panama_wilt",
+          "historical_mean_incidence_pct": 58.2889,
+          "historical_risk_index_0_100": 71.6757,
+          "historical_indicator": "elevated",
+          "years_with_observations": 45,
+          "observation_records": 45
+        },
+        {
+          "disease_class": "banana_cordana",
+          "historical_mean_incidence_pct": 50.4667,
+          "historical_risk_index_0_100": 64.0382,
+          "historical_indicator": "moderate",
+          "years_with_observations": 45,
+          "observation_records": 45
+        },
+        {
+          "disease_class": "banana_sigatoka",
+          "historical_mean_incidence_pct": 54.3111,
+          "historical_risk_index_0_100": 59.4663,
+          "historical_indicator": "moderate",
+          "years_with_observations": 45,
+          "observation_records": 45
+        }
+      ]
+    },
+    {
+      "crop": "banana",
+      "month": 11,
+      "month_name": "November",
+      "disease_count": 3,
+      "top_historical_disease": "banana_cordana",
+      "top_historical_incidence_pct": 50.8444,
+      "top_historical_risk_index_0_100": 66.0693,
+      "diseases": [
+        {
+          "disease_class": "banana_cordana",
+          "historical_mean_incidence_pct": 50.8444,
+          "historical_risk_index_0_100": 66.0693,
+          "historical_indicator": "moderate",
+          "years_with_observations": 45,
+          "observation_records": 45
+        },
+        {
+          "disease_class": "banana_panama_wilt",
+          "historical_mean_incidence_pct": 56.2,
+          "historical_risk_index_0_100": 61.5135,
+          "historical_indicator": "moderate",
+          "years_with_observations": 45,
+          "observation_records": 45
+        },
+        {
+          "disease_class": "banana_sigatoka",
+          "historical_mean_incidence_pct": 53.4889,
+          "historical_risk_index_0_100": 54.7649,
+          "historical_indicator": "moderate",
+          "years_with_observations": 45,
+          "observation_records": 45
+        }
+      ]
+    },
+    {
+      "crop": "banana",
+      "month": 12,
+      "month_name": "December",
+      "disease_count": 3,
+      "top_historical_disease": "banana_cordana",
+      "top_historical_incidence_pct": 47.5556,
+      "top_historical_risk_index_0_100": 48.3871,
+      "diseases": [
+        {
+          "disease_class": "banana_cordana",
+          "historical_mean_incidence_pct": 47.5556,
+          "historical_risk_index_0_100": 48.3871,
+          "historical_indicator": "moderate",
+          "years_with_observations": 45,
+          "observation_records": 45
+        },
+        {
+          "disease_class": "banana_panama_wilt",
+          "historical_mean_incidence_pct": 53.0889,
+          "historical_risk_index_0_100": 46.3784,
+          "historical_indicator": "moderate",
+          "years_with_observations": 45,
+          "observation_records": 45
+        },
+        {
+          "disease_class": "banana_sigatoka",
+          "historical_mean_incidence_pct": 50.2667,
+          "historical_risk_index_0_100": 36.3405,
+          "historical_indicator": "moderate",
+          "years_with_observations": 45,
+          "observation_records": 45
+        }
+      ]
+    },
+    {
+      "crop": "lettuce",
+      "month": 1,
+      "month_name": "January",
+      "disease_count": 3,
+      "top_historical_disease": "lettuce_fungal",
+      "top_historical_incidence_pct": 44.0667,
+      "top_historical_risk_index_0_100": 31.864,
+      "diseases": [
+        {
+          "disease_class": "lettuce_fungal",
+          "historical_mean_incidence_pct": 44.0667,
+          "historical_risk_index_0_100": 31.864,
+          "historical_indicator": "low",
+          "years_with_observations": 45,
+          "observation_records": 45
+        },
+        {
+          "disease_class": "lettuce_insect_pest",
+          "historical_mean_incidence_pct": 39.9778,
+          "historical_risk_index_0_100": 15.0479,
+          "historical_indicator": "low",
+          "years_with_observations": 45,
+          "observation_records": 45
+        },
+        {
+          "disease_class": "lettuce_bacterial",
+          "historical_mean_incidence_pct": 31.6,
+          "historical_risk_index_0_100": 5.7758,
+          "historical_indicator": "low",
+          "years_with_observations": 45,
+          "observation_records": 45
+        }
+      ]
+    },
+    {
+      "crop": "lettuce",
+      "month": 2,
+      "month_name": "February",
+      "disease_count": 3,
+      "top_historical_disease": "lettuce_insect_pest",
+      "top_historical_incidence_pct": 40.0667,
+      "top_historical_risk_index_0_100": 15.5951,
+      "diseases": [
+        {
+          "disease_class": "lettuce_insect_pest",
+          "historical_mean_incidence_pct": 40.0667,
+          "historical_risk_index_0_100": 15.5951,
+          "historical_indicator": "low",
+          "years_with_observations": 45,
+          "observation_records": 45
+        },
+        {
+          "disease_class": "lettuce_fungal",
+          "historical_mean_incidence_pct": 39.4667,
+          "historical_risk_index_0_100": 5.7935,
+          "historical_indicator": "low",
+          "years_with_observations": 45,
+          "observation_records": 45
+        },
+        {
+          "disease_class": "lettuce_bacterial",
+          "historical_mean_incidence_pct": 30.4667,
+          "historical_risk_index_0_100": 0.0,
+          "historical_indicator": "low",
+          "years_with_observations": 45,
+          "observation_records": 45
+        }
+      ]
+    },
+    {
+      "crop": "lettuce",
+      "month": 3,
+      "month_name": "March",
+      "disease_count": 3,
+      "top_historical_disease": "lettuce_insect_pest",
+      "top_historical_incidence_pct": 48.2222,
+      "top_historical_risk_index_0_100": 65.8003,
+      "diseases": [
+        {
+          "disease_class": "lettuce_insect_pest",
+          "historical_mean_incidence_pct": 48.2222,
+          "historical_risk_index_0_100": 65.8003,
+          "historical_indicator": "moderate",
+          "years_with_observations": 45,
+          "observation_records": 45
+        },
+        {
+          "disease_class": "lettuce_fungal",
+          "historical_mean_incidence_pct": 42.8889,
+          "historical_risk_index_0_100": 25.1889,
+          "historical_indicator": "low",
+          "years_with_observations": 45,
+          "observation_records": 45
+        },
+        {
+          "disease_class": "lettuce_bacterial",
+          "historical_mean_incidence_pct": 32.9111,
+          "historical_risk_index_0_100": 12.4575,
+          "historical_indicator": "low",
+          "years_with_observations": 45,
+          "observation_records": 45
+        }
+      ]
+    },
+    {
+      "crop": "lettuce",
+      "month": 4,
+      "month_name": "April",
+      "disease_count": 3,
+      "top_historical_disease": "lettuce_insect_pest",
+      "top_historical_incidence_pct": 51.5778,
+      "top_historical_risk_index_0_100": 86.4569,
+      "diseases": [
+        {
+          "disease_class": "lettuce_insect_pest",
+          "historical_mean_incidence_pct": 51.5778,
+          "historical_risk_index_0_100": 86.4569,
+          "historical_indicator": "elevated",
+          "years_with_observations": 45,
+          "observation_records": 45
+        },
+        {
+          "disease_class": "lettuce_bacterial",
+          "historical_mean_incidence_pct": 32.2889,
+          "historical_risk_index_0_100": 9.2865,
+          "historical_indicator": "low",
+          "years_with_observations": 45,
+          "observation_records": 45
+        },
+        {
+          "disease_class": "lettuce_fungal",
+          "historical_mean_incidence_pct": 38.4444,
+          "historical_risk_index_0_100": 0.0,
+          "historical_indicator": "low",
+          "years_with_observations": 45,
+          "observation_records": 45
+        }
+      ]
+    },
+    {
+      "crop": "lettuce",
+      "month": 5,
+      "month_name": "May",
+      "disease_count": 3,
+      "top_historical_disease": "lettuce_insect_pest",
+      "top_historical_incidence_pct": 50.4222,
+      "top_historical_risk_index_0_100": 79.3434,
+      "diseases": [
+        {
+          "disease_class": "lettuce_insect_pest",
+          "historical_mean_incidence_pct": 50.4222,
+          "historical_risk_index_0_100": 79.3434,
+          "historical_indicator": "elevated",
+          "years_with_observations": 45,
+          "observation_records": 45
+        },
+        {
+          "disease_class": "lettuce_fungal",
+          "historical_mean_incidence_pct": 43.0667,
+          "historical_risk_index_0_100": 26.1965,
+          "historical_indicator": "low",
+          "years_with_observations": 45,
+          "observation_records": 45
+        },
+        {
+          "disease_class": "lettuce_bacterial",
+          "historical_mean_incidence_pct": 35.5778,
+          "historical_risk_index_0_100": 26.0476,
+          "historical_indicator": "low",
+          "years_with_observations": 45,
+          "observation_records": 45
+        }
+      ]
+    },
+    {
+      "crop": "lettuce",
+      "month": 6,
+      "month_name": "June",
+      "disease_count": 3,
+      "top_historical_disease": "lettuce_insect_pest",
+      "top_historical_incidence_pct": 53.7111,
+      "top_historical_risk_index_0_100": 99.5896,
+      "diseases": [
+        {
+          "disease_class": "lettuce_insect_pest",
+          "historical_mean_incidence_pct": 53.7111,
+          "historical_risk_index_0_100": 99.5896,
+          "historical_indicator": "elevated",
+          "years_with_observations": 45,
+          "observation_records": 45
+        },
+        {
+          "disease_class": "lettuce_bacterial",
+          "historical_mean_incidence_pct": 47.0,
+          "historical_risk_index_0_100": 84.2582,
+          "historical_indicator": "elevated",
+          "years_with_observations": 45,
+          "observation_records": 45
+        },
+        {
+          "disease_class": "lettuce_fungal",
+          "historical_mean_incidence_pct": 51.4222,
+          "historical_risk_index_0_100": 73.5516,
+          "historical_indicator": "elevated",
+          "years_with_observations": 45,
+          "observation_records": 45
+        }
+      ]
+    },
+    {
+      "crop": "lettuce",
+      "month": 7,
+      "month_name": "July",
+      "disease_count": 3,
+      "top_historical_disease": "lettuce_bacterial",
+      "top_historical_incidence_pct": 50.0889,
+      "top_historical_risk_index_0_100": 100.0,
+      "diseases": [
+        {
+          "disease_class": "lettuce_bacterial",
+          "historical_mean_incidence_pct": 50.0889,
+          "historical_risk_index_0_100": 100.0,
+          "historical_indicator": "elevated",
+          "years_with_observations": 45,
+          "observation_records": 45
+        },
+        {
+          "disease_class": "lettuce_fungal",
+          "historical_mean_incidence_pct": 55.5556,
+          "historical_risk_index_0_100": 96.9773,
+          "historical_indicator": "elevated",
+          "years_with_observations": 45,
+          "observation_records": 45
+        },
+        {
+          "disease_class": "lettuce_insect_pest",
+          "historical_mean_incidence_pct": 52.8222,
+          "historical_risk_index_0_100": 94.1176,
+          "historical_indicator": "elevated",
+          "years_with_observations": 45,
+          "observation_records": 45
+        }
+      ]
+    },
+    {
+      "crop": "lettuce",
+      "month": 8,
+      "month_name": "August",
+      "disease_count": 3,
+      "top_historical_disease": "lettuce_insect_pest",
+      "top_historical_incidence_pct": 53.0222,
+      "top_historical_risk_index_0_100": 95.3488,
+      "diseases": [
+        {
+          "disease_class": "lettuce_insect_pest",
+          "historical_mean_incidence_pct": 53.0222,
+          "historical_risk_index_0_100": 95.3488,
+          "historical_indicator": "elevated",
+          "years_with_observations": 45,
+          "observation_records": 45
+        },
+        {
+          "disease_class": "lettuce_fungal",
+          "historical_mean_incidence_pct": 54.4222,
+          "historical_risk_index_0_100": 90.5542,
+          "historical_indicator": "elevated",
+          "years_with_observations": 45,
+          "observation_records": 45
+        },
+        {
+          "disease_class": "lettuce_bacterial",
+          "historical_mean_incidence_pct": 47.7333,
+          "historical_risk_index_0_100": 87.9955,
+          "historical_indicator": "elevated",
+          "years_with_observations": 45,
+          "observation_records": 45
+        }
+      ]
+    },
+    {
+      "crop": "lettuce",
+      "month": 9,
+      "month_name": "September",
+      "disease_count": 3,
+      "top_historical_disease": "lettuce_fungal",
+      "top_historical_incidence_pct": 56.0889,
+      "top_historical_risk_index_0_100": 100.0,
+      "diseases": [
+        {
+          "disease_class": "lettuce_fungal",
+          "historical_mean_incidence_pct": 56.0889,
+          "historical_risk_index_0_100": 100.0,
+          "historical_indicator": "elevated",
+          "years_with_observations": 45,
+          "observation_records": 45
+        },
+        {
+          "disease_class": "lettuce_insect_pest",
+          "historical_mean_incidence_pct": 53.7778,
+          "historical_risk_index_0_100": 100.0,
+          "historical_indicator": "elevated",
+          "years_with_observations": 45,
+          "observation_records": 45
+        },
+        {
+          "disease_class": "lettuce_bacterial",
+          "historical_mean_incidence_pct": 48.3556,
+          "historical_risk_index_0_100": 91.1665,
+          "historical_indicator": "elevated",
+          "years_with_observations": 45,
+          "observation_records": 45
+        }
+      ]
+    },
+    {
+      "crop": "lettuce",
+      "month": 10,
+      "month_name": "October",
+      "disease_count": 3,
+      "top_historical_disease": "lettuce_bacterial",
+      "top_historical_incidence_pct": 41.8222,
+      "top_historical_risk_index_0_100": 57.8709,
+      "diseases": [
+        {
+          "disease_class": "lettuce_bacterial",
+          "historical_mean_incidence_pct": 41.8222,
+          "historical_risk_index_0_100": 57.8709,
+          "historical_indicator": "moderate",
+          "years_with_observations": 45,
+          "observation_records": 45
+        },
+        {
+          "disease_class": "lettuce_fungal",
+          "historical_mean_incidence_pct": 47.5778,
+          "historical_risk_index_0_100": 51.7632,
+          "historical_indicator": "moderate",
+          "years_with_observations": 45,
+          "observation_records": 45
+        },
+        {
+          "disease_class": "lettuce_insect_pest",
+          "historical_mean_incidence_pct": 43.0222,
+          "historical_risk_index_0_100": 33.7893,
+          "historical_indicator": "moderate",
+          "years_with_observations": 45,
+          "observation_records": 45
+        }
+      ]
+    },
+    {
+      "crop": "lettuce",
+      "month": 11,
+      "month_name": "November",
+      "disease_count": 3,
+      "top_historical_disease": "lettuce_fungal",
+      "top_historical_incidence_pct": 49.3111,
+      "top_historical_risk_index_0_100": 61.5869,
+      "diseases": [
+        {
+          "disease_class": "lettuce_fungal",
+          "historical_mean_incidence_pct": 49.3111,
+          "historical_risk_index_0_100": 61.5869,
+          "historical_indicator": "moderate",
+          "years_with_observations": 45,
+          "observation_records": 45
+        },
+        {
+          "disease_class": "lettuce_bacterial",
+          "historical_mean_incidence_pct": 42.2444,
+          "historical_risk_index_0_100": 60.0227,
+          "historical_indicator": "moderate",
+          "years_with_observations": 45,
+          "observation_records": 45
+        },
+        {
+          "disease_class": "lettuce_insect_pest",
+          "historical_mean_incidence_pct": 41.8667,
+          "historical_risk_index_0_100": 26.6758,
+          "historical_indicator": "low",
+          "years_with_observations": 45,
+          "observation_records": 45
+        }
+      ]
+    },
+    {
+      "crop": "lettuce",
+      "month": 12,
+      "month_name": "December",
+      "disease_count": 3,
+      "top_historical_disease": "lettuce_fungal",
+      "top_historical_incidence_pct": 47.8667,
+      "top_historical_risk_index_0_100": 53.4005,
+      "diseases": [
+        {
+          "disease_class": "lettuce_fungal",
+          "historical_mean_incidence_pct": 47.8667,
+          "historical_risk_index_0_100": 53.4005,
+          "historical_indicator": "moderate",
+          "years_with_observations": 45,
+          "observation_records": 45
+        },
+        {
+          "disease_class": "lettuce_bacterial",
+          "historical_mean_incidence_pct": 38.4444,
+          "historical_risk_index_0_100": 40.6569,
+          "historical_indicator": "moderate",
+          "years_with_observations": 45,
+          "observation_records": 45
+        },
+        {
+          "disease_class": "lettuce_insect_pest",
+          "historical_mean_incidence_pct": 37.5333,
+          "historical_risk_index_0_100": 0.0,
+          "historical_indicator": "low",
+          "years_with_observations": 45,
+          "observation_records": 45
+        }
+      ]
+    },
+    {
+      "crop": "pineapple",
+      "month": 1,
+      "month_name": "January",
+      "disease_count": 3,
+      "top_historical_disease": "pineapple_leaf_blight",
+      "top_historical_incidence_pct": 38.8222,
+      "top_historical_risk_index_0_100": 13.9019,
+      "diseases": [
+        {
+          "disease_class": "pineapple_leaf_blight",
+          "historical_mean_incidence_pct": 38.8222,
+          "historical_risk_index_0_100": 13.9019,
+          "historical_indicator": "low",
+          "years_with_observations": 45,
+          "observation_records": 45
+        },
+        {
+          "disease_class": "pineapple_mealybug_wilt",
+          "historical_mean_incidence_pct": 22.8444,
+          "historical_risk_index_0_100": 2.9207,
+          "historical_indicator": "low",
+          "years_with_observations": 45,
+          "observation_records": 45
+        },
+        {
+          "disease_class": "pineapple_fusarium",
+          "historical_mean_incidence_pct": 26.5333,
+          "historical_risk_index_0_100": 2.8153,
+          "historical_indicator": "low",
+          "years_with_observations": 45,
+          "observation_records": 45
+        }
+      ]
+    },
+    {
+      "crop": "pineapple",
+      "month": 2,
+      "month_name": "February",
+      "disease_count": 3,
+      "top_historical_disease": "pineapple_mealybug_wilt",
+      "top_historical_incidence_pct": 24.3778,
+      "top_historical_risk_index_0_100": 12.5174,
+      "diseases": [
+        {
+          "disease_class": "pineapple_mealybug_wilt",
+          "historical_mean_incidence_pct": 24.3778,
+          "historical_risk_index_0_100": 12.5174,
+          "historical_indicator": "low",
+          "years_with_observations": 45,
+          "observation_records": 45
+        },
+        {
+          "disease_class": "pineapple_fusarium",
+          "historical_mean_incidence_pct": 25.9778,
+          "historical_risk_index_0_100": 0.0,
+          "historical_indicator": "low",
+          "years_with_observations": 45,
+          "observation_records": 45
+        },
+        {
+          "disease_class": "pineapple_leaf_blight",
+          "historical_mean_incidence_pct": 36.1778,
+          "historical_risk_index_0_100": 0.0,
+          "historical_indicator": "low",
+          "years_with_observations": 45,
+          "observation_records": 45
+        }
+      ]
+    },
+    {
+      "crop": "pineapple",
+      "month": 3,
+      "month_name": "March",
+      "disease_count": 3,
+      "top_historical_disease": "pineapple_mealybug_wilt",
+      "top_historical_incidence_pct": 31.5556,
+      "top_historical_risk_index_0_100": 57.4409,
+      "diseases": [
+        {
+          "disease_class": "pineapple_mealybug_wilt",
+          "historical_mean_incidence_pct": 31.5556,
+          "historical_risk_index_0_100": 57.4409,
+          "historical_indicator": "moderate",
+          "years_with_observations": 45,
+          "observation_records": 45
+        },
+        {
+          "disease_class": "pineapple_leaf_blight",
+          "historical_mean_incidence_pct": 41.9333,
+          "historical_risk_index_0_100": 30.257,
+          "historical_indicator": "low",
+          "years_with_observations": 45,
+          "observation_records": 45
+        },
+        {
+          "disease_class": "pineapple_fusarium",
+          "historical_mean_incidence_pct": 31.3333,
+          "historical_risk_index_0_100": 27.1396,
+          "historical_indicator": "low",
+          "years_with_observations": 45,
+          "observation_records": 45
+        }
+      ]
+    },
+    {
+      "crop": "pineapple",
+      "month": 4,
+      "month_name": "April",
+      "disease_count": 3,
+      "top_historical_disease": "pineapple_mealybug_wilt",
+      "top_historical_incidence_pct": 35.4222,
+      "top_historical_risk_index_0_100": 81.6412,
+      "diseases": [
+        {
+          "disease_class": "pineapple_mealybug_wilt",
+          "historical_mean_incidence_pct": 35.4222,
+          "historical_risk_index_0_100": 81.6412,
+          "historical_indicator": "elevated",
+          "years_with_observations": 45,
+          "observation_records": 45
+        },
+        {
+          "disease_class": "pineapple_fusarium",
+          "historical_mean_incidence_pct": 31.8,
+          "historical_risk_index_0_100": 29.5045,
+          "historical_indicator": "low",
+          "years_with_observations": 45,
+          "observation_records": 45
+        },
+        {
+          "disease_class": "pineapple_leaf_blight",
+          "historical_mean_incidence_pct": 41.6889,
+          "historical_risk_index_0_100": 28.972,
+          "historical_indicator": "low",
+          "years_with_observations": 45,
+          "observation_records": 45
+        }
+      ]
+    },
+    {
+      "crop": "pineapple",
+      "month": 5,
+      "month_name": "May",
+      "disease_count": 3,
+      "top_historical_disease": "pineapple_mealybug_wilt",
+      "top_historical_incidence_pct": 34.7111,
+      "top_historical_risk_index_0_100": 77.1905,
+      "diseases": [
+        {
+          "disease_class": "pineapple_mealybug_wilt",
+          "historical_mean_incidence_pct": 34.7111,
+          "historical_risk_index_0_100": 77.1905,
+          "historical_indicator": "elevated",
+          "years_with_observations": 45,
+          "observation_records": 45
+        },
+        {
+          "disease_class": "pineapple_fusarium",
+          "historical_mean_incidence_pct": 35.1556,
+          "historical_risk_index_0_100": 46.509,
+          "historical_indicator": "moderate",
+          "years_with_observations": 45,
+          "observation_records": 45
+        },
+        {
+          "disease_class": "pineapple_leaf_blight",
+          "historical_mean_incidence_pct": 43.8889,
+          "historical_risk_index_0_100": 40.5374,
+          "historical_indicator": "moderate",
+          "years_with_observations": 45,
+          "observation_records": 45
+        }
+      ]
+    },
+    {
+      "crop": "pineapple",
+      "month": 6,
+      "month_name": "June",
+      "disease_count": 3,
+      "top_historical_disease": "pineapple_mealybug_wilt",
+      "top_historical_incidence_pct": 38.3556,
+      "top_historical_risk_index_0_100": 100.0,
+      "diseases": [
+        {
+          "disease_class": "pineapple_mealybug_wilt",
+          "historical_mean_incidence_pct": 38.3556,
+          "historical_risk_index_0_100": 100.0,
+          "historical_indicator": "elevated",
+          "years_with_observations": 45,
+          "observation_records": 45
+        },
+        {
+          "disease_class": "pineapple_fusarium",
+          "historical_mean_incidence_pct": 44.9556,
+          "historical_risk_index_0_100": 96.1712,
+          "historical_indicator": "elevated",
+          "years_with_observations": 45,
+          "observation_records": 45
+        },
+        {
+          "disease_class": "pineapple_leaf_blight",
+          "historical_mean_incidence_pct": 53.0889,
+          "historical_risk_index_0_100": 88.9019,
+          "historical_indicator": "elevated",
+          "years_with_observations": 45,
+          "observation_records": 45
+        }
+      ]
+    },
+    {
+      "crop": "pineapple",
+      "month": 7,
+      "month_name": "July",
+      "disease_count": 3,
+      "top_historical_disease": "pineapple_fusarium",
+      "top_historical_incidence_pct": 45.7111,
+      "top_historical_risk_index_0_100": 100.0,
+      "diseases": [
+        {
+          "disease_class": "pineapple_fusarium",
+          "historical_mean_incidence_pct": 45.7111,
+          "historical_risk_index_0_100": 100.0,
+          "historical_indicator": "elevated",
+          "years_with_observations": 45,
+          "observation_records": 45
+        },
+        {
+          "disease_class": "pineapple_leaf_blight",
+          "historical_mean_incidence_pct": 55.1333,
+          "historical_risk_index_0_100": 99.6495,
+          "historical_indicator": "elevated",
+          "years_with_observations": 45,
+          "observation_records": 45
+        },
+        {
+          "disease_class": "pineapple_mealybug_wilt",
+          "historical_mean_incidence_pct": 37.2667,
+          "historical_risk_index_0_100": 93.185,
+          "historical_indicator": "elevated",
+          "years_with_observations": 45,
+          "observation_records": 45
+        }
+      ]
+    },
+    {
+      "crop": "pineapple",
+      "month": 8,
+      "month_name": "August",
+      "disease_count": 3,
+      "top_historical_disease": "pineapple_leaf_blight",
+      "top_historical_incidence_pct": 55.0,
+      "top_historical_risk_index_0_100": 98.9486,
+      "diseases": [
+        {
+          "disease_class": "pineapple_leaf_blight",
+          "historical_mean_incidence_pct": 55.0,
+          "historical_risk_index_0_100": 98.9486,
+          "historical_indicator": "elevated",
+          "years_with_observations": 45,
+          "observation_records": 45
+        },
+        {
+          "disease_class": "pineapple_fusarium",
+          "historical_mean_incidence_pct": 45.4444,
+          "historical_risk_index_0_100": 98.6486,
+          "historical_indicator": "elevated",
+          "years_with_observations": 45,
+          "observation_records": 45
+        },
+        {
+          "disease_class": "pineapple_mealybug_wilt",
+          "historical_mean_incidence_pct": 36.0889,
+          "historical_risk_index_0_100": 85.8136,
+          "historical_indicator": "elevated",
+          "years_with_observations": 45,
+          "observation_records": 45
+        }
+      ]
+    },
+    {
+      "crop": "pineapple",
+      "month": 9,
+      "month_name": "September",
+      "disease_count": 3,
+      "top_historical_disease": "pineapple_leaf_blight",
+      "top_historical_incidence_pct": 55.2,
+      "top_historical_risk_index_0_100": 100.0,
+      "diseases": [
+        {
+          "disease_class": "pineapple_leaf_blight",
+          "historical_mean_incidence_pct": 55.2,
+          "historical_risk_index_0_100": 100.0,
+          "historical_indicator": "elevated",
+          "years_with_observations": 45,
+          "observation_records": 45
+        },
+        {
+          "disease_class": "pineapple_fusarium",
+          "historical_mean_incidence_pct": 45.0,
+          "historical_risk_index_0_100": 96.3964,
+          "historical_indicator": "elevated",
+          "years_with_observations": 45,
+          "observation_records": 45
+        },
+        {
+          "disease_class": "pineapple_mealybug_wilt",
+          "historical_mean_incidence_pct": 36.4,
+          "historical_risk_index_0_100": 87.7608,
+          "historical_indicator": "elevated",
+          "years_with_observations": 45,
+          "observation_records": 45
+        }
+      ]
+    },
+    {
+      "crop": "pineapple",
+      "month": 10,
+      "month_name": "October",
+      "disease_count": 3,
+      "top_historical_disease": "pineapple_fusarium",
+      "top_historical_incidence_pct": 39.4889,
+      "top_historical_risk_index_0_100": 68.4685,
+      "diseases": [
+        {
+          "disease_class": "pineapple_fusarium",
+          "historical_mean_incidence_pct": 39.4889,
+          "historical_risk_index_0_100": 68.4685,
+          "historical_indicator": "elevated",
+          "years_with_observations": 45,
+          "observation_records": 45
+        },
+        {
+          "disease_class": "pineapple_leaf_blight",
+          "historical_mean_incidence_pct": 47.0222,
+          "historical_risk_index_0_100": 57.0093,
+          "historical_indicator": "moderate",
+          "years_with_observations": 45,
+          "observation_records": 45
+        },
+        {
+          "disease_class": "pineapple_mealybug_wilt",
+          "historical_mean_incidence_pct": 26.0444,
+          "historical_risk_index_0_100": 22.9485,
+          "historical_indicator": "low",
+          "years_with_observations": 45,
+          "observation_records": 45
+        }
+      ]
+    },
+    {
+      "crop": "pineapple",
+      "month": 11,
+      "month_name": "November",
+      "disease_count": 3,
+      "top_historical_disease": "pineapple_fusarium",
+      "top_historical_incidence_pct": 38.4222,
+      "top_historical_risk_index_0_100": 63.0631,
+      "diseases": [
+        {
+          "disease_class": "pineapple_fusarium",
+          "historical_mean_incidence_pct": 38.4222,
+          "historical_risk_index_0_100": 63.0631,
+          "historical_indicator": "moderate",
+          "years_with_observations": 45,
+          "observation_records": 45
+        },
+        {
+          "disease_class": "pineapple_leaf_blight",
+          "historical_mean_incidence_pct": 46.6889,
+          "historical_risk_index_0_100": 55.257,
+          "historical_indicator": "moderate",
+          "years_with_observations": 45,
+          "observation_records": 45
+        },
+        {
+          "disease_class": "pineapple_mealybug_wilt",
+          "historical_mean_incidence_pct": 24.9333,
+          "historical_risk_index_0_100": 15.9944,
+          "historical_indicator": "low",
+          "years_with_observations": 45,
+          "observation_records": 45
+        }
+      ]
+    },
+    {
+      "crop": "pineapple",
+      "month": 12,
+      "month_name": "December",
+      "disease_count": 3,
+      "top_historical_disease": "pineapple_fusarium",
+      "top_historical_incidence_pct": 35.2667,
+      "top_historical_risk_index_0_100": 47.0721,
+      "diseases": [
+        {
+          "disease_class": "pineapple_fusarium",
+          "historical_mean_incidence_pct": 35.2667,
+          "historical_risk_index_0_100": 47.0721,
+          "historical_indicator": "moderate",
+          "years_with_observations": 45,
+          "observation_records": 45
+        },
+        {
+          "disease_class": "pineapple_leaf_blight",
+          "historical_mean_incidence_pct": 43.6889,
+          "historical_risk_index_0_100": 39.486,
+          "historical_indicator": "moderate",
+          "years_with_observations": 45,
+          "observation_records": 45
+        },
+        {
+          "disease_class": "pineapple_mealybug_wilt",
+          "historical_mean_incidence_pct": 22.3778,
+          "historical_risk_index_0_100": 0.0,
+          "historical_indicator": "low",
+          "years_with_observations": 45,
+          "observation_records": 45
+        }
+      ]
+    },
+    {
+      "crop": "tomato",
+      "month": 1,
+      "month_name": "January",
+      "disease_count": 5,
+      "top_historical_disease": "tomato_early-late_blight",
+      "top_historical_incidence_pct": 44.6444,
+      "top_historical_risk_index_0_100": 24.1423,
+      "diseases": [
+        {
+          "disease_class": "tomato_early-late_blight",
+          "historical_mean_incidence_pct": 44.6444,
+          "historical_risk_index_0_100": 24.1423,
+          "historical_indicator": "low",
+          "years_with_observations": 45,
+          "observation_records": 45
+        },
+        {
+          "disease_class": "tomato_leaf_mold",
+          "historical_mean_incidence_pct": 36.9333,
+          "historical_risk_index_0_100": 22.9686,
+          "historical_indicator": "low",
+          "years_with_observations": 45,
+          "observation_records": 45
+        },
+        {
+          "disease_class": "tomato_leaf_miner",
+          "historical_mean_incidence_pct": 40.4444,
+          "historical_risk_index_0_100": 17.4583,
+          "historical_indicator": "low",
+          "years_with_observations": 45,
+          "observation_records": 45
+        },
+        {
+          "disease_class": "tomato_insect_damage",
+          "historical_mean_incidence_pct": 39.1778,
+          "historical_risk_index_0_100": 11.6711,
+          "historical_indicator": "low",
+          "years_with_observations": 45,
+          "observation_records": 45
+        },
+        {
+          "disease_class": "tomato_leaf_curl_virus",
+          "historical_mean_incidence_pct": 41.5333,
+          "historical_risk_index_0_100": 4.8023,
+          "historical_indicator": "low",
+          "years_with_observations": 45,
+          "observation_records": 45
+        }
+      ]
+    },
+    {
+      "crop": "tomato",
+      "month": 2,
+      "month_name": "February",
+      "disease_count": 5,
+      "top_historical_disease": "tomato_leaf_miner",
+      "top_historical_incidence_pct": 42.1333,
+      "top_historical_risk_index_0_100": 27.2144,
+      "diseases": [
+        {
+          "disease_class": "tomato_leaf_miner",
+          "historical_mean_incidence_pct": 42.1333,
+          "historical_risk_index_0_100": 27.2144,
+          "historical_indicator": "low",
+          "years_with_observations": 45,
+          "observation_records": 45
+        },
+        {
+          "disease_class": "tomato_insect_damage",
+          "historical_mean_incidence_pct": 40.9111,
+          "historical_risk_index_0_100": 22.0159,
+          "historical_indicator": "low",
+          "years_with_observations": 45,
+          "observation_records": 45
+        },
+        {
+          "disease_class": "tomato_early-late_blight",
+          "historical_mean_incidence_pct": 43.0667,
+          "historical_risk_index_0_100": 15.1207,
+          "historical_indicator": "low",
+          "years_with_observations": 45,
+          "observation_records": 45
+        },
+        {
+          "disease_class": "tomato_leaf_curl_virus",
+          "historical_mean_incidence_pct": 42.8667,
+          "historical_risk_index_0_100": 13.2768,
+          "historical_indicator": "low",
+          "years_with_observations": 45,
+          "observation_records": 45
+        },
+        {
+          "disease_class": "tomato_leaf_mold",
+          "historical_mean_incidence_pct": 32.2222,
+          "historical_risk_index_0_100": 0.0,
+          "historical_indicator": "low",
+          "years_with_observations": 45,
+          "observation_records": 45
+        }
+      ]
+    },
+    {
+      "crop": "tomato",
+      "month": 3,
+      "month_name": "March",
+      "disease_count": 5,
+      "top_historical_disease": "tomato_insect_damage",
+      "top_historical_incidence_pct": 49.4444,
+      "top_historical_risk_index_0_100": 72.9443,
+      "diseases": [
+        {
+          "disease_class": "tomato_insect_damage",
+          "historical_mean_incidence_pct": 49.4444,
+          "historical_risk_index_0_100": 72.9443,
+          "historical_indicator": "elevated",
+          "years_with_observations": 45,
+          "observation_records": 45
+        },
+        {
+          "disease_class": "tomato_leaf_miner",
+          "historical_mean_incidence_pct": 48.0444,
+          "historical_risk_index_0_100": 61.3607,
+          "historical_indicator": "moderate",
+          "years_with_observations": 45,
+          "observation_records": 45
+        },
+        {
+          "disease_class": "tomato_leaf_curl_virus",
+          "historical_mean_incidence_pct": 49.7778,
+          "historical_risk_index_0_100": 57.2034,
+          "historical_indicator": "moderate",
+          "years_with_observations": 45,
+          "observation_records": 45
+        },
+        {
+          "disease_class": "tomato_leaf_mold",
+          "historical_mean_incidence_pct": 36.8889,
+          "historical_risk_index_0_100": 22.7519,
+          "historical_indicator": "low",
+          "years_with_observations": 45,
+          "observation_records": 45
+        },
+        {
+          "disease_class": "tomato_early-late_blight",
+          "historical_mean_incidence_pct": 43.7778,
+          "historical_risk_index_0_100": 19.1868,
+          "historical_indicator": "low",
+          "years_with_observations": 45,
+          "observation_records": 45
+        }
+      ]
+    },
+    {
+      "crop": "tomato",
+      "month": 4,
+      "month_name": "April",
+      "disease_count": 5,
+      "top_historical_disease": "tomato_leaf_curl_virus",
+      "top_historical_incidence_pct": 54.3556,
+      "top_historical_risk_index_0_100": 86.2994,
+      "diseases": [
+        {
+          "disease_class": "tomato_leaf_curl_virus",
+          "historical_mean_incidence_pct": 54.3556,
+          "historical_risk_index_0_100": 86.2994,
+          "historical_indicator": "elevated",
+          "years_with_observations": 45,
+          "observation_records": 45
+        },
+        {
+          "disease_class": "tomato_insect_damage",
+          "historical_mean_incidence_pct": 50.8889,
+          "historical_risk_index_0_100": 81.565,
+          "historical_indicator": "elevated",
+          "years_with_observations": 45,
+          "observation_records": 45
+        },
+        {
+          "disease_class": "tomato_leaf_miner",
+          "historical_mean_incidence_pct": 51.2667,
+          "historical_risk_index_0_100": 79.9743,
+          "historical_indicator": "elevated",
+          "years_with_observations": 45,
+          "observation_records": 45
+        },
+        {
+          "disease_class": "tomato_leaf_mold",
+          "historical_mean_incidence_pct": 35.7333,
+          "historical_risk_index_0_100": 17.1181,
+          "historical_indicator": "low",
+          "years_with_observations": 45,
+          "observation_records": 45
+        },
+        {
+          "disease_class": "tomato_early-late_blight",
+          "historical_mean_incidence_pct": 40.4222,
+          "historical_risk_index_0_100": 0.0,
+          "historical_indicator": "low",
+          "years_with_observations": 45,
+          "observation_records": 45
+        }
+      ]
+    },
+    {
+      "crop": "tomato",
+      "month": 5,
+      "month_name": "May",
+      "disease_count": 5,
+      "top_historical_disease": "tomato_insect_damage",
+      "top_historical_incidence_pct": 51.1556,
+      "top_historical_risk_index_0_100": 83.1565,
+      "diseases": [
+        {
+          "disease_class": "tomato_insect_damage",
+          "historical_mean_incidence_pct": 51.1556,
+          "historical_risk_index_0_100": 83.1565,
+          "historical_indicator": "elevated",
+          "years_with_observations": 45,
+          "observation_records": 45
+        },
+        {
+          "disease_class": "tomato_leaf_miner",
+          "historical_mean_incidence_pct": 51.3111,
+          "historical_risk_index_0_100": 80.2311,
+          "historical_indicator": "elevated",
+          "years_with_observations": 45,
+          "observation_records": 45
+        },
+        {
+          "disease_class": "tomato_leaf_curl_virus",
+          "historical_mean_incidence_pct": 51.6889,
+          "historical_risk_index_0_100": 69.3503,
+          "historical_indicator": "elevated",
+          "years_with_observations": 45,
+          "observation_records": 45
+        },
+        {
+          "disease_class": "tomato_leaf_mold",
+          "historical_mean_incidence_pct": 37.7111,
+          "historical_risk_index_0_100": 26.7606,
+          "historical_indicator": "low",
+          "years_with_observations": 45,
+          "observation_records": 45
+        },
+        {
+          "disease_class": "tomato_early-late_blight",
+          "historical_mean_incidence_pct": 44.2889,
+          "historical_risk_index_0_100": 22.1093,
+          "historical_indicator": "low",
+          "years_with_observations": 45,
+          "observation_records": 45
+        }
+      ]
+    },
+    {
+      "crop": "tomato",
+      "month": 6,
+      "month_name": "June",
+      "disease_count": 5,
+      "top_historical_disease": "tomato_insect_damage",
+      "top_historical_incidence_pct": 53.9778,
+      "top_historical_risk_index_0_100": 100.0,
+      "diseases": [
+        {
+          "disease_class": "tomato_insect_damage",
+          "historical_mean_incidence_pct": 53.9778,
+          "historical_risk_index_0_100": 100.0,
+          "historical_indicator": "elevated",
+          "years_with_observations": 45,
+          "observation_records": 45
+        },
+        {
+          "disease_class": "tomato_leaf_miner",
+          "historical_mean_incidence_pct": 54.7333,
+          "historical_risk_index_0_100": 100.0,
+          "historical_indicator": "elevated",
+          "years_with_observations": 45,
+          "observation_records": 45
+        },
+        {
+          "disease_class": "tomato_leaf_curl_virus",
+          "historical_mean_incidence_pct": 56.0444,
+          "historical_risk_index_0_100": 97.0339,
+          "historical_indicator": "elevated",
+          "years_with_observations": 45,
+          "observation_records": 45
+        },
+        {
+          "disease_class": "tomato_leaf_mold",
+          "historical_mean_incidence_pct": 50.0667,
+          "historical_risk_index_0_100": 86.9989,
+          "historical_indicator": "elevated",
+          "years_with_observations": 45,
+          "observation_records": 45
+        },
+        {
+          "disease_class": "tomato_early-late_blight",
+          "historical_mean_incidence_pct": 53.7778,
+          "historical_risk_index_0_100": 76.3659,
+          "historical_indicator": "elevated",
+          "years_with_observations": 45,
+          "observation_records": 45
+        }
+      ]
+    },
+    {
+      "crop": "tomato",
+      "month": 7,
+      "month_name": "July",
+      "disease_count": 5,
+      "top_historical_disease": "tomato_leaf_mold",
+      "top_historical_incidence_pct": 52.7333,
+      "top_historical_risk_index_0_100": 100.0,
+      "diseases": [
+        {
+          "disease_class": "tomato_leaf_mold",
+          "historical_mean_incidence_pct": 52.7333,
+          "historical_risk_index_0_100": 100.0,
+          "historical_indicator": "elevated",
+          "years_with_observations": 45,
+          "observation_records": 45
+        },
+        {
+          "disease_class": "tomato_early-late_blight",
+          "historical_mean_incidence_pct": 56.7111,
+          "historical_risk_index_0_100": 93.1385,
+          "historical_indicator": "elevated",
+          "years_with_observations": 45,
+          "observation_records": 45
+        },
+        {
+          "disease_class": "tomato_insect_damage",
+          "historical_mean_incidence_pct": 52.4889,
+          "historical_risk_index_0_100": 91.1141,
+          "historical_indicator": "elevated",
+          "years_with_observations": 45,
+          "observation_records": 45
+        },
+        {
+          "disease_class": "tomato_leaf_curl_virus",
+          "historical_mean_incidence_pct": 55.1111,
+          "historical_risk_index_0_100": 91.1017,
+          "historical_indicator": "elevated",
+          "years_with_observations": 45,
+          "observation_records": 45
+        },
+        {
+          "disease_class": "tomato_leaf_miner",
+          "historical_mean_incidence_pct": 51.6889,
+          "historical_risk_index_0_100": 82.4134,
+          "historical_indicator": "elevated",
+          "years_with_observations": 45,
+          "observation_records": 45
+        }
+      ]
+    },
+    {
+      "crop": "tomato",
+      "month": 8,
+      "month_name": "August",
+      "disease_count": 5,
+      "top_historical_disease": "tomato_leaf_curl_virus",
+      "top_historical_incidence_pct": 56.5111,
+      "top_historical_risk_index_0_100": 100.0,
+      "diseases": [
+        {
+          "disease_class": "tomato_leaf_curl_virus",
+          "historical_mean_incidence_pct": 56.5111,
+          "historical_risk_index_0_100": 100.0,
+          "historical_indicator": "elevated",
+          "years_with_observations": 45,
+          "observation_records": 45
+        },
+        {
+          "disease_class": "tomato_early-late_blight",
+          "historical_mean_incidence_pct": 57.2,
+          "historical_risk_index_0_100": 95.9339,
+          "historical_indicator": "elevated",
+          "years_with_observations": 45,
+          "observation_records": 45
+        },
+        {
+          "disease_class": "tomato_insect_damage",
+          "historical_mean_incidence_pct": 52.7111,
+          "historical_risk_index_0_100": 92.4403,
+          "historical_indicator": "elevated",
+          "years_with_observations": 45,
+          "observation_records": 45
+        },
+        {
+          "disease_class": "tomato_leaf_mold",
+          "historical_mean_incidence_pct": 51.0889,
+          "historical_risk_index_0_100": 91.9827,
+          "historical_indicator": "elevated",
+          "years_with_observations": 45,
+          "observation_records": 45
+        },
+        {
+          "disease_class": "tomato_leaf_miner",
+          "historical_mean_incidence_pct": 52.8444,
+          "historical_risk_index_0_100": 89.0886,
+          "historical_indicator": "elevated",
+          "years_with_observations": 45,
+          "observation_records": 45
+        }
+      ]
+    },
+    {
+      "crop": "tomato",
+      "month": 9,
+      "month_name": "September",
+      "disease_count": 5,
+      "top_historical_disease": "tomato_early-late_blight",
+      "top_historical_incidence_pct": 57.9111,
+      "top_historical_risk_index_0_100": 100.0,
+      "diseases": [
+        {
+          "disease_class": "tomato_early-late_blight",
+          "historical_mean_incidence_pct": 57.9111,
+          "historical_risk_index_0_100": 100.0,
+          "historical_indicator": "elevated",
+          "years_with_observations": 45,
+          "observation_records": 45
+        },
+        {
+          "disease_class": "tomato_leaf_mold",
+          "historical_mean_incidence_pct": 52.6,
+          "historical_risk_index_0_100": 99.3499,
+          "historical_indicator": "elevated",
+          "years_with_observations": 45,
+          "observation_records": 45
+        },
+        {
+          "disease_class": "tomato_insect_damage",
+          "historical_mean_incidence_pct": 52.5111,
+          "historical_risk_index_0_100": 91.2467,
+          "historical_indicator": "elevated",
+          "years_with_observations": 45,
+          "observation_records": 45
+        },
+        {
+          "disease_class": "tomato_leaf_curl_virus",
+          "historical_mean_incidence_pct": 54.0889,
+          "historical_risk_index_0_100": 84.6045,
+          "historical_indicator": "elevated",
+          "years_with_observations": 45,
+          "observation_records": 45
+        },
+        {
+          "disease_class": "tomato_leaf_miner",
+          "historical_mean_incidence_pct": 51.9333,
+          "historical_risk_index_0_100": 83.8254,
+          "historical_indicator": "elevated",
+          "years_with_observations": 45,
+          "observation_records": 45
+        }
+      ]
+    },
+    {
+      "crop": "tomato",
+      "month": 10,
+      "month_name": "October",
+      "disease_count": 5,
+      "top_historical_disease": "tomato_leaf_mold",
+      "top_historical_incidence_pct": 45.2889,
+      "top_historical_risk_index_0_100": 63.7053,
+      "diseases": [
+        {
+          "disease_class": "tomato_leaf_mold",
+          "historical_mean_incidence_pct": 45.2889,
+          "historical_risk_index_0_100": 63.7053,
+          "historical_indicator": "moderate",
+          "years_with_observations": 45,
+          "observation_records": 45
+        },
+        {
+          "disease_class": "tomato_early-late_blight",
+          "historical_mean_incidence_pct": 50.6667,
+          "historical_risk_index_0_100": 58.5769,
+          "historical_indicator": "moderate",
+          "years_with_observations": 45,
+          "observation_records": 45
+        },
+        {
+          "disease_class": "tomato_insect_damage",
+          "historical_mean_incidence_pct": 42.6,
+          "historical_risk_index_0_100": 32.0955,
+          "historical_indicator": "low",
+          "years_with_observations": 45,
+          "observation_records": 45
+        },
+        {
+          "disease_class": "tomato_leaf_miner",
+          "historical_mean_incidence_pct": 41.8667,
+          "historical_risk_index_0_100": 25.6739,
+          "historical_indicator": "low",
+          "years_with_observations": 45,
+          "observation_records": 45
+        },
+        {
+          "disease_class": "tomato_leaf_curl_virus",
+          "historical_mean_incidence_pct": 44.1778,
+          "historical_risk_index_0_100": 21.6102,
+          "historical_indicator": "low",
+          "years_with_observations": 45,
+          "observation_records": 45
+        }
+      ]
+    },
+    {
+      "crop": "tomato",
+      "month": 11,
+      "month_name": "November",
+      "disease_count": 5,
+      "top_historical_disease": "tomato_leaf_mold",
+      "top_historical_incidence_pct": 46.7778,
+      "top_historical_risk_index_0_100": 70.9642,
+      "diseases": [
+        {
+          "disease_class": "tomato_leaf_mold",
+          "historical_mean_incidence_pct": 46.7778,
+          "historical_risk_index_0_100": 70.9642,
+          "historical_indicator": "elevated",
+          "years_with_observations": 45,
+          "observation_records": 45
+        },
+        {
+          "disease_class": "tomato_early-late_blight",
+          "historical_mean_incidence_pct": 51.7556,
+          "historical_risk_index_0_100": 64.803,
+          "historical_indicator": "moderate",
+          "years_with_observations": 45,
+          "observation_records": 45
+        },
+        {
+          "disease_class": "tomato_leaf_curl_virus",
+          "historical_mean_incidence_pct": 44.3556,
+          "historical_risk_index_0_100": 22.7401,
+          "historical_indicator": "low",
+          "years_with_observations": 45,
+          "observation_records": 45
+        },
+        {
+          "disease_class": "tomato_insect_damage",
+          "historical_mean_incidence_pct": 41.0222,
+          "historical_risk_index_0_100": 22.679,
+          "historical_indicator": "low",
+          "years_with_observations": 45,
+          "observation_records": 45
+        },
+        {
+          "disease_class": "tomato_leaf_miner",
+          "historical_mean_incidence_pct": 40.2222,
+          "historical_risk_index_0_100": 16.1746,
+          "historical_indicator": "low",
+          "years_with_observations": 45,
+          "observation_records": 45
+        }
+      ]
+    },
+    {
+      "crop": "tomato",
+      "month": 12,
+      "month_name": "December",
+      "disease_count": 5,
+      "top_historical_disease": "tomato_early-late_blight",
+      "top_historical_incidence_pct": 48.9111,
+      "top_historical_risk_index_0_100": 48.5388,
+      "diseases": [
+        {
+          "disease_class": "tomato_early-late_blight",
+          "historical_mean_incidence_pct": 48.9111,
+          "historical_risk_index_0_100": 48.5388,
+          "historical_indicator": "moderate",
+          "years_with_observations": 45,
+          "observation_records": 45
+        },
+        {
+          "disease_class": "tomato_leaf_mold",
+          "historical_mean_incidence_pct": 41.9778,
+          "historical_risk_index_0_100": 47.5623,
+          "historical_indicator": "moderate",
+          "years_with_observations": 45,
+          "observation_records": 45
+        },
+        {
+          "disease_class": "tomato_insect_damage",
+          "historical_mean_incidence_pct": 37.2222,
+          "historical_risk_index_0_100": 0.0,
+          "historical_indicator": "low",
+          "years_with_observations": 45,
+          "observation_records": 45
+        },
+        {
+          "disease_class": "tomato_leaf_curl_virus",
+          "historical_mean_incidence_pct": 40.7778,
+          "historical_risk_index_0_100": 0.0,
+          "historical_indicator": "low",
+          "years_with_observations": 45,
+          "observation_records": 45
+        },
+        {
+          "disease_class": "tomato_leaf_miner",
+          "historical_mean_incidence_pct": 37.4222,
+          "historical_risk_index_0_100": 0.0,
+          "historical_indicator": "low",
+          "years_with_observations": 45,
+          "observation_records": 45
+        }
+      ]
+    }
+  ]
+}

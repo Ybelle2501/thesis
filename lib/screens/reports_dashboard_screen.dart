@@ -5,6 +5,7 @@ import '../models/models.dart';
 import '../services/scan_history_database.dart';
 import '../theme/app_theme.dart';
 import '../widgets/shared_widgets.dart';
+import '../widgets/papusoy_forecast_panel.dart';
 import 'scan_history_screen.dart';
 import 'report_export_screen.dart';
 
@@ -63,6 +64,8 @@ class _ReportsDashboardScreenState extends State<ReportsDashboardScreen> {
                 children: [
                   const _DataSourceBanner(),
                   const SizedBox(height: 18),
+                  const PapusoyForecastPanel(),
+                  const SizedBox(height: 20),
                   _FilterRow(
                     filters: _filters,
                     selected: _filter,

@@ -1,16 +1,15 @@
 import 'dart:io';
 import 'package:flutter/material.dart' hide Text;
 import '../l10n/localized_text.dart';
-import 'package:flutter/services.dart';
 import '../theme/app_theme.dart';
 import '../widgets/shared_widgets.dart';
 import '../widgets/location_tag_dialog.dart';
 import '../services/classifier.dart';
+import '../services/farm_location_store.dart';
 import '../services/scan_history_database.dart';
 import 'treatment_screen.dart';
 import 'disease_prevention_screen.dart';
 import '../data/crop_guides.dart';
-import 'scanner_screen.dart';
 
 // ─── DISEASE RESULT SCREEN ────────────────────────────────────────────────────
 
@@ -119,12 +118,7 @@ class _RejectedView extends StatelessWidget {
                   AppButton(
                     label: 'Scan Again',
                     icon: Icons.camera_alt_rounded,
-                    onPressed: () => Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                        builder: (_) => const CropScannerScreen(),
-                      ),
-                    ),
+                    onPressed: () => Navigator.pop(context),
                   ),
                 ],
               ),
@@ -295,12 +289,7 @@ class _NoLeafView extends StatelessWidget {
                     AppButton(
                       label: 'Try Again',
                       icon: Icons.camera_alt_rounded,
-                      onPressed: () => Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                          builder: (_) => const CropScannerScreen(),
-                        ),
-                      ),
+                      onPressed: () => Navigator.pop(context),
                     ),
                     const SizedBox(height: 10),
                     AppButton(
@@ -435,12 +424,7 @@ class _LowConfidenceView extends StatelessWidget {
                     AppButton(
                       label: 'Scan or Take a Clear Picture',
                       icon: Icons.camera_alt_rounded,
-                      onPressed: () => Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                          builder: (_) => const CropScannerScreen(),
-                        ),
-                      ),
+                      onPressed: () => Navigator.pop(context),
                     ),
                   ],
                 ),
@@ -482,6 +466,8 @@ class _SuccessViewState extends State<_SuccessView> {
   late final TextEditingController _locationController;
   late bool _saved;
   bool _saving = false;
+  bool _loadingLocations = true;
+  List<String> _locations = const [];
   String? _locationError;
   String? _savedImagePath;
 
@@ -493,12 +479,56 @@ class _SuccessViewState extends State<_SuccessView> {
     super.initState();
     _saved = widget.alreadySaved;
     _locationController = TextEditingController(text: widget.existingLocation);
+    _loadLocations();
   }
 
   @override
   void dispose() {
     _locationController.dispose();
     super.dispose();
+  }
+
+  Future<void> _loadLocations() async {
+    try {
+      final locations = await FarmLocationStore.instance.getLocations();
+      final current = normalizeLocationTag(widget.existingLocation);
+      if (current.isNotEmpty &&
+          !locations.any((location) => locationTagsMatch(location, current))) {
+        locations.add(current);
+      }
+      if (!mounted) return;
+      setState(() {
+        _locations = locations;
+        _loadingLocations = false;
+      });
+    } catch (_) {
+      if (mounted) setState(() => _loadingLocations = false);
+    }
+  }
+
+  Future<void> _addLocation() async {
+    final value = await showLocationTagDialog(
+      context,
+      title: 'Add farm location',
+      description: 'Add a location to the list used when saving scans.',
+      actionLabel: 'Add location',
+    );
+    if (value == null) return;
+    try {
+      final locations = await FarmLocationStore.instance.addLocation(value);
+      if (!mounted) return;
+      final selected = locations.firstWhere(
+        (location) => locationTagsMatch(location, value),
+      );
+      setState(() {
+        _locations = locations;
+        _locationController.text = selected;
+        _locationError = null;
+      });
+    } catch (error) {
+      if (!mounted) return;
+      setState(() => _locationError = error.toString());
+    }
   }
 
   Future<void> _saveToHistory() async {
@@ -732,39 +762,89 @@ class _SuccessViewState extends State<_SuccessView> {
                             style: AppTextStyles.bodyMedium,
                           ),
                           const SizedBox(height: 12),
-                          TextField(
-                            controller: _locationController,
-                            enabled: !_saved && !_saving,
-                            textCapitalization: TextCapitalization.words,
-                            textInputAction: TextInputAction.done,
-                            maxLength: 50,
-                            inputFormatters: [
-                              FilteringTextInputFormatter.allow(
-                                RegExp(r'[A-Za-z0-9 ]'),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Expanded(
+                                child: DropdownButtonFormField<String>(
+                                  key: ValueKey(
+                                    '${_locations.join('|')}:${_locationController.text}',
+                                  ),
+                                  initialValue:
+                                      _locations.any(
+                                        (location) => locationTagsMatch(
+                                          location,
+                                          _locationController.text,
+                                        ),
+                                      )
+                                      ? _locations.firstWhere(
+                                          (location) => locationTagsMatch(
+                                            location,
+                                            _locationController.text,
+                                          ),
+                                        )
+                                      : null,
+                                  decoration: InputDecoration(
+                                    labelText: localizeCopy(
+                                      context,
+                                      'Crop location',
+                                    ),
+                                    hintText: localizeCopy(
+                                      context,
+                                      'Select a farm location',
+                                    ),
+                                    errorText: _locationError == null
+                                        ? null
+                                        : localizeCopy(
+                                            context,
+                                            _locationError!,
+                                          ),
+                                    prefixIcon: const Icon(
+                                      Icons.location_on_outlined,
+                                    ),
+                                  ),
+                                  items: _locations
+                                      .map(
+                                        (location) => DropdownMenuItem(
+                                          value: location,
+                                          child: Text(location),
+                                        ),
+                                      )
+                                      .toList(),
+                                  onChanged: _saved || _saving
+                                      ? null
+                                      : (value) {
+                                          if (value == null) return;
+                                          setState(() {
+                                            _locationController.text = value;
+                                            _locationError = null;
+                                          });
+                                        },
+                                ),
+                              ),
+                              const SizedBox(width: 6),
+                              IconButton.filledTonal(
+                                tooltip: localizeCopy(context, 'Add location'),
+                                onPressed: _saved || _saving
+                                    ? null
+                                    : _addLocation,
+                                icon: const Icon(
+                                  Icons.add_location_alt_outlined,
+                                ),
                               ),
                             ],
-                            decoration: InputDecoration(
-                              labelText: localizeCopy(context, 'Crop location'),
-                              hintText: localizeCopy(
-                                context,
-                                'Example: Greenhouse 1',
-                              ),
-                              errorText: _locationError == null
-                                  ? null
-                                  : localizeCopy(context, _locationError!),
-                              prefixIcon: const Icon(
-                                Icons.location_on_outlined,
+                          ),
+                          if (!_loadingLocations && _locations.isEmpty)
+                            Padding(
+                              padding: const EdgeInsets.only(top: 6),
+                              child: Text(
+                                localizeCopy(
+                                  context,
+                                  'No saved locations yet. Add one to select it here.',
+                                ),
+                                style: AppTextStyles.labelSmall,
                               ),
                             ),
-                            onChanged: (_) {
-                              if (_locationError != null) {
-                                setState(() => _locationError = null);
-                              }
-                            },
-                            onSubmitted: _saved || _saving
-                                ? null
-                                : (_) => _saveToHistory(),
-                          ),
                           if (!_saved) ...[
                             const SizedBox(height: 10),
                             AppButton(

@@ -124,6 +124,24 @@ const Map<String, String> _tagalog = {
   'Disease Prevention': 'Pag-iwas sa Sakit',
   'Treatment Advice': 'Payo sa Paggamot',
   'Settings': 'Mga Setting',
+  'Farm Locations': 'Mga Lokasyon ng Bukid',
+  'Add farm location': 'Magdagdag ng lokasyon ng bukid',
+  'Add a location to the list used when saving scans.':
+      'Magdagdag ng lokasyon sa listahang ginagamit sa pag-save ng mga scan.',
+  'Edit farm location': 'I-edit ang lokasyon ng bukid',
+  'Change the name shown in the scan location list.':
+      'Palitan ang pangalang ipinapakita sa listahan ng lokasyon ng scan.',
+  'Delete farm location?': 'Burahin ang lokasyon ng bukid?',
+  'Edit location': 'I-edit ang lokasyon',
+  'Delete location': 'Burahin ang lokasyon',
+  'No saved farm locations yet.': 'Wala pang naka-save na lokasyon ng bukid.',
+  'Select a farm location': 'Pumili ng lokasyon ng bukid',
+  'No saved locations yet. Add one to select it here.':
+      'Wala pang naka-save na lokasyon. Magdagdag ng isa para mapili rito.',
+  'A location with this name already exists.':
+      'Mayroon nang lokasyong ganito ang pangalan.',
+  'Could not update locations': 'Hindi ma-update ang mga lokasyon',
+  'Could not load locations': 'Hindi ma-load ang mga lokasyon',
   'Language': 'Wika',
   'Choose your preferred language': 'Piliin ang gusto mong wika',
   'English': 'Ingles',
@@ -185,6 +203,50 @@ const Map<String, String> _tagalog = {
   'AI can make mistakes. Verify results before treatment.':
       'Maaaring magkamali ang AI. Beripikahin ang resulta bago magpagamot.',
   'Analytics': 'Pagsusuri ng Datos',
+  'Monthly predictive analytics': 'Buwanang pagsusuri ng mga pagtataya',
+  'Refresh forecast': 'I-refresh ang pagtataya',
+  'Expected logged detections from the model; these are not confirmed disease cases.':
+      'Mga inaasahang naitalang detection mula sa modelo; hindi ito kumpirmadong kaso ng sakit.',
+  'No forecast is available.': 'Walang available na pagtataya.',
+  'No forecast is available yet.': 'Wala pang available na pagtataya.',
+  'Collecting scan history': 'Nangangalap ng kasaysayan ng scan',
+  'Forecast withheld: fix disease label mappings':
+      'Hindi ipinapakita ang pagtataya: ayusin ang pagtutugma ng label ng sakit',
+  'Insufficient eligible scan history':
+      'Kulang ang angkop na kasaysayan ng scan',
+  'Expected detections share (%)': 'Bahagdan ng mga inaasahang detection (%)',
+  'Actual logged detections': 'Aktuwal na naitalang detection',
+  'Forecast': 'Pagtataya',
+  'A month with no eligible crop scan is shown as a gap. A covered month with no detections is shown as zero.':
+      'May puwang kapag walang angkop na scan ng pananim sa isang buwan. Zero naman ang ipinapakita kapag may scan ngunit walang detection.',
+  'No monthly history is available.':
+      'Walang available na buwanang kasaysayan.',
+  'No disease forecasts are available for this crop in the model profile.':
+      'Walang pagtataya ng sakit para sa pananim na ito sa profile ng modelo.',
+  'Top expected detections': 'Nangungunang inaasahang detection',
+  'Forecasts are withheld until an infected scan label is mapped.':
+      'Hindi ipapakita ang mga pagtataya hangga’t hindi naitutugma ang label ng may sakit na scan.',
+  "Bars show each disease's share of that crop's expected detections, not disease probability.":
+      'Ipinapakita ng bar ang bahagi ng bawat sakit sa inaasahang detection ng pananim, hindi ang posibilidad na magkaroon ng sakit.',
+  'Mapping required': 'Kailangang itugma ang label',
+  'Forecast unavailable': 'Hindi available ang pagtataya',
+  'Database or model error': 'May error sa database o modelo',
+  'Image not supported': 'Hindi suportado ang larawan',
+  'Scan Again': 'Mag-scan Muli',
+  'This image could not be accepted. Please scan again.':
+      'Hindi matanggap ang larawang ito. Mag-scan muli.',
+  'The image is unclear. Please take another plant photo.':
+      'Malabo ang larawan. Kumuha ng panibagong larawan ng halaman.',
+  'This image does not appear to contain a supported plant. Please scan a plant image.':
+      'Mukhang walang suportadong halaman sa larawang ito. Mag-scan ng larawan ng halaman.',
+  'The crop could not be identified confidently. Please try another image.':
+      'Hindi matukoy nang sapat ang pananim. Sumubok ng ibang larawan.',
+  'This plant is currently not supported by the application. Supported crops are banana, lettuce, pineapple, and tomato.':
+      'Hindi pa suportado ng app ang halamang ito. Kasalukuyang suportado ang saging, letsugas, pinya, at kamatis.',
+  'The crop checks did not agree. Please take a clearer image and scan again.':
+      'Hindi nagtugma ang mga pagsusuri sa pananim. Kumuha ng mas malinaw na larawan at mag-scan muli.',
+  'The crop condition could not be identified confidently. Please scan a clearer image.':
+      'Hindi matukoy nang sapat ang kondisyon ng pananim. Mag-scan ng mas malinaw na larawan.',
   'Reports Coming Soon': 'Malapit Nang Ilabas ang mga Ulat',
   'Detailed analytics, disease trends, and crop health reports are being prepared for you.':
       'Inihahanda para sa iyo ang mas detalyadong pagsusuri, mga takbo ng sakit, at ulat sa kalusugan ng pananim.',
@@ -455,7 +517,8 @@ const Map<String, String> _tagalog = {
   'Verify symptoms and vectors': 'Suriin ang mga sintomas at tagapagdala',
   'Inspect leaf bases and roots for mealybugs and ants, and check nearby plants for reddening, inward leaf curling and loss of rigidity.':
       'Siyasatin ang base ng dahon at mga ugat kung may mealybug at langgam, at tingnan kung namumula, kumukulob paloob, o lumalambot ang mga dahon ng katabing halaman.',
-  'Contain affected plants': 'Pigilan ang pagkalat mula sa mga apektadong halaman',
+  'Contain affected plants':
+      'Pigilan ang pagkalat mula sa mga apektadong halaman',
   'Remove confirmed severely affected plants and their residue using local disposal advice; do not reuse infested planting material.':
       'Alisin ang kumpirmadong lubhang apektadong halaman at mga tira nito ayon sa lokal na payo sa pagtatapon; huwag muling gamitin ang materyal na pinamugaran.',
   'Manage ants and mealybugs': 'Pamahalaan ang langgam at mealybug',
@@ -570,6 +633,8 @@ const Map<String, String> _tagalog = {
   'Create a Papusoy Hydrofarm report from every scan tagged with one location.':
       'Gumawa ng ulat ng Papusoy Hydrofarm mula sa lahat ng scan na may iisang tag ng lokasyon.',
   'Crop location': 'Lokasyon ng pananim',
+  'Save common locations such as G1 or Greenhouse 2 to select them when recording a scan. Renaming or deleting a saved choice does not alter existing scan records.':
+      'I-save ang mga karaniwang lokasyon gaya ng G1 o Greenhouse 2 para mapili kapag nagtatala ng scan. Hindi binabago ng pagpapalit ng pangalan o pagbura sa listahan ang mga dati nang tala ng scan.',
   'Scout name': 'Pangalan ng nagsuri',
   'Name shown as Scouted by': 'Pangalang ipapakita sa “Sinuri ni”',
   'Enter a crop location.': 'Maglagay ng lokasyon ng pananim.',
@@ -605,7 +670,8 @@ const Map<String, String> _tagalog = {
       'Ilagay ang dahon sa gitna ng kuha',
   'Get close enough — fill the frame with the leaf':
       'Lumapit nang sapat — punuin ng dahon ang kuha',
-  'Keep the camera steady to avoid blur': 'Panatilihing hindi gumagalaw ang camera para iwas-labo',
+  'Keep the camera steady to avoid blur':
+      'Panatilihing hindi gumagalaw ang camera para iwas-labo',
   'Scan only supported crops (pineapple, banana, lettuce, or tomato)':
       'I-scan lamang ang mga suportadong pananim (pinya, saging, letsugas, o kamatis)',
   'Try Again': 'Subukan Muli',
@@ -614,7 +680,8 @@ const Map<String, String> _tagalog = {
   'Improve your scan': 'Pagandahin ang scan mo',
   'Ensure the leaf is well-lit': 'Tiyaking maliwanag ang dahon',
   'Fill the frame with just the leaf': 'Dahon lamang ang pumuno sa kuha',
-  'Hold steady — avoid motion blur': 'Hawakan nang matatag — iwasan ang labo dahil sa galaw',
+  'Hold steady — avoid motion blur':
+      'Hawakan nang matatag — iwasan ang labo dahil sa galaw',
   'Scan or Take a Clear Picture': 'Mag-scan o Kumuha ng Malinaw na Larawan',
   'Scan Result': 'Resulta ng Scan',
   'Plant is Healthy': 'Malusog ang Halaman',
@@ -629,7 +696,8 @@ const Map<String, String> _tagalog = {
   'Saving scan...': 'Sine-save ang scan…',
   'Save Scan & Location': 'I-save ang Scan at Lokasyon',
   'Confidence Score': 'Iskor ng Katiyakan',
-  ' High confidence — result is reliable': 'Mataas ang katiyakan — maaasahan ang resulta',
+  ' High confidence — result is reliable':
+      'Mataas ang katiyakan — maaasahan ang resulta',
   ' Moderate confidence — result is likely correct':
       'Katamtaman ang katiyakan — malamang na tama ang resulta',
   ' Debug Info': ' Impormasyon sa Pag-debug',
@@ -649,7 +717,8 @@ const Map<String, String> _tagalog = {
       'ay hindi pa kasama. Kumpirmahin ang resultang ito sa kwalipikadong espesyalista sa pananim bago magpagamot.',
   'Could not save this scan. Please try again.':
       'Hindi ma-save ang scan na ito. Subukan muli.',
-  'The scan image is no longer available.': 'Hindi na available ang larawan ng scan.',
+  'The scan image is no longer available.':
+      'Hindi na available ang larawan ng scan.',
   'Try again': 'Subukan muli',
   'Seasonal risk': 'Panganib ayon sa panahon',
   'Wet season': 'Tag-ulan',
@@ -733,9 +802,12 @@ const Map<String, String> _tagalog = {
   'Broad insect-pest group': 'Malawak na pangkat ng peste ng insekto',
   'Combined blight class': 'Pinagsamang kategorya ng blight',
   'Broad pest class': 'Malawak na kategorya ng peste',
-  'Virus-vector disease complex': 'Sakit na kaugnay ng virus at tagapagdala nito',
-  'Blight symptoms; confirm the cause': 'Mga sintomas ng blight; kumpirmahin ang sanhi',
-  'Fungal disease; confirm the cause': 'Sakit na dulot ng amag; kumpirmahin ang sanhi',
+  'Virus-vector disease complex':
+      'Sakit na kaugnay ng virus at tagapagdala nito',
+  'Blight symptoms; confirm the cause':
+      'Mga sintomas ng blight; kumpirmahin ang sanhi',
+  'Fungal disease; confirm the cause':
+      'Sakit na dulot ng amag; kumpirmahin ang sanhi',
   'Diamond-shaped lesions can resemble other banana leaf spots. Confirm extensive damage; mild Cordana usually needs monitoring rather than a fungicide.':
       'Maaaring mapagkamalang ibang batik sa dahon ng saging ang mga sugat na hugis-brilyante. Kumpirmahin kung malawak ang pinsala; karaniwang pagmamanman lamang ang kailangan sa banayad na Cordana, hindi fungicide.',
   'Suspected Fusarium wilt needs prompt confirmation. Containment and clean planting material are central; a leaf photo cannot identify the Fusarium race.':
@@ -805,7 +877,8 @@ const Map<String, String> _tagalog = {
   'Conserve parasitoids': 'Pangalagaan ang mga parasitoid',
   'Clear old crops': 'Alisin ang mga lumang tanim',
   'History could not be loaded': 'Hindi ma-load ang kasaysayan',
-  'Check the app storage and try again.': 'Suriin ang storage ng app at subukan muli.',
+  'Check the app storage and try again.':
+      'Suriin ang storage ng app at subukan muli.',
   'Retry': 'Subukan muli',
   'Your successful camera and gallery scans will appear here.':
       'Lalabas dito ang matagumpay na scan mula sa camera at gallery.',
@@ -898,7 +971,8 @@ const Map<String, String> _tagalog = {
   'Predictive outlook': 'Pagtataya ayon sa panahon',
   'Choose your area': 'Piliin ang lugar mo',
   'Growing site: cool upland': 'Lugar na tinataniman: malamig na kabundukan',
-  'Growing site: warm / lowland': 'Lugar na tinataniman: mainit / mababang lugar',
+  'Growing site: warm / lowland':
+      'Lugar na tinataniman: mainit / mababang lugar',
   'Seasonal guidance uses typical rainfall, not live weather or a measured chance of infection. Local field conditions can differ.':
       'Gumagamit ang pana-panahong gabay ng karaniwang dami ng ulan, hindi ng kasalukuyang lagay ng panahon o nasukat na posibilidad ng impeksyon. Maaaring magkaiba ang aktuwal na kondisyon sa bukid.',
   'Choose area & month': 'Pumili ng lugar at buwan',
@@ -930,6 +1004,72 @@ String translateToTagalog(String source) => _translate(source);
 String _translate(String source) {
   final direct = _tagalogNormalized[source.toLowerCase()];
   if (direct != null) return direct;
+
+  final deleteLocation = RegExp(
+    r'^Remove "(.+)" from the selectable location list\? Existing scan records will keep their saved location\.$',
+  ).firstMatch(source);
+  if (deleteLocation != null) {
+    return 'Alisin ang "${deleteLocation.group(1)}" sa listahan ng mga mapipiling lokasyon? Mananatili ang lokasyong naka-save sa mga dati nang scan.';
+  }
+  final locationError = RegExp(
+    r'^(Could not update locations|Could not load locations): (.+)$',
+  ).firstMatch(source);
+  if (locationError != null) {
+    final prefix = locationError.group(1) == 'Could not update locations'
+        ? 'Hindi ma-update ang mga lokasyon'
+        : 'Hindi ma-load ang mga lokasyon';
+    return '$prefix: ${locationError.group(2)}';
+  }
+
+  final forecastMonth = RegExp(r'^Forecast month: (.+)$').firstMatch(source);
+  if (forecastMonth != null) {
+    return 'Buwan ng pagtataya: ${forecastMonth.group(1)}';
+  }
+  final leadingDisease = RegExp(
+    r'^Leading disease per crop for (\d{4}-\d{2})$',
+  ).firstMatch(source);
+  if (leadingDisease != null) {
+    return 'Nangungunang sakit kada pananim para sa ${leadingDisease.group(1)}';
+  }
+  final expectedCount = RegExp(
+    r'^Expected logged detections: ([\d.]+)$',
+  ).firstMatch(source);
+  if (expectedCount != null) {
+    return 'Inaasahang naitalang detection: ${expectedCount.group(1)}';
+  }
+  final topDisease = RegExp(
+    r'^(.+?)\s+[^\w\s]+\s+([\d.]+) expected$',
+  ).firstMatch(source);
+  if (topDisease != null) {
+    return '${_translate(topDisease.group(1)!)}: ${topDisease.group(2)} inaasahang detection';
+  }
+  final forecastError = RegExp(
+    r'^(Forecast unavailable|Database or model error): (.+)$',
+  ).firstMatch(source);
+  if (forecastError != null) {
+    final label = forecastError.group(1) == 'Forecast unavailable'
+        ? 'Hindi available ang pagtataya'
+        : 'May error sa database o modelo';
+    return '$label: ${forecastError.group(2)}';
+  }
+  final missingScanMonths = RegExp(
+    r'^Collecting scan history\. Eligible (.+) scans are missing for: (.+)\.$',
+  ).firstMatch(source);
+  if (missingScanMonths != null) {
+    return 'Nangangalap ng kasaysayan ng scan. Kulang ang mga angkop na scan ng ${_translate(missingScanMonths.group(1)!)} para sa mga buwang ito: ${missingScanMonths.group(2)}.';
+  }
+  final mappingError = RegExp(
+    r'^Developer mapping needed: (\d+) infected scan\(s\) have labels that do not map to the historical disease IDs: (.+)\. Forecasts are withheld until aliases are corrected in papusoy_disease_aliases\.dart\.$',
+  ).firstMatch(source);
+  if (mappingError != null) {
+    return 'Kailangang ayusin ng developer ang pagtutugma: may ${mappingError.group(1)} scan na may sakit na hindi tumutugma sa mga ID ng sakit. Hindi ipapakita ang pagtataya hangga’t hindi naitatama ang mga alias.';
+  }
+  final chartMappingWarning = RegExp(
+    r'^Some infected scan labels are not mapped, so those records are omitted from the actual-count chart: (.+)\.$',
+  ).firstMatch(source);
+  if (chartMappingWarning != null) {
+    return 'May mga label ng scan na may sakit na hindi naitugma kaya hindi isinama ang mga ito sa aktuwal na bilang sa tsart: ${chartMappingWarning.group(1)}.';
+  }
 
   final today = RegExp(r'^Today, (.+)$').firstMatch(source);
   if (today != null) return 'Ngayon, ${today.group(1)}';
@@ -1106,8 +1246,9 @@ String _translate(String source) {
   if (percentShare != null) {
     return '${percentShare.group(1)}% ng mga napiling scan';
   }
-  final sourceDate = RegExp(r'^Reviewed (.+)\. Each note (.+)$')
-      .firstMatch(source);
+  final sourceDate = RegExp(
+    r'^Reviewed (.+)\. Each note (.+)$',
+  ).firstMatch(source);
   if (sourceDate != null) {
     return 'Sinuri noong ${sourceDate.group(1)}. Ipinapaliwanag ng bawat tala kung ano ang sinusuportahan ng sanggunian.';
   }

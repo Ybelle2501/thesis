@@ -7,6 +7,7 @@ import '../models/models.dart';
 import '../services/classifier.dart';
 import '../services/scan_history_database.dart';
 import '../widgets/shared_widgets.dart';
+import '../widgets/papusoy_home_forecast_card.dart';
 import 'scanner_screen.dart';
 import 'disease_prevention_screen.dart';
 import 'result_screen.dart';
@@ -107,6 +108,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   crossAxisSpacing: 14,
                   childAspectRatio: 1.05,
                 ),
+              ),
+            ),
+            SliverToBoxAdapter(
+              child: PapusoyHomeForecastCard(
+                onTap: () => _nav(context, const ReportsScreen()),
               ),
             ),
             SliverToBoxAdapter(

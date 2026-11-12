@@ -1,0 +1,132 @@
+{
+  "schema_version": 1,
+  "provenance": "synthetic_demo",
+  "target": "monthly_logged_detection_count",
+  "forecast_month": "2026-11",
+  "latest_training_month": "2026-10",
+  "validation": {
+    "test_months": [
+      "2026-05",
+      "2026-06",
+      "2026-07",
+      "2026-08",
+      "2026-09",
+      "2026-10"
+    ],
+    "train_rows": 1218,
+    "test_rows": 84,
+    "ridge_mae": 1.7382975555927431,
+    "persistence_mae": 2.25,
+    "selected_model": "ridge"
+  },
+  "model": {
+    "feature_order": [
+      "lag1",
+      "lag2",
+      "lag3",
+      "mean3",
+      "month_sin",
+      "month_cos",
+      "historical_incidence",
+      "historical_index"
+    ],
+    "weights": [
+      0.44275017320768656,
+      -0.07455379037029529,
+      -0.02889896881954336,
+      0.1130991380060635,
+      -0.02845674474328204,
+      -0.20366637124550377,
+      0.010565085303802122,
+      0.023614793266997763
+    ],
+    "intercept": 0.6177713434709808
+  },
+  "forecasts": [
+    {
+      "crop": "pineapple",
+      "disease_class": "pineapple_fusarium",
+      "month": "2026-11",
+      "expected_logged_detections": 8.24
+    },
+    {
+      "crop": "banana",
+      "disease_class": "banana_cordana",
+      "month": "2026-11",
+      "expected_logged_detections": 8.13
+    },
+    {
+      "crop": "lettuce",
+      "disease_class": "lettuce_insect_pest",
+      "month": "2026-11",
+      "expected_logged_detections": 7.08
+    },
+    {
+      "crop": "banana",
+      "disease_class": "banana_sigatoka",
+      "month": "2026-11",
+      "expected_logged_detections": 6.31
+    },
+    {
+      "crop": "banana",
+      "disease_class": "banana_panama_wilt",
+      "month": "2026-11",
+      "expected_logged_detections": 6.01
+    },
+    {
+      "crop": "tomato",
+      "disease_class": "tomato_leaf_mold",
+      "month": "2026-11",
+      "expected_logged_detections": 5.9
+    },
+    {
+      "crop": "lettuce",
+      "disease_class": "lettuce_fungal",
+      "month": "2026-11",
+      "expected_logged_detections": 5.24
+    },
+    {
+      "crop": "pineapple",
+      "disease_class": "pineapple_leaf_blight",
+      "month": "2026-11",
+      "expected_logged_detections": 4.59
+    },
+    {
+      "crop": "tomato",
+      "disease_class": "tomato_early-late_blight",
+      "month": "2026-11",
+      "expected_logged_detections": 4.45
+    },
+    {
+      "crop": "lettuce",
+      "disease_class": "lettuce_bacterial",
+      "month": "2026-11",
+      "expected_logged_detections": 4.08
+    },
+    {
+      "crop": "tomato",
+      "disease_class": "tomato_leaf_curl_virus",
+      "month": "2026-11",
+      "expected_logged_detections": 3.29
+    },
+    {
+      "crop": "tomato",
+      "disease_class": "tomato_insect_damage",
+      "month": "2026-11",
+      "expected_logged_detections": 3.15
+    },
+    {
+      "crop": "tomato",
+      "disease_class": "tomato_leaf_miner",
+      "month": "2026-11",
+      "expected_logged_detections": 2.18
+    },
+    {
+      "crop": "pineapple",
+      "disease_class": "pineapple_mealybug_wilt",
+      "month": "2026-11",
+      "expected_logged_detections": 1.99
+    }
+  ],
+  "insufficient_recent_history": []
+}

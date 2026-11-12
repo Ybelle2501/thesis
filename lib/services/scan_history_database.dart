@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:async';
 
 import 'package:sqflite/sqflite.dart';
 
@@ -15,6 +16,11 @@ class ScanHistoryDatabase {
   static const schemaVersion = 2;
 
   Database? _database;
+  final StreamController<int> _scanChanges = StreamController<int>.broadcast();
+  int _scanRevision = 0;
+
+  Stream<int> get scanChanges => _scanChanges.stream;
+  void _notifyScanChanged() => _scanChanges.add(++_scanRevision);
 
   Future<Database> get _db async {
     final existing = _database;
@@ -65,6 +71,8 @@ class ScanHistoryDatabase {
     return database;
   }
 
+  Future<Database> get database => _db;
+
   Future<List<ScanData>> getScans({int? limit}) async {
     final database = await _db;
     final rows = await database.query(
@@ -106,6 +114,7 @@ class ScanHistoryDatabase {
     try {
       final database = await _db;
       final id = await database.insert(_tableName, scan.toMap());
+      _notifyScanChanged();
       return scan.copyWith(id: id);
     } catch (_) {
       await _deleteFileIfPresent(savedImagePath);
@@ -182,6 +191,7 @@ class ScanHistoryDatabase {
           await txn.insert('app_metadata', row);
         }
       });
+      _notifyScanChanged();
     } catch (_) {
       for (final path in copiedImages) {
         await _deleteFileIfPresent(path);
@@ -205,6 +215,7 @@ class ScanHistoryDatabase {
       where: 'id = ?',
       whereArgs: [id],
     );
+    _notifyScanChanged();
   }
 
   Future<String?> getAppSetting(String key) async {
@@ -272,6 +283,7 @@ class ScanHistoryDatabase {
     );
 
     await database.delete(_tableName, where: where, whereArgs: uniqueIds);
+    _notifyScanChanged();
 
     for (final row in rows) {
       final path = row['image_path'] as String?;
