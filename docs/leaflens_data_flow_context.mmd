@@ -1,0 +1,8 @@
+flowchart LR
+    U["E1 App user"] -->|"Scan mode; location; filters; seasonal inputs; report details; settings; recovery requests"| P("0 LeafLens application")
+    P -->|"Diagnosis; history; guides; seasonal outlook; forecasts; charts; operation status"| U
+    P -->|"Capture or image selection request"| C["E2 Camera / gallery"]
+    C -->|"Image bytes / path"| P
+    P -->|"PDF; backup archive; file selection request"| F["E3 OS file services"]
+    F -->|"Selected backup bytes; saved path; operation status"| P
+    P -->|"User-selected reference URL"| B["E4 External browser"]

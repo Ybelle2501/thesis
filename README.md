@@ -3,6 +3,13 @@
 Flutter app for single-leaf and grid scans of crop conditions, with scan history
 and reports.
 
+## System diagrams
+
+The updated [ERD and data flow diagrams](docs/system-diagrams.md) cover the current
+scan pipeline, history, forecasting, seasonal guidance, settings, PDF reports and
+backup recovery. Open the [PDF booklet](docs/leaflens_system_diagrams.pdf) or use
+the individual PNG, SVG and Mermaid sources linked in the diagram documentation.
+
 ## MobileNetV2 classifier
 
 The app bundles the converted MobileNetV2 export:

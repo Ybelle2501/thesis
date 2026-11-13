@@ -83,6 +83,7 @@ class _FarmLocationsTabState extends State<_FarmLocationsTab> {
       title: 'Add farm location',
       description: 'Add a location to the list used when saving scans.',
       actionLabel: 'Add location',
+      required: false,
     );
     if (value == null) return;
     try {
@@ -101,6 +102,7 @@ class _FarmLocationsTabState extends State<_FarmLocationsTab> {
       description: 'Change the name shown in the scan location list.',
       actionLabel: 'Save changes',
       selectAllOnOpen: true,
+      required: false,
     );
     if (value == null) return;
     try {

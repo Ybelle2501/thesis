@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="1250" viewBox="0 0 1800 1250" role="img" aria-labelledby="title desc">
+<title id="title">Data flow / context diagram</title><desc id="desc">Context DFD with user, camera/gallery, operating-system file services, and an external browser for reference links.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 Z" fill="#17634c"/></marker></defs>
+<style>text{font-family:Arial,Helvetica,sans-serif} .flowlabel{paint-order:stroke;stroke:white;stroke-width:8px;stroke-linejoin:round}</style>
+<rect width="1800" height="1250" fill="white"/>
+<text x="65" y="57" font-size="16" fill="#17634c" text-anchor="start" font-weight="700">LEAFLENS / SYSTEM DOCUMENTATION</text>
+<text x="65" y="108" font-size="36" fill="#18392f" text-anchor="start" font-weight="700">Data flow / context diagram</text>
+<text x="65" y="145" font-size="19" fill="#52685e" text-anchor="start" font-weight="400">Level 0 / LeafLens as one process / external inputs and outputs</text>
+<polyline points="65,170 1735,170" fill="none" stroke="#8ea99c" stroke-width="2.4" stroke-linejoin="round"/>
+<text x="1735" y="1222" font-size="15" fill="#52685e" text-anchor="end" font-weight="400">Implementation snapshot / 2026-11-12</text>
+<rect x="65" y="450" width="250" height="140" rx="0" fill="white" stroke="#8ea99c" stroke-width="2"/>
+<text x="190.0" y="482" font-size="21" fill="#18392f" text-anchor="middle" font-weight="700">E1  App user</text>
+<text x="190.0" y="512" font-size="18" fill="#52685e" text-anchor="middle" font-weight="400">Farmer / farm scout</text>
+<rect x="630" y="440" width="530" height="180" rx="18" fill="#edf5ef" stroke="#17634c" stroke-width="2"/>
+<text x="895.0" y="472" font-size="21" fill="#18392f" text-anchor="middle" font-weight="700">0  LeafLens application</text>
+<text x="895.0" y="502" font-size="18" fill="#52685e" text-anchor="middle" font-weight="400">Capture and diagnose crops</text>
+<text x="895.0" y="529" font-size="18" fill="#52685e" text-anchor="middle" font-weight="400">History, guidance, forecasts and reports</text>
+<text x="895.0" y="556" font-size="18" fill="#52685e" text-anchor="middle" font-weight="400">Settings and recovery</text>
+<rect x="630" y="215" width="530" height="100" rx="0" fill="white" stroke="#8ea99c" stroke-width="2"/>
+<text x="895.0" y="247" font-size="21" fill="#18392f" text-anchor="middle" font-weight="700">E2  Camera / gallery</text>
+<text x="895.0" y="277" font-size="18" fill="#52685e" text-anchor="middle" font-weight="400">Device image source</text>
+<rect x="1440" y="450" width="295" height="150" rx="0" fill="white" stroke="#8ea99c" stroke-width="2"/>
+<text x="1587.5" y="482" font-size="21" fill="#18392f" text-anchor="middle" font-weight="700">E3  OS file services</text>
+<text x="1587.5" y="512" font-size="18" fill="#52685e" text-anchor="middle" font-weight="400">Downloads / file picker</text>
+<text x="1587.5" y="539" font-size="18" fill="#52685e" text-anchor="middle" font-weight="400">Share service</text>
+<rect x="630" y="855" width="530" height="110" rx="0" fill="white" stroke="#8ea99c" stroke-width="2"/>
+<text x="895.0" y="887" font-size="21" fill="#18392f" text-anchor="middle" font-weight="700">E4  External browser</text>
+<text x="895.0" y="917" font-size="18" fill="#52685e" text-anchor="middle" font-weight="400">Published reference websites</text>
+<polyline points="315,472 630,472" fill="none" stroke="#17634c" stroke-width="2.4" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<text x="468" y="375" font-size="17" fill="#18392f" text-anchor="middle" font-weight="400" class="flowlabel">Scan mode; save / edit / delete requests</text>
+<text x="468" y="400" font-size="17" fill="#18392f" text-anchor="middle" font-weight="400" class="flowlabel">Location; crop / label; station / month</text>
+<text x="468" y="425" font-size="17" fill="#18392f" text-anchor="middle" font-weight="400" class="flowlabel">Report details; settings; recovery requests</text>
+<polyline points="630,585 315,585" fill="none" stroke="#17634c" stroke-width="2.4" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<text x="468" y="660" font-size="17" fill="#18392f" text-anchor="middle" font-weight="400" class="flowlabel">Diagnosis and confidence; saved history</text>
+<text x="468" y="685" font-size="17" fill="#18392f" text-anchor="middle" font-weight="400" class="flowlabel">Treatment / prevention; seasonal outlook</text>
+<text x="468" y="710" font-size="17" fill="#18392f" text-anchor="middle" font-weight="400" class="flowlabel">Detection forecasts; charts; export status</text>
+<polyline points="805,440 805,315" fill="none" stroke="#17634c" stroke-width="2.4" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<text x="785" y="355" font-size="17" fill="#18392f" text-anchor="end" font-weight="400" class="flowlabel">Capture / image selection request</text>
+<polyline points="1040,315 1040,440" fill="none" stroke="#17634c" stroke-width="2.4" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<text x="1062" y="360" font-size="17" fill="#18392f" text-anchor="start" font-weight="400" class="flowlabel">Photo bytes / image path</text>
+<polyline points="1160,480 1440,480" fill="none" stroke="#17634c" stroke-width="2.4" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<text x="1300" y="390" font-size="17" fill="#18392f" text-anchor="middle" font-weight="400" class="flowlabel">PDF bytes; backup archive</text>
+<text x="1300" y="415" font-size="17" fill="#18392f" text-anchor="middle" font-weight="400" class="flowlabel">Backup-file selection request</text>
+<polyline points="1440,575 1160,575" fill="none" stroke="#17634c" stroke-width="2.4" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<text x="1300" y="647" font-size="17" fill="#18392f" text-anchor="middle" font-weight="400" class="flowlabel">Selected backup bytes</text>
+<text x="1300" y="672" font-size="17" fill="#18392f" text-anchor="middle" font-weight="400" class="flowlabel">Save path / operation status</text>
+<polyline points="895,620 895,855" fill="none" stroke="#17634c" stroke-width="2.4" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<text x="916" y="780" font-size="18" fill="#18392f" text-anchor="start" font-weight="400" class="flowlabel">Reference URL</text>
+<text x="916" y="806" font-size="18" fill="#18392f" text-anchor="start" font-weight="400" class="flowlabel">(user chooses Open reference)</text>
+<rect x="65" y="1030" width="1670" height="135" rx="8" fill="#fff7e6" stroke="#d3bb84" stroke-width="2"/>
+<text x="87" y="1062" font-size="20" fill="#18392f" text-anchor="start" font-weight="700">System boundary</text>
+<text x="87" y="1094" font-size="18" fill="#52685e" text-anchor="start" font-weight="400">Inference, scan storage, forecasting and seasonal guidance run locally. PAGASA normals are bundled data, not a live weather feed.</text>
+<text x="87" y="1120" font-size="18" fill="#52685e" text-anchor="start" font-weight="400">Backup file import/export is Android-only. Android saves PDFs to Downloads; other platforms use the native sharing service.</text>
+</svg>

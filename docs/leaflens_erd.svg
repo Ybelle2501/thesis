@@ -1,81 +1,90 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1050" viewBox="0 0 1600 1050" role="img" aria-labelledby="title desc">
-  <title id="title">LeafLens Entity Relationship Diagram</title>
-  <desc id="desc">ERD of LeafLens SQLite database with scan_history and app_metadata entities. There are no foreign key relationships. Scan images are stored as files and referenced by image_path.</desc>
-  <defs>
-    <marker id="arrow" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0 0 L9 4.5 L0 9 Z" fill="#111"/></marker>
-    <style>
-      text { font-family: Arial, Helvetica, sans-serif; fill: #111; }
-      .heading { font-family: Georgia, 'Times New Roman', serif; font-size: 33px; font-weight: 700; letter-spacing: 1px; }
-      .caption { font: italic 16px Georgia, 'Times New Roman', serif; }
-      .table-head { font-size: 19px; font-weight: 700; text-anchor: middle; }
-      .field { font: 15px 'Courier New', monospace; }
-      .type { font: 14px 'Courier New', monospace; fill: #333; }
-      .key { font-size: 12px; font-weight: 700; }
-      .note { font-size: 14px; }
-      .box { fill: #fff; stroke: #111; stroke-width: 2; }
-      .grid { stroke: #444; stroke-width: 1; }
-    </style>
-  </defs>
-  <rect width="1600" height="1050" fill="#fff"/>
-  <text x="800" y="65" text-anchor="middle" class="heading">ENTITY RELATIONSHIP DIAGRAM</text>
-  <text x="800" y="96" text-anchor="middle" font-size="17">LeafLens Local SQLite Database · scan_history.db · Schema Version 2</text>
-  <line x1="90" y1="119" x2="1510" y2="119" stroke="#111" stroke-width="1.5"/>
-
-  <!-- scan_history -->
-  <rect x="100" y="175" width="865" height="650" class="box"/>
-  <rect x="100" y="175" width="865" height="48" fill="#eee" stroke="#111" stroke-width="2"/>
-  <text x="532" y="207" class="table-head">SCAN_HISTORY</text>
-  <line x1="155" y1="223" x2="155" y2="825" class="grid"/>
-  <line x1="460" y1="223" x2="460" y2="825" class="grid"/>
-  <text x="115" y="251" class="key">KEY</text><text x="180" y="251" class="key">ATTRIBUTE</text><text x="485" y="251" class="key">DATA TYPE / CONSTRAINT</text>
-  <line x1="100" y1="263" x2="965" y2="263" class="grid"/>
-  <g class="field">
-    <text x="117" y="293" class="key">PK</text><text x="180" y="293">id</text><text x="485" y="293" class="type">INTEGER PRIMARY KEY AUTOINCREMENT</text>
-    <text x="180" y="333">plant</text><text x="485" y="333" class="type">TEXT NOT NULL</text>
-    <text x="180" y="373">disease</text><text x="485" y="373" class="type">TEXT NOT NULL</text>
-    <text x="180" y="413">status</text><text x="485" y="413" class="type">TEXT NOT NULL CHECK (Healthy, Infected)</text>
-    <text x="180" y="453">confidence</text><text x="485" y="453" class="type">REAL NOT NULL</text>
-    <text x="180" y="493">image_path</text><text x="485" y="493" class="type">TEXT NOT NULL</text>
-    <text x="180" y="533">raw_label</text><text x="485" y="533" class="type">TEXT NOT NULL</text>
-    <text x="180" y="573">class_index</text><text x="485" y="573" class="type">INTEGER NOT NULL</text>
-    <text x="180" y="613">captured_at</text><text x="485" y="613" class="type">INTEGER NOT NULL (UTC epoch ms)</text>
-    <text x="180" y="653">source</text><text x="485" y="653" class="type">TEXT NOT NULL</text>
-    <text x="180" y="693">scan_mode</text><text x="485" y="693" class="type">TEXT NOT NULL</text>
-    <text x="180" y="733">grid_cell</text><text x="485" y="733" class="type">INTEGER NULL</text>
-    <text x="180" y="773">location</text><text x="485" y="773" class="type">TEXT NOT NULL DEFAULT ''</text>
-  </g>
-  <g stroke="#eee" stroke-width="1">
-    <line x1="100" y1="303" x2="965" y2="303"/><line x1="100" y1="343" x2="965" y2="343"/><line x1="100" y1="383" x2="965" y2="383"/><line x1="100" y1="423" x2="965" y2="423"/><line x1="100" y1="463" x2="965" y2="463"/><line x1="100" y1="503" x2="965" y2="503"/><line x1="100" y1="543" x2="965" y2="543"/><line x1="100" y1="583" x2="965" y2="583"/><line x1="100" y1="623" x2="965" y2="623"/><line x1="100" y1="663" x2="965" y2="663"/><line x1="100" y1="703" x2="965" y2="703"/><line x1="100" y1="743" x2="965" y2="743"/><line x1="100" y1="783" x2="965" y2="783"/>
-  </g>
-
-  <!-- app_metadata -->
-  <rect x="1080" y="230" width="420" height="235" class="box"/>
-  <rect x="1080" y="230" width="420" height="48" fill="#eee" stroke="#111" stroke-width="2"/>
-  <text x="1290" y="262" class="table-head">APP_METADATA</text>
-  <line x1="1100" y1="312" x2="1480" y2="312" class="grid"/>
-  <text x="1105" y="301" class="key">KEY</text><text x="1160" y="301" class="key">ATTRIBUTE</text><text x="1350" y="301" class="key">DATA TYPE</text>
-  <line x1="1335" y1="278" x2="1335" y2="420" class="grid"/>
-  <text x="1104" y="346" class="key">PK</text><text x="1160" y="346" class="field">key</text><text x="1350" y="346" class="type">TEXT</text>
-  <line x1="1100" y1="365" x2="1480" y2="365" class="grid"/>
-  <text x="1160" y="405" class="field">value</text><text x="1350" y="405" class="type">TEXT NOT NULL</text>
-  <text x="1290" y="438" text-anchor="middle" class="note">Keys include next_report_number and language</text>
-  <text x="1290" y="458" text-anchor="middle" class="note">language value: en or tl</text>
-
-  <!-- external file artifact -->
-  <rect x="1080" y="585" width="420" height="155" class="box" stroke-dasharray="7 5"/>
-  <text x="1290" y="620" class="table-head">SCAN IMAGE FILES</text>
-  <text x="1110" y="660" class="field">scan_history_images/scan_*.jpg</text>
-  <text x="1110" y="697" class="note">External to SQLite; path stored in</text>
-  <text x="1110" y="718" class="note">scan_history.image_path</text>
-  <path d="M965 493 H1018 V663 H1080" fill="none" stroke="#111" stroke-width="2" stroke-dasharray="7 5" marker-end="url(#arrow)"/>
-  <text x="1025" y="478" class="note">file reference</text>
-
-  <!-- no relationship note / indexes -->
-  <rect x="1080" y="790" width="420" height="115" fill="#fff" stroke="#111" stroke-width="1.5"/>
-  <text x="1105" y="822" font-size="16" font-weight="700">RELATIONSHIP AND INDEX NOTES</text>
-  <text x="1105" y="850" class="note">No foreign keys are defined between the two tables.</text>
-  <text x="1105" y="875" class="note">Indexes: captured_at DESC, status.</text>
-
-  <text x="800" y="956" text-anchor="middle" class="caption">Figure 4.2. Entity Relationship Diagram for LeafLens Scan History and Report Metadata</text>
-  <text x="800" y="987" text-anchor="middle" font-size="12" fill="#444">Schema derived from lib/services/scan_history_database.dart. app_metadata is an independent key/value table.</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="1320" viewBox="0 0 1800 1320" role="img" aria-labelledby="title desc">
+<title id="title">Entity relationship diagram</title><desc id="desc">Physical ERD showing all implemented SQLite fields, metadata keys, and the external image reference. No foreign keys exist.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 Z" fill="#17634c"/></marker></defs>
+<style>text{font-family:Arial,Helvetica,sans-serif} .flowlabel{paint-order:stroke;stroke:white;stroke-width:8px;stroke-linejoin:round}</style>
+<rect width="1800" height="1320" fill="white"/>
+<text x="65" y="57" font-size="16" fill="#17634c" text-anchor="start" font-weight="700">LEAFLENS / SYSTEM DOCUMENTATION</text>
+<text x="65" y="108" font-size="36" fill="#18392f" text-anchor="start" font-weight="700">Entity relationship diagram</text>
+<text x="65" y="145" font-size="19" fill="#52685e" text-anchor="start" font-weight="400">Physical schema / scan_history.db / schema version 2 / two independent tables</text>
+<polyline points="65,170 1735,170" fill="none" stroke="#8ea99c" stroke-width="2.4" stroke-linejoin="round"/>
+<text x="1735" y="1292" font-size="15" fill="#52685e" text-anchor="end" font-weight="400">Implementation snapshot / 2026-11-12</text>
+<rect x="65" y="225" width="1040" height="745" rx="6" fill="white" stroke="#8ea99c" stroke-width="2"/>
+<rect x="65" y="225" width="1040" height="55" rx="0" fill="#17634c" stroke="#17634c" stroke-width="2"/>
+<text x="89" y="262" font-size="25" fill="white" text-anchor="start" font-weight="700">scan_history</text>
+<text x="87" y="313" font-size="16" fill="#52685e" text-anchor="start" font-weight="700">KEY</text>
+<text x="157" y="313" font-size="16" fill="#52685e" text-anchor="start" font-weight="700">COLUMN</text>
+<text x="415" y="313" font-size="16" fill="#52685e" text-anchor="start" font-weight="700">SQL TYPE / CONSTRAINT</text>
+<polyline points="65,333 1105,333" fill="none" stroke="#8ea99c" stroke-width="2.4" stroke-linejoin="round"/>
+<rect x="66" y="334" width="1038" height="48" fill="#f5f8f6"/>
+<text x="87" y="365" font-size="17" fill="#17634c" text-anchor="start" font-weight="700">PK</text>
+<text x="157" y="365" font-size="21" fill="#18392f" text-anchor="start" font-weight="400" style="font-family:Consolas,monospace">id</text>
+<text x="415" y="365" font-size="19" fill="#18392f" text-anchor="start" font-weight="400" style="font-family:Consolas,monospace">INTEGER PRIMARY KEY AUTOINCREMENT</text>
+<text x="87" y="414" font-size="17" fill="#17634c" text-anchor="start" font-weight="700"></text>
+<text x="157" y="414" font-size="21" fill="#18392f" text-anchor="start" font-weight="400" style="font-family:Consolas,monospace">plant</text>
+<text x="415" y="414" font-size="19" fill="#18392f" text-anchor="start" font-weight="400" style="font-family:Consolas,monospace">TEXT NOT NULL</text>
+<rect x="66" y="432" width="1038" height="48" fill="#f5f8f6"/>
+<text x="87" y="463" font-size="17" fill="#17634c" text-anchor="start" font-weight="700"></text>
+<text x="157" y="463" font-size="21" fill="#18392f" text-anchor="start" font-weight="400" style="font-family:Consolas,monospace">disease</text>
+<text x="415" y="463" font-size="19" fill="#18392f" text-anchor="start" font-weight="400" style="font-family:Consolas,monospace">TEXT NOT NULL</text>
+<text x="87" y="512" font-size="17" fill="#17634c" text-anchor="start" font-weight="700"></text>
+<text x="157" y="512" font-size="21" fill="#18392f" text-anchor="start" font-weight="400" style="font-family:Consolas,monospace">status</text>
+<text x="415" y="512" font-size="19" fill="#18392f" text-anchor="start" font-weight="400" style="font-family:Consolas,monospace">TEXT NOT NULL CHECK: Healthy | Infected</text>
+<rect x="66" y="530" width="1038" height="48" fill="#f5f8f6"/>
+<text x="87" y="561" font-size="17" fill="#17634c" text-anchor="start" font-weight="700"></text>
+<text x="157" y="561" font-size="21" fill="#18392f" text-anchor="start" font-weight="400" style="font-family:Consolas,monospace">confidence</text>
+<text x="415" y="561" font-size="19" fill="#18392f" text-anchor="start" font-weight="400" style="font-family:Consolas,monospace">REAL NOT NULL</text>
+<text x="87" y="610" font-size="17" fill="#17634c" text-anchor="start" font-weight="700"></text>
+<text x="157" y="610" font-size="21" fill="#18392f" text-anchor="start" font-weight="400" style="font-family:Consolas,monospace">image_path</text>
+<text x="415" y="610" font-size="19" fill="#18392f" text-anchor="start" font-weight="400" style="font-family:Consolas,monospace">TEXT NOT NULL</text>
+<rect x="66" y="628" width="1038" height="48" fill="#f5f8f6"/>
+<text x="87" y="659" font-size="17" fill="#17634c" text-anchor="start" font-weight="700"></text>
+<text x="157" y="659" font-size="21" fill="#18392f" text-anchor="start" font-weight="400" style="font-family:Consolas,monospace">raw_label</text>
+<text x="415" y="659" font-size="19" fill="#18392f" text-anchor="start" font-weight="400" style="font-family:Consolas,monospace">TEXT NOT NULL</text>
+<text x="87" y="708" font-size="17" fill="#17634c" text-anchor="start" font-weight="700"></text>
+<text x="157" y="708" font-size="21" fill="#18392f" text-anchor="start" font-weight="400" style="font-family:Consolas,monospace">class_index</text>
+<text x="415" y="708" font-size="19" fill="#18392f" text-anchor="start" font-weight="400" style="font-family:Consolas,monospace">INTEGER NOT NULL</text>
+<rect x="66" y="726" width="1038" height="48" fill="#f5f8f6"/>
+<text x="87" y="757" font-size="17" fill="#17634c" text-anchor="start" font-weight="700"></text>
+<text x="157" y="757" font-size="21" fill="#18392f" text-anchor="start" font-weight="400" style="font-family:Consolas,monospace">captured_at</text>
+<text x="415" y="757" font-size="19" fill="#18392f" text-anchor="start" font-weight="400" style="font-family:Consolas,monospace">INTEGER NOT NULL / UTC epoch ms</text>
+<text x="87" y="806" font-size="17" fill="#17634c" text-anchor="start" font-weight="700"></text>
+<text x="157" y="806" font-size="21" fill="#18392f" text-anchor="start" font-weight="400" style="font-family:Consolas,monospace">source</text>
+<text x="415" y="806" font-size="19" fill="#18392f" text-anchor="start" font-weight="400" style="font-family:Consolas,monospace">TEXT NOT NULL</text>
+<rect x="66" y="824" width="1038" height="48" fill="#f5f8f6"/>
+<text x="87" y="855" font-size="17" fill="#17634c" text-anchor="start" font-weight="700"></text>
+<text x="157" y="855" font-size="21" fill="#18392f" text-anchor="start" font-weight="400" style="font-family:Consolas,monospace">scan_mode</text>
+<text x="415" y="855" font-size="19" fill="#18392f" text-anchor="start" font-weight="400" style="font-family:Consolas,monospace">TEXT NOT NULL</text>
+<text x="87" y="904" font-size="17" fill="#17634c" text-anchor="start" font-weight="700"></text>
+<text x="157" y="904" font-size="21" fill="#18392f" text-anchor="start" font-weight="400" style="font-family:Consolas,monospace">grid_cell</text>
+<text x="415" y="904" font-size="19" fill="#18392f" text-anchor="start" font-weight="400" style="font-family:Consolas,monospace">INTEGER (nullable)</text>
+<rect x="66" y="922" width="1038" height="48" fill="#f5f8f6"/>
+<text x="87" y="953" font-size="17" fill="#17634c" text-anchor="start" font-weight="700"></text>
+<text x="157" y="953" font-size="21" fill="#18392f" text-anchor="start" font-weight="400" style="font-family:Consolas,monospace">location</text>
+<text x="415" y="953" font-size="19" fill="#18392f" text-anchor="start" font-weight="400" style="font-family:Consolas,monospace">TEXT NOT NULL DEFAULT &#x27;&#x27;</text>
+<rect x="1190" y="225" width="545" height="185" rx="0" fill="#edf3fa" stroke="#8ea99c" stroke-width="2"/>
+<polyline points="1207,225 1207,410" fill="none" stroke="#8ea99c" stroke-width="2.4" stroke-linejoin="round"/>
+<text x="1462.5" y="257" font-size="21" fill="#18392f" text-anchor="middle" font-weight="700">app_metadata</text>
+<text x="1215" y="305" font-size="21" fill="#18392f" text-anchor="start" font-weight="400" style="font-family:Consolas,monospace">PK   key      TEXT PRIMARY KEY</text>
+<text x="1215" y="357" font-size="21" fill="#18392f" text-anchor="start" font-weight="400" style="font-family:Consolas,monospace">     value    TEXT NOT NULL</text>
+<rect x="1190" y="450" width="545" height="253" rx="8" fill="#fff7e6" stroke="#d3bb84" stroke-width="2"/>
+<text x="1212" y="482" font-size="20" fill="#18392f" text-anchor="start" font-weight="700">Implemented metadata keys</text>
+<text x="1212" y="514" font-size="18" fill="#52685e" text-anchor="start" font-weight="400">language  -&gt;  en | tl</text>
+<text x="1212" y="540" font-size="18" fill="#52685e" text-anchor="start" font-weight="400">next_report_number  -&gt;  integer as text</text>
+<text x="1212" y="566" font-size="18" fill="#52685e" text-anchor="start" font-weight="400">farm_location_options_v1</text>
+<text x="1212" y="592" font-size="18" fill="#52685e" text-anchor="start" font-weight="400">  -&gt; JSON array, e.g. [&quot;Greenhouse 1&quot;]</text>
+<text x="1212" y="618" font-size="18" fill="#52685e" text-anchor="start" font-weight="400">Independent settings; no relationship to scan IDs.</text>
+<rect x="1190" y="800" width="545" height="165" rx="0" fill="white" stroke="#8ea99c" stroke-width="2" stroke-dasharray="9 7"/>
+<text x="1215" y="838" font-size="23" fill="#18392f" text-anchor="start" font-weight="700">Scan image files / outside SQLite</text>
+<text x="1215" y="875" font-size="18" fill="#52685e" text-anchor="start" font-weight="400">scan_history_images/</text>
+<text x="1215" y="901" font-size="18" fill="#52685e" text-anchor="start" font-weight="400">One copied image per saved scan or grid cell.</text>
+<text x="1215" y="927" font-size="18" fill="#52685e" text-anchor="start" font-weight="400">Path reference only; no database foreign key.</text>
+<polyline points="1105,602.5 1147,602.5 1147,878 1190,878" fill="none" stroke="#17634c" stroke-width="2.4" stroke-linejoin="round" marker-end="url(#arrow)" stroke-dasharray="8 6"/>
+<text x="1150" y="764" font-size="16" fill="#52685e" text-anchor="start" font-weight="400" class="flowlabel">file</text>
+<rect x="65" y="1020" width="1670" height="225" rx="8" fill="#fff7e6" stroke="#d3bb84" stroke-width="2"/>
+<text x="87" y="1052" font-size="20" fill="#18392f" text-anchor="start" font-weight="700">Persistence and relationship rules</text>
+<text x="87" y="1084" font-size="18" fill="#52685e" text-anchor="start" font-weight="400">No foreign keys, join tables, user accounts, crop tables, report tables, or forecast tables are implemented.</text>
+<text x="87" y="1110" font-size="18" fill="#52685e" text-anchor="start" font-weight="400">location stores a text snapshot; editing the saved choice list does not rename existing scan tags.</text>
+<text x="87" y="1136" font-size="18" fill="#52685e" text-anchor="start" font-weight="400">Single scans have grid_cell = NULL; a saved 2 x 3 grid produces up to six independent scan rows (cells 1-6).</text>
+<text x="87" y="1162" font-size="18" fill="#52685e" text-anchor="start" font-weight="400">Only successful classifications are saved after the user supplies a location and chooses Save. Other results remain temporary.</text>
+<text x="87" y="1188" font-size="18" fill="#52685e" text-anchor="start" font-weight="400">Indexes: scan_history_captured_at (captured_at DESC) and scan_history_status (status).</text>
 </svg>

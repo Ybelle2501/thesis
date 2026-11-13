@@ -2,9 +2,9 @@ import 'dart:io';
 
 import 'package:flutter/material.dart' hide Text;
 import '../l10n/localized_text.dart';
-import 'package:flutter/services.dart';
 
 import '../services/classifier.dart';
+import '../services/farm_location_store.dart';
 import '../services/grid_scan_service.dart';
 import '../services/scan_history_database.dart';
 import '../theme/app_theme.dart';
@@ -35,6 +35,7 @@ class _GridResultScreenState extends State<GridResultScreen> {
   final _locationController = TextEditingController();
   final Set<int> _savedCellNumbers = {};
   late List<GridCellScan> _cells;
+  List<String> _locations = const [];
   bool _saving = false;
   bool _saved = false;
   String? _locationError;
@@ -46,12 +47,49 @@ class _GridResultScreenState extends State<GridResultScreen> {
     super.initState();
     _cells = List<GridCellScan>.from(widget.cells);
     _saved = !_cells.any((cell) => cell.hasPlantResult);
+    _loadLocations();
   }
 
   @override
   void dispose() {
     _locationController.dispose();
     super.dispose();
+  }
+
+  Future<void> _loadLocations() async {
+    try {
+      final locations = await FarmLocationStore.instance.getLocations();
+      if (!mounted) return;
+      setState(() => _locations = locations);
+    } catch (_) {
+      // Saving a grid will show the database error if no location can be added.
+    }
+  }
+
+  Future<void> _addLocation() async {
+    final value = await showLocationTagDialog(
+      context,
+      title: 'Add farm location',
+      description: 'Add a location to the list used when saving scans.',
+      actionLabel: 'Add location',
+      required: false,
+    );
+    if (value == null) return;
+    try {
+      final locations = await FarmLocationStore.instance.addLocation(value);
+      if (!mounted) return;
+      final selected = locations.firstWhere(
+        (location) => locationTagsMatch(location, value),
+      );
+      setState(() {
+        _locations = locations;
+        _locationController.text = selected;
+        _locationError = null;
+      });
+    } catch (error) {
+      if (!mounted) return;
+      setState(() => _locationError = error.toString());
+    }
   }
 
   Future<void> _saveGridHistory() async {
@@ -306,29 +344,74 @@ class _GridResultScreenState extends State<GridResultScreen> {
             style: AppTextStyles.bodyMedium,
           ),
           const SizedBox(height: 12),
-          TextField(
-            controller: _locationController,
-            enabled: !_saved && !_saving,
-            maxLength: 50,
-            textCapitalization: TextCapitalization.words,
-            inputFormatters: [
-              FilteringTextInputFormatter.allow(RegExp(r'[A-Za-z0-9 ]')),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(
+                child: DropdownButtonFormField<String>(
+                  key: ValueKey(
+                    '${_locations.join('|')}:${_locationController.text}',
+                  ),
+                  initialValue:
+                      _locations.any(
+                        (location) => locationTagsMatch(
+                          location,
+                          _locationController.text,
+                        ),
+                      )
+                      ? _locations.firstWhere(
+                          (location) => locationTagsMatch(
+                            location,
+                            _locationController.text,
+                          ),
+                        )
+                      : null,
+                  decoration: InputDecoration(
+                    labelText: localizeCopy(context, 'Crop location'),
+                    hintText: localizeCopy(context, 'Select a farm location'),
+                    errorText: _locationError == null
+                        ? null
+                        : localizeCopy(context, _locationError!),
+                    prefixIcon: const Icon(Icons.location_on_outlined),
+                  ),
+                  items: _locations
+                      .map(
+                        (location) => DropdownMenuItem(
+                          value: location,
+                          child: Text(location),
+                        ),
+                      )
+                      .toList(),
+                  onChanged: _saved || _saving
+                      ? null
+                      : (value) {
+                          if (value == null) return;
+                          setState(() {
+                            _locationController.text = value;
+                            _locationError = null;
+                          });
+                        },
+                ),
+              ),
+              const SizedBox(width: 6),
+              IconButton.filledTonal(
+                tooltip: localizeCopy(context, 'Add location'),
+                onPressed: _saved || _saving ? null : _addLocation,
+                icon: const Icon(Icons.add_location_alt_outlined),
+              ),
             ],
-            decoration: InputDecoration(
-              labelText: localizeCopy(context, 'Crop location'),
-              hintText: localizeCopy(context, 'Example: Greenhouse 1'),
-              errorText: _locationError == null
-                  ? null
-                  : localizeCopy(context, _locationError!),
-              prefixIcon: const Icon(Icons.location_on_outlined),
-            ),
-            onChanged: (_) {
-              if (_locationError != null) {
-                setState(() => _locationError = null);
-              }
-            },
-            onSubmitted: _saved || _saving ? null : (_) => _saveGridHistory(),
           ),
+          if (_locations.isEmpty && !_saved)
+            Padding(
+              padding: const EdgeInsets.only(top: 6),
+              child: Text(
+                localizeCopy(
+                  context,
+                  'No saved locations yet. Add one to select it here.',
+                ),
+                style: AppTextStyles.labelSmall,
+              ),
+            ),
           if (!_saved) ...[
             const SizedBox(height: 10),
             AppButton(

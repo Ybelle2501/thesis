@@ -1,0 +1,21 @@
+%% Physical SQLite schema; deliberately no FK edges.
+erDiagram
+    scan_history {
+        INTEGER id PK "primary key"
+        TEXT plant "required"
+        TEXT disease "required"
+        TEXT status "required"
+        REAL confidence "required"
+        TEXT image_path "required"
+        TEXT raw_label "required"
+        INTEGER class_index "required"
+        INTEGER captured_at "required"
+        TEXT source "required"
+        TEXT scan_mode "required"
+        INTEGER grid_cell "nullable"
+        TEXT location "required; default ''"
+    }
+    app_metadata {
+        TEXT key PK "primary key"
+        TEXT value "required"
+    }

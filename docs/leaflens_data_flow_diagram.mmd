@@ -1,0 +1,54 @@
+%% Repeated stores in the SVG use the same IDs here.
+flowchart LR
+    U["E1 App user / farm scout"]
+    F["E3 OS file services"]
+    B["E4 External browser"]
+    C["E2 Camera / gallery"]
+    subgraph APP["LeafLens application"]
+    D1[("D1 Local persisted data: SQLite tables and saved images")]
+    D2[("D2 Three-stage inference assets")]
+    D3[("D3 Bundled crop guidance and station normals")]
+    D4[("D4 Forecast model and historical indicators")]
+    P1("1.0  Capture and diagnose: Single image or six grid cells; Plant gate > crop gate > disease model")
+    P2("2.0  Manage scan history: Browse / search / filter / reopen; Retag or delete saved records")
+    P3("3.0  Analyze and forecast: Home outlook; report dashboard; Monthly logged-detection estimates")
+    P4("4.0  Provide crop guidance: Treatment and disease prevention; Qualitative seasonal risk rules")
+    P5("5.0  Export scouting report: Match location-tagged saved scans; Create localized Papusoy PDF report")
+    P6("6.0  Manage preferences: English / Tagalog language; Add / rename / remove location choices")
+    P7("7.0  Back up and restore: Validate ZIP manifest / JSON / images; Replace rows and restore image files")
+    end
+    U -->|"Mode; capture / select; location; Save request; location-choice edits"| P1
+    P1 -->|"Diagnosis / confidence; grid summary; Rejection / retry message; save status"| U
+    P1 -->|"Saved rows / images; location choices"| D1
+    D1 -->|"Location choices"| P1
+    D2 -->|"Models / labels / thresholds"| P1
+    U -->|"History query / selected scan; Location edit; delete request"| P2
+    P2 -->|"Scan list; saved result / image; Update / delete status"| U
+    P2 -->|"Location updates; row / file deletion"| D1
+    D1 -->|"Saved scan rows / images"| P2
+    U -->|"Dashboard request; crop / filters"| P3
+    P3 -->|"Metrics; monthly history chart; Forecast / missing-data explanation"| U
+    D1 -->|"Saved scan history"| P3
+    D4 -->|"Weights / history; disease aliases"| P3
+    U -->|"Crop / condition or scan label; Station; month; upland choice; link request"| P4
+    P4 -->|"Treatment / prevention; citations; Seasonal outlook and evidence notes"| U
+    D3 -->|"Guide steps; normals; seasonal rules"| P4
+    P4 -->|"User-selected reference URL"| B
+    U -->|"Location; scout name; Export request"| P5
+    P5 -->|"PDF export status / saved path"| U
+    P5 -->|"Incremented next_report_number"| D1
+    D1 -->|"Rows / images; language; counter"| P5
+    P5 -->|"PDF bytes / filename"| F
+    F -->|"Saved path / export status"| P5
+    U -->|"Language; location-choice changes"| P6
+    P6 -->|"Localized interface; saved choices; Settings update status"| U
+    P6 -->|"Language; JSON location-choice list"| D1
+    D1 -->|"Settings; existing tags (first seed)"| P6
+    U -->|"Backup request / restore selection; Restore confirmation"| P7
+    P7 -->|"Backup / recovery status; Validation / operation error"| U
+    P7 -->|"Restored rows / metadata / images"| D1
+    D1 -->|"Scan rows; metadata; image bytes"| P7
+    P7 -->|"Backup archive / picker request"| F
+    F -->|"Selected .leaflensbackup bytes"| P7
+    P1 -->|"Capture / image selection request"| C
+    C -->|"Image bytes / path"| P1
