@@ -73,7 +73,7 @@ class _CropGuideList extends StatelessWidget {
         Text(
           mode == GuideMode.treatment
               ? 'Choose a condition for treatment steps and supporting references.'
-              : 'Choose a condition for prevention steps and the evidence behind its predictive outlook.',
+              : 'Choose a condition for prevention steps and the evidence behind its seasonal outlook.',
         ),
         const SizedBox(height: 16),
         for (final guide in guides)
@@ -192,6 +192,10 @@ class _CropGuideDetailScreenState extends State<CropGuideDetailScreen> {
           const SizedBox(height: 8),
           Text(guide.name, style: AppTextStyles.displayMedium),
           const SizedBox(height: 12),
+          if (!guide.healthy) ...[
+            const Text('Symptoms:', style: AppTextStyles.titleMedium),
+            const SizedBox(height: 6),
+          ],
           Text(
             guide.summary,
             style: const TextStyle(fontSize: 15, height: 1.5),

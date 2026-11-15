@@ -272,7 +272,7 @@ const cropGuides = <CropGuide>[
     name: "Cordana leaf spot",
     category: "Fungal leaf spot",
     summary:
-        "Diamond-shaped lesions can resemble other banana leaf spots. Confirm extensive damage; mild Cordana usually needs monitoring rather than a fungicide.",
+        "Look for dark, diamond-shaped spots on banana leaves. Inspect both leaf surfaces and compare the shape and edges of the damaged areas. Diamond-shaped lesions can resemble other banana leaf spots. Confirm extensive damage; mild Cordana usually needs monitoring rather than a fungicide.",
     healthy: false,
     treatment: [
       GuidanceStep(
@@ -324,7 +324,7 @@ const cropGuides = <CropGuide>[
     name: "Panama wilt",
     category: "Soilborne wilt",
     summary:
-        "Suspected Fusarium wilt needs prompt confirmation. Containment and clean planting material are central; a leaf photo cannot identify the Fusarium race.",
+        "Leaves may turn yellow and wilt as the plant declines. Inspect the whole plant to see how many leaves are affected and whether the wilting is progressing. Suspected Fusarium wilt needs prompt confirmation. Containment and clean planting material are central; a leaf photo cannot identify the Fusarium race.",
     healthy: false,
     treatment: [
       GuidanceStep(
@@ -376,7 +376,7 @@ const cropGuides = <CropGuide>[
     name: "Sigatoka leaf spot",
     category: "Fungal leaf disease",
     summary:
-        "The model groups Sigatoka symptoms; it does not distinguish yellow from black Sigatoka. Confirm the diagnosis before planning chemical control.",
+        "Look for dark streaks or spots spreading across banana leaves. Compare affected leaves with newer growth and check how much leaf area is damaged. The model groups Sigatoka symptoms; it does not distinguish yellow from black Sigatoka. Confirm the diagnosis before planning chemical control.",
     healthy: false,
     treatment: [
       GuidanceStep(
@@ -428,7 +428,7 @@ const cropGuides = <CropGuide>[
     name: "Fusarium symptoms",
     category: "Fungal disease; confirm the cause",
     summary:
-        "The model class is broad. Fusarium can affect pineapple fruit or planting material, but similar discoloration and rot require field or laboratory confirmation.",
+        "Look for rotting tissue, discoloration, or wilting in pineapple plants or fruit. Check the leaves, stem, planting material, and fruit to see which parts show damage. The model class is broad. Fusarium can affect pineapple fruit or planting material, but similar discoloration and rot require field or laboratory confirmation.",
     healthy: false,
     treatment: [
       GuidanceStep(
@@ -480,7 +480,7 @@ const cropGuides = <CropGuide>[
     name: "Leaf blight",
     category: "Blight symptoms; confirm the cause",
     summary:
-        "Leaf blight describes damaged tissue, not a confirmed organism. Rots, fungi, water stress and injury can overlap in appearance.",
+        "Look for brown or dying patches, especially near the tips and edges of pineapple leaves. Check whether the damaged areas are expanding and inspect the leaf bases and plant heart as well. Leaf blight describes damaged tissue, not a confirmed organism. Rots, fungi, water stress and injury can overlap in appearance.",
     healthy: false,
     treatment: [
       GuidanceStep(
@@ -532,7 +532,7 @@ const cropGuides = <CropGuide>[
     name: "Mealybug wilt",
     category: "Virus-vector disease complex",
     summary:
-        "Pineapple mealybugs transmit wilt-associated viruses. Treating a wilted plant does not reverse viral infection; management focuses on confirming mealybugs and protecting healthy plants.",
+        "Pineapple leaves may redden, curl, and wilt. Inspect the whole plant for these changes and check for mealybugs around the leaf bases and roots. Pineapple mealybugs transmit wilt-associated viruses. Treating a wilted plant does not reverse viral infection; management focuses on confirming mealybugs and protecting healthy plants.",
     healthy: false,
     treatment: [
       GuidanceStep(
@@ -584,7 +584,7 @@ const cropGuides = <CropGuide>[
     name: "Bacterial disease",
     category: "Bacterial disease group",
     summary:
-        "This model category groups several bacterial conditions, including leaf spot, soft rot, and wilt. These can look similar in an image, so confirm the specific cause before choosing a treatment.",
+        "Look for wet-looking spots on lettuce leaves or soft, rotting tissue. Inspect the leaves and leaf bases to see whether the damage is limited to spots or includes more extensive decay. This model category groups several bacterial conditions, including leaf spot, soft rot, and wilt. These can look similar in an image, so confirm the specific cause before choosing a treatment.",
     healthy: false,
     treatment: [
       GuidanceStep(
@@ -636,7 +636,7 @@ const cropGuides = <CropGuide>[
     name: "Fungal disease",
     category: "Fungal group",
     summary:
-        "Different fungi can cause leaf lesions and rotting. This broad class needs confirmation before fungicide selection.",
+        "Look for leaf spots, discolored patches, or fuzzy growth on lettuce leaves. Inspect both sides of the leaves and check damaged areas for rotting. Different fungi can cause leaf lesions and rotting. This broad class needs confirmation before fungicide selection.",
     healthy: false,
     treatment: [
       GuidanceStep(
@@ -688,7 +688,7 @@ const cropGuides = <CropGuide>[
     name: "Insect pest damage",
     category: "Broad insect-pest group",
     summary:
-        "This broad label can represent aphids, semiloopers or other insects. Inspect the plant and identify the active pest before choosing a control.",
+        "Look for holes, chewed leaf edges, or other feeding marks on lettuce. Inspect both sides of the leaves and new growth for insects and fresh damage. This broad label can represent aphids, semiloopers or other insects. Inspect the plant and identify the active pest before choosing a control.",
     healthy: false,
     treatment: [
       GuidanceStep(
@@ -740,7 +740,7 @@ const cropGuides = <CropGuide>[
     name: "Early/late blight",
     category: "Combined blight class",
     summary:
-        "The model combines early and late blight. Retain both existing management plans and confirm which disease is present because late blight is an oomycete and may spread rapidly.",
+        "Look for dark spots on tomato leaves that may spread to the stems or fruit. Inspect the whole plant and track whether new spots appear or existing damaged areas expand. The model combines early and late blight. Retain both existing management plans and confirm which disease is present because late blight is an oomycete and may spread rapidly.",
     healthy: false,
     treatment: [
       GuidanceStep(
@@ -827,7 +827,7 @@ const cropGuides = <CropGuide>[
     name: "Leaf mold",
     category: "Fungal leaf disease",
     summary:
-        "The model's leaf-mold class is consistent with Passalora-type symptoms. Other local leaf molds can look similar; confirm the cause.",
+        "Look for yellow patches on the upper leaf surface and fuzzy growth underneath. Inspect both sides of affected tomato leaves so the discoloration and mold-like growth can be compared. The model's leaf-mold class is consistent with Passalora-type symptoms. Other local leaf molds can look similar; confirm the cause.",
     healthy: false,
     treatment: [
       GuidanceStep(
@@ -879,7 +879,7 @@ const cropGuides = <CropGuide>[
     name: "Insect damage",
     category: "Broad pest class",
     summary:
-        "This class recognizes visible insect-type injury but does not identify the pest. Holes, mines, stippling and sap-feeding damage require different controls.",
+        "Look for holes, pale speckles, curling, or other feeding marks on tomato leaves. Check both leaf surfaces and new growth for insects and note whether the damage looks chewed or finely speckled. This class recognizes visible insect-type injury but does not identify the pest. Holes, mines, stippling and sap-feeding damage require different controls.",
     healthy: false,
     treatment: [
       GuidanceStep(
@@ -931,7 +931,7 @@ const cropGuides = <CropGuide>[
     name: "Leaf curl virus",
     category: "Viral disease",
     summary:
-        "Curled yellow leaves can have several causes. Confirm suspected virus; controlling whiteflies protects other plants but does not cure infected ones.",
+        "Tomato leaves may curl or turn yellow, and the plant may show stunted growth. Compare affected leaves with new growth and inspect nearby plants for similar changes. Curled yellow leaves can have several causes. Confirm suspected virus; controlling whiteflies protects other plants but does not cure infected ones.",
     healthy: false,
     treatment: [
       GuidanceStep(
@@ -983,7 +983,7 @@ const cropGuides = <CropGuide>[
     name: "Leaf miner",
     category: "Insect pest",
     summary:
-        "Winding mines indicate larvae feeding inside leaves. Confirm active larvae or pupae because old mines remain visible after the pest is gone.",
+        "Look for thin, winding trails or tunnels inside tomato leaves. Inspect the affected leaves closely for larvae or pupae and compare old trails with any fresh damage. Winding mines indicate larvae feeding inside leaves. Confirm active larvae or pupae because old mines remain visible after the pest is gone.",
     healthy: false,
     treatment: [
       GuidanceStep(
@@ -1162,7 +1162,7 @@ String diseaseDescriptionForLabel(String? rawLabel) {
     'lettuce_healthy': 'The leaf looks healthy, with no clear disease signs.',
     'lettuce_insect_pest':
         'Insect pests feed on lettuce leaves and may leave holes or other marks.',
-        'pineapple_fusarium':
+    'pineapple_fusarium':
         'Fusarium can cause rot and wilting in pineapple plants or fruit.',
     'pineapple_healthy': 'The leaf looks healthy, with no clear disease signs.',
     'pineapple_leaf_blight':
@@ -1194,7 +1194,7 @@ String diseaseCauseForLabel(String? rawLabel) {
     'lettuce_bacterial': 'Bacteria; the exact type can vary.',
     'lettuce_fungal': 'Fungi; the exact type can vary.',
     'lettuce_insect_pest': 'Feeding by insects such as aphids or caterpillars.',
-        'pineapple_fusarium': 'A Fusarium fungus.',
+    'pineapple_fusarium': 'A Fusarium fungus.',
     'pineapple_leaf_blight':
         'Several problems can look similar, including fungi, rot, excess moisture, or injury.',
     'pineapple_mealybug_wilt':
@@ -1213,19 +1213,26 @@ String diseaseCauseForLabel(String? rawLabel) {
 String diseaseSymptomsForLabel(String? rawLabel) {
   const symptoms = <String, String>{
     'banana_cordana': 'Dark, diamond-shaped spots on the leaves.',
-    'banana_panama_wilt': 'Yellowing and wilting leaves; the plant may decline.',
+    'banana_panama_wilt':
+        'Yellowing and wilting leaves; the plant may decline.',
     'banana_sigatoka': 'Dark streaks or spots that spread across the leaves.',
     'lettuce_bacterial': 'Wet-looking leaf spots or soft, rotting tissue.',
     'lettuce_fungal': 'Leaf spots, patches, or fuzzy growth.',
     'lettuce_insect_pest': 'Holes, chewed edges, or other feeding marks.',
-        'pineapple_fusarium': 'Rot, discoloration, or wilting in plant tissue or fruit.',
-    'pineapple_leaf_blight': 'Brown or dying patches, often near leaf tips or edges.',
+    'pineapple_fusarium':
+        'Rot, discoloration, or wilting in plant tissue or fruit.',
+    'pineapple_leaf_blight':
+        'Brown or dying patches, often near leaf tips or edges.',
     'pineapple_mealybug_wilt': 'Reddening, curling, and wilting leaves.',
-    'tomato_early-late_blight': 'Dark leaf spots that may spread to stems or fruit.',
-    'tomato_insect_damage': 'Holes, pale speckles, curling, or other leaf marks.',
-    'tomato_leaf_curl_virus': 'Curled or yellow leaves and stunted plant growth.',
+    'tomato_early-late_blight':
+        'Dark leaf spots that may spread to stems or fruit.',
+    'tomato_insect_damage':
+        'Holes, pale speckles, curling, or other leaf marks.',
+    'tomato_leaf_curl_virus':
+        'Curled or yellow leaves and stunted plant growth.',
     'tomato_leaf_miner': 'Thin, winding trails inside the leaves.',
-    'tomato_leaf_mold': 'Yellow patches above and fuzzy growth under the leaves.',
+    'tomato_leaf_mold':
+        'Yellow patches above and fuzzy growth under the leaves.',
   };
 
   return symptoms[rawLabel] ?? 'Symptoms can vary; inspect the whole plant.';
