@@ -103,6 +103,152 @@ class Text extends material.StatelessWidget {
 }
 
 const Map<String, String> _tagalog = {
+  'Monthly crop outlook': 'Inaasahang resulta ng scan ngayong buwan',
+  'Update outlook': 'I-update ang mga inaasahang resulta',
+  'Month:': 'Buwan:',
+  'What scans may show in': 'Maaaring makita sa mga scan sa',
+  'This estimates how many saved scans may show each disease. It uses past records and does not count sick plants.':
+      'Tinataya nito kung ilang naka-save na scan ang maaaring magpakita ng bawat sakit. Batay ito sa mga dating tala, hindi sa bilang ng mga halamang may sakit.',
+  "Percentages compare the diseases for this crop, not a plant's chance of being sick.":
+      'Inihahambing ng mga porsiyento ang mga inaasahang resulta para sa bawat sakit ng pananim. Hindi nito sinusukat ang posibilidad na may sakit ang halaman.',
+  'Could not load the outlook. Tap the refresh button to try again.':
+      'Hindi maipakita ang mga inaasahang resulta. Pindutin ang refresh upang subukang muli.',
+  'Could not load the outlook. Open Reports to try again.':
+      'Hindi maipakita ang mga inaasahang resulta. Buksan ang Mga Ulat upang subukang muli.',
+  'No estimates to show yet.': 'Wala pang maipakitang inaasahang resulta.',
+  'Some saved results are not recognized by the app, so estimates are not available.':
+      'Hindi mabasa ng app ang ilang naka-save na resulta kaya wala pang maipakitang inaasahang resulta.',
+  'Some older scan results could not be read. The chart leaves those results out.':
+      'Hindi mabasa ang ilang lumang resulta ng scan. Hindi sila kasama sa tsart.',
+  'No estimates are available for this crop yet.':
+      'Wala pang maipakitang inaasahang resulta para sa pananim na ito.',
+  'Some saved results need checking':
+      'Kailangang suriin ang ilang naka-save na resulta',
+  'More monthly scan records needed':
+      'Kailangan pa ng mga tala ng scan bawat buwan',
+  'Not enough saved scans yet': 'Kulang pa ang mga naka-save na scan',
+  'No scans expected to show this': 'Walang scan na inaasahang magpakita nito',
+  'Fewer than 1 scan expected to show this':
+      'Mas mababa sa 1 scan ang inaasahang magpakita nito',
+  'of estimated disease results': 'ng lahat ng inaasahang resulta na may sakit',
+  'Saved scan results': 'Mga naka-save na resulta ng scan',
+  'Estimated scan results': 'Mga inaasahang resulta ng scan',
+  'A gap means there were no scans that month. Zero means no saved scans showed this disease.':
+      'Ang puwang ay nangangahulugang walang scan noong buwang iyon. Ang zero ay nangangahulugang walang naka-save na scan na nagpakita ng sakit na ito.',
+  'Save scans each month to see a chart here.':
+      'Mag-save ng mga scan bawat buwan upang makakita ng tsart dito.',
+  'Bars compare disease estimates for each crop. They do not show the chance that a plant is sick.':
+      'Inihahambing ng mga bar ang mga inaasahang resulta ng sakit para sa bawat pananim. Hindi nito sinusukat ang posibilidad na may sakit ang halaman.',
+  'Your scan results': 'Mga resulta ng scan mo',
+  'These reports use your saved scans. They update when you save or delete a scan.':
+      'Gamit ang mga naka-save mong scan ang mga ulat na ito. Nagbabago sila kapag nag-save o nagtanggal ka ng scan.',
+  'Crop scan summary': 'Buod ng mga scan ng pananim',
+  'AI score for each scan': 'Puntos ng AI sa bawat scan',
+  'Results by disease': 'Mga resulta ayon sa sakit',
+  'Quick summary': 'Maikling buod',
+  'Saved scans': 'Mga naka-save na scan',
+  'With disease': 'May sakit',
+  'Healthy scans': 'Mga scan na malusog',
+  'Average AI score': 'Karaniwang puntos ng AI',
+  'Healthy scan results': 'Mga resulta ng scan na malusog',
+  'This score shows how strongly the AI matched the photo to its result. It does not measure how sick the plant is. Check the plant before treatment.':
+      'Ipinapakita ng puntos kung gaano katugma ang larawan sa resultang pinili ng AI. Hindi nito sinusukat kung gaano kalala ang sakit. Suriin muna ang halaman bago gamutin.',
+  'Most common disease result': 'Pinakamadalas na resulta na may sakit',
+  'No saved scans show disease': 'Walang naka-save na scan na may sakit',
+  'Highest AI match score': 'Pinakamataas na puntos ng AI',
+  'No saved scans to show': 'Walang naka-save na scan na maipapakita',
+  'Save Crop Report': 'I-save ang Ulat ng Pananim',
+  'No saved scans were found here. Check the location name and try again.':
+      'Walang naka-save na scan dito. Suriin ang pangalan ng lokasyon at subukang muli.',
+  'Could not save the report. Please try again.':
+      'Hindi ma-save ang ulat. Pakisubukang muli.',
+  'Save a report of all scans from one crop location.':
+      'I-save ang ulat ng lahat ng scan mula sa isang lokasyon ng pananim.',
+  'Saved locations': 'Mga naka-save na lokasyon',
+  'Your name': 'Pangalan mo',
+  'Name to put on the report': 'Pangalang ilalagay sa ulat',
+  'Enter your name.': 'Ilagay ang pangalan mo.',
+  'Saving report...': 'Sine-save ang ulat...',
+  'Save as PDF': 'I-save bilang PDF',
+  "The report uses today's date. Each report gets its own file number.":
+      'Gagamitin ang petsa ngayon sa ulat. May sariling numero ang bawat ulat.',
+  'Papusoy Hydrofarm Crop Scan Report':
+      'Ulat ng Scan ng Pananim sa Papusoy Hydrofarm',
+  'CROP SCAN REPORT': 'ULAT NG SCAN NG PANANIM',
+  'Scan summary': 'Buod ng mga scan',
+  'Scan photos': 'Mga larawan ng scan',
+  'Crop with most disease results':
+      'Pananim na may pinakamaraming resulta na may sakit',
+  'Disease results at this location':
+      'Mga resulta na may sakit sa lokasyong ito',
+  'No saved scans showed disease at this location.':
+      'Walang naka-save na scan na may sakit sa lokasyong ito.',
+  'Photos of scans with disease are no longer available on this device.':
+      'Wala na sa device na ito ang mga larawan ng scan na may sakit.',
+  'Sort & Filter': 'Ayusin at Salain',
+  'Date range': 'Saklaw ng petsa',
+  'All dates': 'Lahat ng petsa',
+  'Filter by scan date': 'Salain ayon sa petsa ng scan',
+  'Use dates': 'Gamitin ang mga petsa',
+  'Clear dates': 'Alisin ang mga petsa',
+  'Crop category': 'Uri ng pananim',
+  'All crops': 'Lahat ng pananim',
+  'Disease / condition': 'Sakit / kalagayan',
+  'All diseases / conditions': 'Lahat ng sakit / kalagayan',
+  'Sort by date': 'Ayusin ayon sa petsa',
+  'Newest first': 'Pinakabago muna',
+  'Oldest first': 'Pinakaluma muna',
+  'Apply Filters': 'Ilapat ang mga Filter',
+  'Clear filters': 'Alisin ang mga filter',
+  'Reset': 'I-reset',
+  'No matching scans': 'Walang tumugmang scan',
+  'Change or clear the filters to view saved records.':
+      'Baguhin o alisin ang mga filter upang makita ang mga naka-save na tala.',
+  'Monitor Plant': 'Subaybayan ang Halaman',
+  'This follow-up belongs to the same plant record. Save it to update the monitoring timeline.':
+      'Ang follow-up na ito ay para sa parehong halaman. I-save ito upang ma-update ang kasaysayan ng pagsubaybay.',
+  'Plant Monitoring': 'Pagsubaybay sa Halaman',
+  'Back to Plant Monitoring': 'Bumalik sa Pagsubaybay sa Halaman',
+  'Scan Again to Update': 'I-scan Muli para I-update',
+  'Scan Timeline': 'Kasaysayan ng mga Scan',
+  'Latest Status': 'Pinakabagong Kalagayan',
+  'Latest Scan': 'Pinakabagong Scan',
+  'Earlier Scan': 'Naunang Scan',
+  'Care after this scan': 'Pangangalaga pagkatapos ng scan na ito',
+  'Add Care Notes': 'Magdagdag ng Tala sa Pangangalaga',
+  'Edit Care Notes': 'I-edit ang Tala sa Pangangalaga',
+  'View Scan Result': 'Tingnan ang Resulta ng Scan',
+  'Save Notes': 'I-save ang mga Tala',
+  'Treatment & Prevention Notes': 'Mga Tala sa Paggamot at Pag-iwas',
+  'Treatment, prevention, and observations':
+      'Paggamot, pag-iwas, at mga obserbasyon',
+  'Record care applied after this scan, including the date.':
+      'Itala ang pangangalagang ginawa pagkatapos ng scan na ito, kasama ang petsa.',
+  'No treatment or prevention notes yet.':
+      'Wala pang tala sa paggamot o pag-iwas.',
+  'Could not load plant monitoring. Please try again.':
+      'Hindi ma-load ang pagsubaybay sa halaman. Pakisubukang muli.',
+  'Could not save care notes. Please try again.':
+      'Hindi ma-save ang mga tala sa pangangalaga. Pakisubukang muli.',
+  'No saved scans remain for this plant.':
+      'Wala nang naka-save na scan para sa halamang ito.',
+  'Scan the same monitored plant. Use a clear photo of one leaf.':
+      'I-scan ang parehong halamang sinusubaybayan. Gumamit ng malinaw na larawan ng isang dahon.',
+  'This scan is a different crop. Scan the same monitored plant.':
+      'Ibang pananim ang nasa scan na ito. I-scan ang parehong halamang sinusubaybayan.',
+  'Newest scans appear first. Rescan the same plant after care to follow its condition.':
+      'Nauuna ang pinakabagong mga scan. I-scan muli ang parehong halaman pagkatapos ng pangangalaga upang masubaybayan ang kalagayan nito.',
+  'First scan recorded. Add care notes and scan again to track changes.':
+      'Naitala ang unang scan. Magdagdag ng tala sa pangangalaga at mag-scan muli upang masubaybayan ang mga pagbabago.',
+  'Still classified as healthy.': 'Malusog pa rin ayon sa scan.',
+  'Now classified as healthy after an infected scan.':
+      'Malusog na ayon sa scan matapos ang naunang resultang may sakit.',
+  'An infection was detected after a healthy scan.':
+      'May nakitang sakit matapos ang naunang resultang malusog.',
+  'Still classified as infected. Review the latest result and care advice.':
+      'May sakit pa rin ayon sa scan. Suriin ang pinakabagong resulta at payo sa pangangalaga.',
+  'Scan results show changes in classification; they do not confirm that a treatment caused recovery.':
+      'Ipinapakita ng mga scan ang pagbabago sa kalagayan; hindi nito pinatutunayang ang paggamot ang dahilan ng paggaling.',
   'Welcome to LeafLens': 'Maligayang pagdating sa LeafLens',
   'Quick Access': 'Mabilisang Pag-access',
   'AI Crop\nScanner': 'AI na Scanner\nng Pananim',
@@ -1002,6 +1148,44 @@ String localizeCopy(material.BuildContext context, String source) {
 String translateToTagalog(String source) => _translate(source);
 
 String _translate(String source) {
+  final scanEstimate = RegExp(
+    r'^About (\d+) scans? may show this$',
+  ).firstMatch(source);
+  if (scanEstimate != null) {
+    return 'Tinatayang ${scanEstimate.group(1)} scan ang maaaring magpakita nito';
+  }
+  final neededMonths = RegExp(
+    r'^More (.+) scans are needed for these months: (.+)\. Save scans each month to build this outlook\.$',
+  ).firstMatch(source);
+  if (neededMonths != null) {
+    return 'Kailangan pa ng mga scan ng ${_translate(neededMonths.group(1)!)} sa mga buwang ito: ${neededMonths.group(2)}. Mag-save ng mga scan bawat buwan upang magkaroon ng inaasahang resulta.';
+  }
+  final reportDate = RegExp(r'^Report date: (.+)$').firstMatch(source);
+  if (reportDate != null) return 'Petsa ng ulat: ${reportDate.group(1)}';
+  final preparedBy = RegExp(r'^Prepared by: (.+)$').firstMatch(source);
+  if (preparedBy != null) return 'Inihanda ni: ${preparedBy.group(1)}';
+  final cropReport = RegExp(r'^Crop scan report for (.+)$').firstMatch(source);
+  if (cropReport != null) {
+    return 'Ulat ng scan ng pananim para sa ${cropReport.group(1)}';
+  }
+  final withDisease = RegExp(
+    r'^With disease: (\d+) \((\d+%)\)$',
+  ).firstMatch(source);
+  if (withDisease != null) {
+    return 'May sakit: ${withDisease.group(1)} (${withDisease.group(2)})';
+  }
+  final historyCount = RegExp(
+    r'^Showing (\d+) of (\d+) scans$',
+  ).firstMatch(source);
+  if (historyCount != null) {
+    return 'Ipinapakita ang ${historyCount.group(1)} sa ${historyCount.group(2)} scan';
+  }
+  final plantRecord = RegExp(r'^Plant record: (.+)$').firstMatch(source);
+  if (plantRecord != null) return 'Tala ng halaman: ${plantRecord.group(1)}';
+  final savedScans = RegExp(r'^Saved scans: (\d+)$').firstMatch(source);
+  if (savedScans != null) {
+    return 'Mga naka-save na scan: ${savedScans.group(1)}';
+  }
   final direct = _tagalogNormalized[source.toLowerCase()];
   if (direct != null) return direct;
 

@@ -52,7 +52,7 @@ class _ReportExportScreenState extends State<ReportExportScreen> {
     if (matching.isEmpty) {
       setState(() {
         _locationError =
-            'No scans match this location. Check the tag and try again.';
+            'No saved scans were found here. Check the location name and try again.';
       });
       return;
     }
@@ -75,11 +75,11 @@ class _ReportExportScreenState extends State<ReportExportScreen> {
           ),
         ),
       );
-    } catch (error) {
+    } catch (_) {
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('Could not export the PDF: $error'),
+          content: Text('Could not save the report. Please try again.'),
           backgroundColor: AppColors.error,
         ),
       );
@@ -95,7 +95,7 @@ class _ReportExportScreenState extends State<ReportExportScreen> {
       appBar: AppBar(
         backgroundColor: AppColors.surface,
         surfaceTintColor: Colors.transparent,
-        title: const Text('Export Scouting Report'),
+        title: const Text('Save Crop Report'),
       ),
       body: SafeArea(
         top: false,
@@ -133,7 +133,7 @@ class _ReportExportScreenState extends State<ReportExportScreen> {
               const SectionLabel('PDF report'),
               const SizedBox(height: 6),
               const Text(
-                'Create a Papusoy Hydrofarm report from every scan tagged with one location.',
+                'Save a report of all scans from one crop location.',
                 style: AppTextStyles.bodyLarge,
               ),
               const SizedBox(height: 22),
@@ -172,7 +172,7 @@ class _ReportExportScreenState extends State<ReportExportScreen> {
               ),
               if (_locations.isNotEmpty) ...[
                 const SizedBox(height: 10),
-                Text('Known locations', style: AppTextStyles.labelSmall),
+                Text('Saved locations', style: AppTextStyles.labelSmall),
                 const SizedBox(height: 7),
                 Wrap(
                   spacing: 8,
@@ -195,23 +195,23 @@ class _ReportExportScreenState extends State<ReportExportScreen> {
                 controller: _nameController,
                 textCapitalization: TextCapitalization.words,
                 decoration: InputDecoration(
-                  labelText: localizeCopy(context, 'Scout name'),
-                  hintText: localizeCopy(context, 'Name shown as Scouted by'),
+                  labelText: localizeCopy(context, 'Your name'),
+                  hintText: localizeCopy(context, 'Name to put on the report'),
                   prefixIcon: Icon(Icons.person_outline_rounded),
                 ),
                 validator: (value) => value == null || value.trim().isEmpty
-                    ? localizeCopy(context, 'Enter the scout name.')
+                    ? localizeCopy(context, 'Enter your name.')
                     : null,
               ),
               const SizedBox(height: 22),
               AppButton(
-                label: _exporting ? 'Creating PDF...' : 'Export PDF',
+                label: _exporting ? 'Saving report...' : 'Save as PDF',
                 icon: Icons.picture_as_pdf_rounded,
                 onPressed: _exporting ? null : _export,
               ),
               const SizedBox(height: 12),
               Text(
-                'The scouting date is set when you export. The default file name increments automatically.',
+                "The report uses today's date. Each report gets its own file number.",
                 style: AppTextStyles.bodyMedium.copyWith(
                   color: AppColors.textMuted,
                 ),

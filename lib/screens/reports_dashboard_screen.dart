@@ -79,7 +79,7 @@ class _ReportsDashboardScreenState extends State<ReportsDashboardScreen> {
                     averageConfidence: averageConfidence,
                   ),
                   const SizedBox(height: 24),
-                  const SectionLabel('Crop health'),
+                  const SectionLabel('Crop scan summary'),
                   const SizedBox(height: 8),
                   _HealthOverview(
                     total: scans.length,
@@ -87,15 +87,15 @@ class _ReportsDashboardScreenState extends State<ReportsDashboardScreen> {
                     healthy: healthy,
                   ),
                   const SizedBox(height: 24),
-                  const SectionLabel('Confidence by scan'),
+                  const SectionLabel('AI score for each scan'),
                   const SizedBox(height: 8),
                   ConfidenceByScanChart(scans: scans),
                   const SizedBox(height: 24),
-                  const SectionLabel('Condition breakdown'),
+                  const SectionLabel('Results by disease'),
                   const SizedBox(height: 8),
                   _ConditionBreakdown(scans: scans),
                   const SizedBox(height: 24),
-                  const SectionLabel('Report insights'),
+                  const SectionLabel('Quick summary'),
                   const SizedBox(height: 8),
                   _InsightsCard(scans: scans),
                   const SizedBox(height: 18),
@@ -153,7 +153,7 @@ class _ReportsHeader extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SectionLabel('Analytics'),
+                SectionLabel('Your scan results'),
                 SizedBox(height: 2),
                 Text('Crop Reports', style: AppTextStyles.titleLarge),
               ],
@@ -193,7 +193,7 @@ class _DataSourceBanner extends StatelessWidget {
           SizedBox(width: 10),
           Expanded(
             child: Text(
-              'Live data from scan history. These analytics update as successful scans are saved or deleted.',
+              'These reports use your saved scans. They update when you save or delete a scan.',
               style: AppTextStyles.bodyMedium,
             ),
           ),
@@ -237,7 +237,7 @@ class _FilterRow extends StatelessWidget {
                   ),
                 ),
                 child: Text(
-                  filter,
+                  filter == 'Infected' ? 'With disease' : filter,
                   style: AppTextStyles.bodyMedium.copyWith(
                     color: active ? Colors.white : AppColors.textSecondary,
                     fontWeight: FontWeight.w600,
@@ -276,25 +276,25 @@ class _MetricsGrid extends StatelessWidget {
       childAspectRatio: 1.55,
       children: [
         _MetricCard(
-          label: 'Total scans',
+          label: 'Saved scans',
           value: '$total',
           icon: Icons.document_scanner_rounded,
           color: AppColors.primary,
         ),
         _MetricCard(
-          label: 'Affected',
+          label: 'With disease',
           value: '$infected',
           icon: Icons.warning_amber_rounded,
           color: AppColors.error,
         ),
         _MetricCard(
-          label: 'Healthy',
+          label: 'Healthy scans',
           value: '$healthy',
           icon: Icons.eco_rounded,
           color: AppColors.primaryLight,
         ),
         _MetricCard(
-          label: 'Avg. confidence',
+          label: 'Average AI score',
           value: '${(averageConfidence * 100).toStringAsFixed(1)}%',
           icon: Icons.analytics_rounded,
           color: const Color(0xFF4361EE),
@@ -346,7 +346,7 @@ class _MetricCard extends StatelessWidget {
                     fontSize: 19,
                   ),
                 ),
-                Text(label, maxLines: 1, style: AppTextStyles.labelSmall),
+                Text(label, maxLines: 2, style: AppTextStyles.labelSmall),
               ],
             ),
           ),
@@ -378,8 +378,13 @@ class _HealthOverview extends StatelessWidget {
         children: [
           Row(
             children: [
-              Text('Health rate', style: AppTextStyles.titleMedium),
-              const Spacer(),
+              Expanded(
+                child: Text(
+                  'Healthy scan results',
+                  style: AppTextStyles.titleMedium,
+                ),
+              ),
+              const SizedBox(width: 12),
               Text(
                 '${(healthyRate * 100).toStringAsFixed(0)}% healthy',
                 style: AppTextStyles.titleMedium.copyWith(
@@ -411,16 +416,17 @@ class _HealthOverview extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 14),
-          Row(
+          Wrap(
+            spacing: 18,
+            runSpacing: 8,
             children: [
               _LegendDot(
                 label: 'Healthy: $healthy',
                 color: AppColors.primaryLight,
               ),
-              const SizedBox(width: 18),
               _LegendDot(
                 label:
-                    'Infected: $infected (${(infectedRate * 100).toStringAsFixed(0)}%)',
+                    'With disease: $infected (${(infectedRate * 100).toStringAsFixed(0)}%)',
                 color: AppColors.error,
               ),
             ],
@@ -532,7 +538,7 @@ class ConfidenceByScanChart extends StatelessWidget {
           ),
           const SizedBox(height: 12),
           const Text(
-            'Confidence shows how strongly the model matched each saved scan. It does not replace field inspection.',
+            'This score shows how strongly the AI matched the photo to its result. It does not measure how sick the plant is. Check the plant before treatment.',
             style: AppTextStyles.bodyMedium,
           ),
         ],
@@ -621,7 +627,7 @@ class _InsightsCard extends StatelessWidget {
       );
     }
     final topCondition = conditionCounts.isEmpty
-        ? 'No disease detected in this view'
+        ? 'No saved scans show disease'
         : (conditionCounts.entries.toList()
                 ..sort((a, b) => b.value.compareTo(a.value)))
               .first
@@ -633,20 +639,20 @@ class _InsightsCard extends StatelessWidget {
         children: [
           _InsightRow(
             icon: Icons.trending_up_rounded,
-            label: 'Most frequent condition',
+            label: 'Most common disease result',
             value: topCondition,
           ),
           const Divider(color: Colors.white24, height: 24),
           _InsightRow(
             icon: Icons.eco_rounded,
-            label: 'Healthy share',
+            label: 'Healthy scan results',
             value:
                 '${(healthyCount / scans.length * 100).toStringAsFixed(0)}% of selected scans',
           ),
           const Divider(color: Colors.white24, height: 24),
           _InsightRow(
             icon: Icons.verified_rounded,
-            label: 'Highest-confidence scan',
+            label: 'Highest AI match score',
             value:
                 '${bestScan.plant} • ${(bestScan.confidence * 100).toStringAsFixed(1)}%',
           ),
@@ -796,10 +802,7 @@ class _EmptyReportCard extends StatelessWidget {
           children: [
             Icon(Icons.inbox_outlined, color: AppColors.textMuted, size: 34),
             SizedBox(height: 8),
-            Text(
-              'No scans match this filter',
-              style: AppTextStyles.titleMedium,
-            ),
+            Text('No saved scans to show', style: AppTextStyles.titleMedium),
           ],
         ),
       ),

@@ -4,16 +4,20 @@ import 'package:flutter/material.dart' hide Text;
 import '../l10n/localized_text.dart';
 
 import '../models/models.dart';
+import '../models/scan_history_filter.dart';
 import '../services/classifier.dart';
 import '../services/scan_history_database.dart';
 import '../theme/app_theme.dart';
 import '../widgets/shared_widgets.dart';
 import '../widgets/location_tag_dialog.dart';
+import '../widgets/scan_history_filter_sheet.dart';
 import 'result_screen.dart';
 import 'scanner_screen.dart';
 
 class ScanHistoryScreen extends StatefulWidget {
-  const ScanHistoryScreen({super.key});
+  const ScanHistoryScreen({super.key, this.database});
+
+  final ScanHistoryDatabase? database;
 
   @override
   State<ScanHistoryScreen> createState() => _ScanHistoryScreenState();
@@ -25,14 +29,17 @@ class _ScanHistoryScreenState extends State<ScanHistoryScreen> {
   final Set<int> _selectedIds = {};
   List<ScanData> _scans = const [];
   String _filter = 'All';
+  ScanHistoryFilter _options = const ScanHistoryFilter();
   bool _loading = true;
   bool _selectionMode = false;
   bool _deleting = false;
   String? _loadError;
 
-  List<ScanData> get _filtered => _filter == 'All'
-      ? _scans
-      : _scans.where((scan) => scan.status == _filter).toList();
+  ScanHistoryDatabase get _database =>
+      widget.database ?? ScanHistoryDatabase.instance;
+  List<ScanData> get _matching => _options.apply(_scans);
+  List<ScanData> get _filtered => _options.apply(_scans, status: _filter);
+  bool get _hasFilters => _filter != 'All' || !_options.isDefault;
 
   @override
   void initState() {
@@ -48,10 +55,11 @@ class _ScanHistoryScreenState extends State<ScanHistoryScreen> {
       });
     }
     try {
-      final scans = await ScanHistoryDatabase.instance.getScans();
+      final scans = await _database.getScans();
       if (!mounted) return;
       setState(() {
         _scans = scans;
+        _selectedIds.retainAll(scans.map((scan) => scan.id).whereType<int>());
         _loading = false;
       });
     } catch (error) {
@@ -65,8 +73,9 @@ class _ScanHistoryScreenState extends State<ScanHistoryScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final infected = _scans.where((s) => s.status == 'Infected').length;
-    final healthy = _scans.where((s) => s.status == 'Healthy').length;
+    final matching = _matching;
+    final infected = matching.where((s) => s.status == 'Infected').length;
+    final healthy = matching.where((s) => s.status == 'Healthy').length;
 
     return Scaffold(
       backgroundColor: AppColors.surface,
@@ -74,9 +83,11 @@ class _ScanHistoryScreenState extends State<ScanHistoryScreen> {
         child: Column(
           children: [
             _buildHeader(),
-            _buildStats(infected, healthy),
+            _buildStats(matching.length, infected, healthy),
             _buildFilters(),
-            const SizedBox(height: 16),
+            if (!_loading && _loadError == null && _scans.isNotEmpty)
+              _buildFilterSummary(),
+            const SizedBox(height: 8),
             Expanded(child: _buildBody()),
           ],
         ),
@@ -116,6 +127,15 @@ class _ScanHistoryScreenState extends State<ScanHistoryScreen> {
               ],
             ),
           ),
+          IconButton(
+            tooltip: localizeCopy(context, 'Sort & Filter'),
+            onPressed: _deleting ? null : _openFilters,
+            icon: Badge(
+              isLabelVisible: _options.activeFilterCount > 0,
+              label: Text('${_options.activeFilterCount}'),
+              child: const Icon(Icons.tune_rounded, color: AppColors.primary),
+            ),
+          ),
           if (_scans.isNotEmpty)
             Tooltip(
               message: _selectionMode ? 'Cancel selection' : 'Select records',
@@ -134,16 +154,12 @@ class _ScanHistoryScreenState extends State<ScanHistoryScreen> {
     );
   }
 
-  Widget _buildStats(int infected, int healthy) {
+  Widget _buildStats(int total, int infected, int healthy) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(20, 16, 20, 0),
       child: Row(
         children: [
-          _StatChip(
-            label: 'Total',
-            value: _scans.length,
-            color: AppColors.primary,
-          ),
+          _StatChip(label: 'Total', value: total, color: AppColors.primary),
           const SizedBox(width: 10),
           _StatChip(label: 'Infected', value: infected, color: AppColors.error),
           const SizedBox(width: 10),
@@ -160,12 +176,15 @@ class _ScanHistoryScreenState extends State<ScanHistoryScreen> {
   Widget _buildFilters() {
     return Padding(
       padding: const EdgeInsets.fromLTRB(20, 14, 20, 0),
-      child: Row(
-        children: _filters.map((filter) {
-          final active = _filter == filter;
-          return Padding(
-            padding: const EdgeInsets.only(right: 8),
-            child: GestureDetector(
+      child: SizedBox(
+        width: double.infinity,
+        child: Wrap(
+          spacing: 8,
+          runSpacing: 8,
+          children: _filters.map((filter) {
+            final active = _filter == filter;
+            return GestureDetector(
+              key: ValueKey('history-status-$filter'),
               onTap: () => setState(() {
                 _filter = filter;
                 _selectedIds.clear();
@@ -191,9 +210,78 @@ class _ScanHistoryScreenState extends State<ScanHistoryScreen> {
                   ),
                 ),
               ),
+            );
+          }).toList(),
+        ),
+      ),
+    );
+  }
+
+  Future<void> _openFilters() async {
+    final options = await showScanHistoryFilters(
+      context,
+      scans: _scans,
+      initial: _options,
+    );
+    if (options == null || !mounted) return;
+    setState(() {
+      _options = options;
+      _selectedIds.clear();
+    });
+  }
+
+  void _clearFilters() => setState(() {
+    _options = const ScanHistoryFilter();
+    _filter = 'All';
+    _selectedIds.clear();
+  });
+
+  Widget _buildFilterSummary() {
+    final material = MaterialLocalizations.of(context);
+    final start = _options.startDate;
+    final end = _options.endDate;
+    final labels = <String>[
+      if (_options.crop != null) _options.crop!,
+      if (_options.disease != null) _options.disease!,
+      if (start != null && end != null)
+        '${material.formatShortDate(start)} - ${material.formatShortDate(end)}',
+      _options.sort == ScanHistorySort.newestFirst
+          ? 'Newest first'
+          : 'Oldest first',
+    ];
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Expanded(
+                child: Text(
+                  'Showing ${_filtered.length} of ${_scans.length} scans',
+                  style: AppTextStyles.bodyMedium,
+                ),
+              ),
+              if (_hasFilters)
+                TextButton(
+                  onPressed: _clearFilters,
+                  child: const Text('Clear filters'),
+                ),
+            ],
+          ),
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              children: [
+                for (var index = 0; index < labels.length; index++) ...[
+                  if (index > 0)
+                    const Text(' / ', style: AppTextStyles.labelSmall),
+                  Text(labels[index], style: AppTextStyles.labelSmall),
+                ],
+              ],
             ),
-          );
-        }).toList(),
+          ),
+        ],
       ),
     );
   }
@@ -231,8 +319,10 @@ class _ScanHistoryScreenState extends State<ScanHistoryScreen> {
     if (scans.isEmpty) {
       return _HistoryMessage(
         icon: Icons.filter_alt_off_rounded,
-        title: 'No $_filter scans',
-        message: 'Choose another category to view saved records.',
+        title: 'No matching scans',
+        message: 'Change or clear the filters to view saved records.',
+        actionLabel: 'Clear filters',
+        onAction: _clearFilters,
       );
     }
 
@@ -351,7 +441,7 @@ class _ScanHistoryScreenState extends State<ScanHistoryScreen> {
     );
     if (location == null || !mounted) return;
     try {
-      await ScanHistoryDatabase.instance.updateLocation(id, location);
+      await _database.updateLocation(id, location);
       if (!mounted) return;
       setState(() {
         _scans = _scans
@@ -375,14 +465,14 @@ class _ScanHistoryScreenState extends State<ScanHistoryScreen> {
     }
   }
 
-  void _viewScan(ScanData scan) {
+  Future<void> _viewScan(ScanData scan) async {
     final result = ClassificationResult(
       rawLabel: scan.rawLabel,
       confidence: scan.confidence,
       classIndex: scan.classIndex,
       status: ScanStatus.success,
     );
-    Navigator.push(
+    await Navigator.push(
       context,
       MaterialPageRoute(
         builder: (_) => DiseaseResultScreen(
@@ -391,12 +481,15 @@ class _ScanHistoryScreenState extends State<ScanHistoryScreen> {
               : null,
           result: result,
           alreadySaved: true,
+          savedScan: scan,
+          historyDatabase: _database,
           existingLocation: scan.location,
           historySource: scan.source,
           scanMode: scan.scanMode,
         ),
       ),
     );
+    if (mounted) await _loadScans();
   }
 
   Future<void> _confirmDelete() async {
@@ -426,7 +519,7 @@ class _ScanHistoryScreenState extends State<ScanHistoryScreen> {
     final ids = Set<int>.from(_selectedIds);
     setState(() => _deleting = true);
     try {
-      await ScanHistoryDatabase.instance.deleteScans(ids);
+      await _database.deleteScans(ids);
       if (!mounted) return;
       setState(() {
         _scans = _scans.where((scan) => !ids.contains(scan.id)).toList();
@@ -719,7 +812,7 @@ class _HistoryMessage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Padding(
+      child: SingleChildScrollView(
         padding: const EdgeInsets.all(32),
         child: Column(
           mainAxisSize: MainAxisSize.min,

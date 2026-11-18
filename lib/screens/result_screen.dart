@@ -7,6 +7,8 @@ import '../widgets/location_tag_dialog.dart';
 import '../services/classifier.dart';
 import '../services/farm_location_store.dart';
 import '../services/scan_history_database.dart';
+import '../models/models.dart';
+import 'plant_monitoring_screen.dart';
 import 'treatment_screen.dart';
 import 'disease_prevention_screen.dart';
 import '../data/crop_guides.dart';
@@ -20,6 +22,9 @@ class DiseaseResultScreen extends StatelessWidget {
   final String scanMode;
   final bool alreadySaved;
   final String existingLocation;
+  final ScanData? savedScan;
+  final ScanData? monitoringScan;
+  final ScanHistoryDatabase? historyDatabase;
 
   const DiseaseResultScreen({
     super.key,
@@ -29,6 +34,9 @@ class DiseaseResultScreen extends StatelessWidget {
     this.scanMode = 'Single',
     this.alreadySaved = false,
     this.existingLocation = '',
+    this.savedScan,
+    this.monitoringScan,
+    this.historyDatabase,
   });
 
   @override
@@ -60,6 +68,9 @@ class DiseaseResultScreen extends StatelessWidget {
             scanMode: scanMode,
             alreadySaved: alreadySaved,
             existingLocation: existingLocation,
+            savedScan: savedScan,
+            monitoringScan: monitoringScan,
+            historyDatabase: historyDatabase,
           );
       }
     }
@@ -448,6 +459,9 @@ class _SuccessView extends StatefulWidget {
   final String scanMode;
   final bool alreadySaved;
   final String existingLocation;
+  final ScanData? savedScan;
+  final ScanData? monitoringScan;
+  final ScanHistoryDatabase? historyDatabase;
 
   const _SuccessView({
     required this.imagePath,
@@ -456,6 +470,9 @@ class _SuccessView extends StatefulWidget {
     required this.scanMode,
     required this.alreadySaved,
     required this.existingLocation,
+    this.savedScan,
+    this.monitoringScan,
+    this.historyDatabase,
   });
 
   @override
@@ -470,6 +487,7 @@ class _SuccessViewState extends State<_SuccessView> {
   List<String> _locations = const [];
   String? _locationError;
   String? _savedImagePath;
+  ScanData? _savedScan;
 
   ClassificationResult get result => widget.result;
   String? get imagePath => _savedImagePath ?? widget.imagePath;
@@ -478,6 +496,7 @@ class _SuccessViewState extends State<_SuccessView> {
   void initState() {
     super.initState();
     _saved = widget.alreadySaved;
+    _savedScan = widget.savedScan;
     _locationController = TextEditingController(text: widget.existingLocation);
     _loadLocations();
   }
@@ -533,6 +552,7 @@ class _SuccessViewState extends State<_SuccessView> {
   }
 
   Future<void> _saveToHistory() async {
+    if (_saving || _saved) return;
     final location = normalizeLocationTag(_locationController.text);
     if (location.isEmpty || !locationTagPattern.hasMatch(location)) {
       setState(() {
@@ -553,18 +573,22 @@ class _SuccessViewState extends State<_SuccessView> {
       _locationError = null;
     });
     try {
-      final scan = await ScanHistoryDatabase.instance.saveSuccessfulScan(
-        sourceImagePath: path,
-        result: result,
-        source: widget.historySource,
-        scanMode: widget.scanMode,
-        location: location,
-      );
+      final scan =
+          await (widget.historyDatabase ?? ScanHistoryDatabase.instance)
+              .saveSuccessfulScan(
+                sourceImagePath: path,
+                result: result,
+                source: widget.historySource,
+                scanMode: widget.scanMode,
+                location: location,
+                monitoringScan: widget.monitoringScan,
+              );
       if (!mounted) return;
       setState(() {
         _saved = true;
         _saving = false;
         _savedImagePath = scan.imagePath;
+        _savedScan = scan;
         _locationController.text = location;
       });
       ScaffoldMessenger.of(context).showSnackBar(
@@ -730,6 +754,13 @@ class _SuccessViewState extends State<_SuccessView> {
                       const SizedBox(height: 14),
                     ],
 
+                    if (widget.monitoringScan != null) ...[
+                      const Text(
+                        'This follow-up belongs to the same plant record. Save it to update the monitoring timeline.',
+                        style: AppTextStyles.bodyMedium,
+                      ),
+                      const SizedBox(height: 10),
+                    ],
                     AppCard(
                       padding: const EdgeInsets.all(18),
                       color: _saved ? AppColors.accent : null,
@@ -967,6 +998,30 @@ class _SuccessViewState extends State<_SuccessView> {
                     const SizedBox(height: 24),
 
                     // ── Action buttons ────────────────────────────────────
+                    if (_savedScan != null) ...[
+                      AppButton(
+                        label: widget.monitoringScan == null
+                            ? 'Monitor Plant'
+                            : 'Back to Plant Monitoring',
+                        icon: Icons.monitor_heart_outlined,
+                        onPressed: () {
+                          if (widget.monitoringScan != null) {
+                            Navigator.pop(context, _savedScan);
+                          } else {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => PlantMonitoringScreen(
+                                  scan: _savedScan!,
+                                  database: widget.historyDatabase,
+                                ),
+                              ),
+                            );
+                          }
+                        },
+                      ),
+                      const SizedBox(height: 10),
+                    ],
                     if (!isHealthy && hasDetailedGuidance) ...[
                       AppButton(
                         label: 'View Treatment Advice',
@@ -1008,14 +1063,18 @@ class _SuccessViewState extends State<_SuccessView> {
                       ),
                       const SizedBox(height: 10),
                       AppButton(
-                        label: 'Scan Another Plant',
+                        label: widget.monitoringScan == null
+                            ? 'Scan Another Plant'
+                            : 'Scan Again',
                         icon: Icons.camera_alt_rounded,
                         onPressed: () => Navigator.pop(context),
                       ),
                     ],
                     if (isHealthy)
                       AppButton(
-                        label: 'Scan Another Plant',
+                        label: widget.monitoringScan == null
+                            ? 'Scan Another Plant'
+                            : 'Scan Again',
                         icon: Icons.camera_alt_rounded,
                         onPressed: () => Navigator.pop(context),
                       ),

@@ -107,10 +107,12 @@ class DataBackupService {
     }
 
     final manifest = _decodeJsonMap(files['manifest.json'], 'manifest.json');
+    final schema = manifest['database_schema_version'];
     if (manifest['format'] != 'leaflens-backup' ||
         manifest['format_version'] != _formatVersion ||
-        manifest['database_schema_version'] !=
-            ScanHistoryDatabase.schemaVersion) {
+        schema is! int ||
+        schema < 2 ||
+        schema > ScanHistoryDatabase.schemaVersion) {
       throw const FormatException(
         'This backup is invalid or was created by an incompatible LeafLens version.',
       );
@@ -125,6 +127,23 @@ class DataBackupService {
       'app_metadata.json',
     );
     final scans = scansJson.map(_validateScan).toList(growable: false);
+    final plantCrops = <String, String>{};
+    final scanIds = <int>{};
+    for (final scan in scans) {
+      if (!scanIds.add(scan['id'] as int)) {
+        throw const FormatException(
+          'The backup contains duplicate scan records.',
+        );
+      }
+      final plantId = scan['plant_id'] as String?;
+      if (plantId == null || plantId.isEmpty) continue;
+      final crop = scan['plant'] as String;
+      final previousCrop = plantCrops[plantId];
+      if (previousCrop != null && previousCrop != crop) {
+        throw const FormatException('A monitored plant has conflicting crops.');
+      }
+      plantCrops[plantId] = crop;
+    }
     final metadata = metadataJson
         .map(_validateMetadata)
         .toList(growable: false);
@@ -206,6 +225,8 @@ class DataBackupService {
         scan['class_index'] is! int ||
         scan['captured_at'] is! int ||
         (scan['grid_cell'] != null && scan['grid_cell'] is! int) ||
+        (scan['plant_id'] != null && scan['plant_id'] is! String) ||
+        (scan['care_notes'] != null && scan['care_notes'] is! String) ||
         (scan['image_entry'] != null && scan['image_entry'] is! String)) {
       throw const FormatException(
         'A scan record in the backup has invalid fields.',

@@ -66,9 +66,9 @@ class PapusoyReportService {
     required DateTime exportedAt,
   }) async {
     final document = pw.Document(
-      title: _t('Papusoy Hydrofarm Scouting Report'),
+      title: _t('Papusoy Hydrofarm Crop Scan Report'),
       author: scoutedBy,
-      subject: _t('Crop scouting report for $location'),
+      subject: _t('Crop scan report for $location'),
     );
     final logoData = await _loadBrandLogo();
     final logo = pw.MemoryImage(_optimizedLogo(logoData.buffer.asUint8List()));
@@ -139,7 +139,7 @@ class PapusoyReportService {
             date: exportedAt,
           ),
           pw.SizedBox(height: 24),
-          _sectionTitle('Observations'),
+          _sectionTitle('Scan summary'),
           pw.SizedBox(height: 10),
           _summaryCards(
             healthy: healthyCount,
@@ -160,7 +160,7 @@ class PapusoyReportService {
           _cropTable(cropGroups, location),
           pw.SizedBox(height: 12),
           pw.Text(
-            _t('Diseases recorded at this location'),
+            _t('Disease results at this location'),
             style: pw.TextStyle(fontSize: 10, fontWeight: pw.FontWeight.bold),
           ),
           pw.SizedBox(height: 5),
@@ -173,7 +173,7 @@ class PapusoyReportService {
             style: const pw.TextStyle(fontSize: 9),
           ),
           pw.SizedBox(height: 22),
-          _sectionTitle('Attachments'),
+          _sectionTitle('Scan photos'),
           pw.SizedBox(height: 10),
           if (attachments.isEmpty)
             pw.Container(
@@ -185,9 +185,9 @@ class PapusoyReportService {
               ),
               child: pw.Text(
                 infected.isEmpty
-                    ? _t('No affected crops were recorded at this location.')
+                    ? _t('No saved scans showed disease at this location.')
                     : _t(
-                        'Affected crop images are no longer available on this device.',
+                        'Photos of scans with disease are no longer available on this device.',
                       ),
                 style: const pw.TextStyle(
                   fontSize: 9,
@@ -243,7 +243,7 @@ class PapusoyReportService {
           crossAxisAlignment: pw.CrossAxisAlignment.end,
           children: [
             pw.Text(
-              _t('SCOUTING REPORT'),
+              _t('CROP SCAN REPORT'),
               style: pw.TextStyle(fontSize: 9, fontWeight: pw.FontWeight.bold),
             ),
             pw.SizedBox(height: 4),
@@ -252,11 +252,11 @@ class PapusoyReportService {
               style: const pw.TextStyle(fontSize: 8),
             ),
             pw.Text(
-              _t('Scouted date: ${_dateLabel(date)}'),
+              _t('Report date: ${_dateLabel(date)}'),
               style: const pw.TextStyle(fontSize: 8),
             ),
             pw.Text(
-              _t('Scouted by: $scoutedBy'),
+              _t('Prepared by: $scoutedBy'),
               style: const pw.TextStyle(fontSize: 8),
             ),
           ],
@@ -291,18 +291,18 @@ class PapusoyReportService {
   }) {
     return pw.Row(
       children: [
-        _summaryCard(_t('Healthy'), '$healthy', PdfColors.green700),
+        _summaryCard(_t('Healthy scans'), '$healthy', PdfColors.green700),
         pw.SizedBox(width: 6),
-        _summaryCard(_t('Infected'), '$infected', PdfColors.red700),
+        _summaryCard(_t('With disease'), '$infected', PdfColors.red700),
         pw.SizedBox(width: 6),
         _summaryCard(
-          _t('Most active disease'),
+          _t('Most common disease result'),
           mostActiveDisease,
           PdfColors.orange800,
         ),
         pw.SizedBox(width: 6),
         _summaryCard(
-          _t('Most affected crop'),
+          _t('Crop with most disease results'),
           mostAffectedCrop,
           PdfColors.red800,
         ),
@@ -313,7 +313,7 @@ class PapusoyReportService {
   static pw.Widget _summaryCard(String label, String value, PdfColor color) {
     return pw.Expanded(
       child: pw.Container(
-        height: 55,
+        height: 68,
         padding: const pw.EdgeInsets.all(7),
         decoration: pw.BoxDecoration(
           color: PdfColors.grey100,
@@ -371,10 +371,10 @@ class PapusoyReportService {
     return pw.TableHelper.fromTextArray(
       headers: [
         _t('Crop'),
-        _t('Location tag'),
+        _t('Crop location'),
         _t('Scans'),
         _t('Healthy'),
-        _t('Infected'),
+        _t('With disease'),
         _t('Diseases'),
       ],
       data: rows,

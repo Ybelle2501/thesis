@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart' hide Text;
 
 import '../l10n/localized_text.dart';
+import '../l10n/report_copy.dart';
 import '../analytics/papusoy_disease_aliases.dart';
 import '../analytics/papusoy_forecasting.dart';
 import '../analytics/papusoy_scan_history_series.dart';
@@ -139,13 +140,13 @@ class _PapusoyForecastPanelState extends State<PapusoyForecastPanel>
             children: [
               const Expanded(
                 child: Text(
-                  'Monthly predictive analytics',
+                  'Monthly crop outlook',
                   style: AppTextStyles.titleLarge,
                 ),
               ),
               IconButton(
                 onPressed: _loading ? null : _refresh,
-                tooltip: localizeCopy(context, 'Refresh forecast'),
+                tooltip: localizeCopy(context, 'Update outlook'),
                 icon: const Icon(Icons.refresh_rounded),
               ),
             ],
@@ -176,12 +177,17 @@ class _PapusoyForecastPanelState extends State<PapusoyForecastPanel>
           ),
           const SizedBox(height: 8),
           Text(
-            'Forecast month: ${_forecast?.month ?? _formatMonth(_targetMonth ?? _manilaMonthNow())}',
+            '${localizeCopy(context, 'Month:')} ${reportMonthLabel(context, _forecast?.month ?? _formatMonth(_targetMonth ?? _manilaMonthNow()))}',
             style: AppTextStyles.titleMedium,
           ),
           const SizedBox(height: 4),
           const Text(
-            'Expected logged detections from the model; these are not confirmed disease cases.',
+            'This estimates how many saved scans may show each disease. It uses past records and does not count sick plants.',
+            style: AppTextStyles.bodyMedium,
+          ),
+          const SizedBox(height: 4),
+          const Text(
+            "Percentages compare the diseases for this crop, not a plant's chance of being sick.",
             style: AppTextStyles.bodyMedium,
           ),
           const SizedBox(height: 10),
@@ -196,7 +202,8 @@ class _PapusoyForecastPanelState extends State<PapusoyForecastPanel>
             _MessageBox(
               icon: Icons.storage_rounded,
               color: AppColors.error,
-              text: 'Database or model error: $_error',
+              text:
+                  'Could not load the outlook. Tap the refresh button to try again.',
             )
           else if (_forecast != null)
             _forecastContent(_forecast!)
@@ -204,7 +211,7 @@ class _PapusoyForecastPanelState extends State<PapusoyForecastPanel>
             const _MessageBox(
               icon: Icons.info_outline,
               color: AppColors.warning,
-              text: 'No forecast is available.',
+              text: 'No estimates to show yet.',
             ),
         ],
       ),
@@ -231,7 +238,7 @@ class _PapusoyForecastPanelState extends State<PapusoyForecastPanel>
             icon: Icons.hourglass_bottom_rounded,
             color: AppColors.warning,
             text:
-                'Collecting scan history. Eligible $_crop scans are missing for: ${missingMonths.join(', ')}.',
+                'More ${_cropNames[_crop]} scans are needed for these months: ${missingMonths.map((month) => reportMonthLabel(context, month)).join(', ')}. Save scans each month to build this outlook.',
           ),
           const SizedBox(height: 8),
         ],
@@ -240,7 +247,7 @@ class _PapusoyForecastPanelState extends State<PapusoyForecastPanel>
             icon: Icons.report_gmailerrorred_rounded,
             color: AppColors.error,
             text:
-                'Developer mapping needed: ${forecast.unmappedInfectedScans} infected scan(s) have labels that do not map to the historical disease IDs: ${forecast.unmappedLabels.join('; ')}. Forecasts are withheld until aliases are corrected in papusoy_disease_aliases.dart.',
+                'Some saved results are not recognized by the app, so estimates are not available.',
           ),
           const SizedBox(height: 8),
         ],
@@ -251,7 +258,7 @@ class _PapusoyForecastPanelState extends State<PapusoyForecastPanel>
             icon: Icons.warning_amber_rounded,
             color: AppColors.warning,
             text:
-                'Some infected scan labels are not mapped, so those records are omitted from the actual-count chart: ${_chartUnmappedLabels.where((label) => !forecast.unmappedLabels.contains(label)).join('; ')}.',
+                'Some older scan results could not be read. The chart leaves those results out.',
           ),
           const SizedBox(height: 8),
         ],
@@ -259,8 +266,7 @@ class _PapusoyForecastPanelState extends State<PapusoyForecastPanel>
           const _MessageBox(
             icon: Icons.info_outline,
             color: AppColors.warning,
-            text:
-                'No disease forecasts are available for this crop in the model profile.',
+            text: 'No estimates are available for this crop yet.',
           )
         else
           ...cropForecasts.map(
@@ -325,10 +331,10 @@ class _ForecastDiseaseTile extends StatelessWidget {
     final expected = forecast.expectedLoggedDetections;
     final subtitle = expected == null
         ? unmapped
-              ? 'Forecast withheld: fix disease label mappings'
+              ? 'Some saved results need checking'
               : missingHistory
-              ? 'Collecting scan history'
-              : 'Insufficient eligible scan history'
+              ? 'More monthly scan records needed'
+              : 'Not enough saved scans yet'
         : null;
     final display =
         papusoyDiseaseDisplayNames[forecast.key.disease] ??
@@ -342,7 +348,7 @@ class _ForecastDiseaseTile extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Expected logged detections: ${_formatCount(expected!)}',
+                    estimatedScanLabel(expected!),
                     style: AppTextStyles.bodyMedium,
                   ),
                   if (sharePercent != null) ...[
@@ -368,7 +374,7 @@ class _ForecastDiseaseTile extends StatelessWidget {
                       ],
                     ),
                     const Text(
-                      'Expected detections share (%)',
+                      'of estimated disease results',
                       style: AppTextStyles.labelSmall,
                     ),
                   ],
@@ -385,14 +391,17 @@ class _ForecastDiseaseTile extends StatelessWidget {
             children: [
               _LegendItem(
                 color: AppColors.primary,
-                label: 'Actual logged detections',
+                label: 'Saved scan results',
               ),
-              _LegendItem(color: Color(0xFFE76F51), label: 'Forecast'),
+              _LegendItem(
+                color: Color(0xFFE76F51),
+                label: 'Estimated scan results',
+              ),
             ],
           ),
           const SizedBox(height: 6),
           const Text(
-            'A month with no eligible crop scan is shown as a gap. A covered month with no detections is shown as zero.',
+            'A gap means there were no scans that month. Zero means no saved scans showed this disease.',
             style: AppTextStyles.labelSmall,
           ),
         ],
@@ -426,24 +435,40 @@ class _MonthlyCountsChart extends StatelessWidget {
   final double? forecast;
   @override
   Widget build(BuildContext context) {
-    if (points.isEmpty) return const Text('No monthly history is available.');
+    if (points.isEmpty) {
+      return const Text('Save scans each month to see a chart here.');
+    }
     return SizedBox(
-      height: 140,
+      height: 150,
       width: double.infinity,
       child: CustomPaint(
-        painter: _MonthlyCountsPainter(points: points, forecast: forecast),
+        painter: _MonthlyCountsPainter(
+          points: points,
+          forecast: forecast,
+          monthLabels: points
+              .map(
+                (point) =>
+                    reportMonthLabel(context, point.month, compact: true),
+              )
+              .toList(),
+        ),
       ),
     );
   }
 }
 
 class _MonthlyCountsPainter extends CustomPainter {
-  const _MonthlyCountsPainter({required this.points, required this.forecast});
+  const _MonthlyCountsPainter({
+    required this.points,
+    required this.forecast,
+    required this.monthLabels,
+  });
   final List<MonthlyScanHistoryPoint> points;
   final double? forecast;
+  final List<String> monthLabels;
   @override
   void paint(Canvas canvas, Size size) {
-    const left = 26.0, top = 8.0, right = 8.0, bottom = 22.0;
+    const left = 26.0, top = 8.0, right = 14.0, bottom = 32.0;
     final width = size.width - left - right;
     final height = size.height - top - bottom;
     final maxValue = <double>[
@@ -511,11 +536,11 @@ class _MonthlyCountsPainter extends CustomPainter {
       );
     }
     for (var index = 0; index < points.length; index++) {
-      final month = points[index].month.substring(5);
       text.text = TextSpan(
-        text: month,
+        text: monthLabels[index],
         style: const TextStyle(fontSize: 9, color: AppColors.textSecondary),
       );
+      text.textAlign = TextAlign.center;
       text.layout();
       text.paint(
         canvas,
@@ -526,11 +551,9 @@ class _MonthlyCountsPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(covariant _MonthlyCountsPainter oldDelegate) =>
-      oldDelegate.points != points || oldDelegate.forecast != forecast;
-}
-
-String _formatCount(double value) {
-  return value.toStringAsFixed(2).replaceFirst(RegExp(r'\.?0+$'), '');
+      oldDelegate.points != points ||
+      oldDelegate.forecast != forecast ||
+      oldDelegate.monthLabels != monthLabels;
 }
 
 String _formatMonth(DateTime? value) {

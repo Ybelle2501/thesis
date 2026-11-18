@@ -3,6 +3,47 @@
 Flutter app for single-leaf and grid scans of crop conditions, with scan history
 and reports.
 
+## Report wording
+
+Crop Reports uses plain English and Tagalog: **Monthly crop outlook**, **About 4
+scans may show this**, **Saved scan results**, and **AI score for each scan**.
+Months are written by name, including the year. Estimates describe possible
+saved scan results, rather than a count of sick plants or a plant's chance of
+infection. Displayed scan estimates are rounded; calculations and charts retain
+their original values. The home summary and PDF report use the same plain terms.
+
+## History filters
+
+In **History**, tap the **Sort & Filter** icon to filter saved scans by date
+range, crop category, and disease or condition. Combine these with the existing
+**All**, **Infected**, and **Healthy** status tabs. Date ranges include the entire
+last selected day. Disease choices follow the selected crop.
+
+Choose **Newest first** or **Oldest first**, then tap **Apply Filters**. The list
+shows the active criteria and matching count; summary totals reflect the date,
+crop, and disease filters. **Clear filters** restores all records and newest-first
+sorting. Applying or clearing filters also clears record selections.
+
+## Plant monitoring
+
+Open a saved scan in **History**, then tap **Monitor Plant**. Add treatment or
+prevention notes to a scan, including when care was applied. Tap **Scan Again to
+Update**, photograph the same plant (or choose a new photo from the gallery), and
+save the result. Tap **Back to Plant Monitoring** to see the updated timeline.
+Repeat this process to follow the plant's condition over time.
+
+Each plant has its own record even when crops share a location. Follow-ups use
+single-leaf scans, inherit the last location, and must classify as the same crop.
+Rejected or uncertain results do not update the timeline. Each accepted, saved
+scan keeps its photo, date, classification, confidence, and care notes. The latest
+saved scan determines the displayed status; classification changes alone do not
+establish treatment effectiveness.
+
+Existing history is upgraded automatically, with each old scan starting a
+separate plant record. Linked scans and notes are included in backups, and older
+version 2 backups remain importable. Deleting a scan deletes that observation
+and its notes; other scans of the plant remain linked.
+
 ## System diagrams
 
 The updated [ERD and data flow diagrams](docs/system-diagrams.md) cover the current

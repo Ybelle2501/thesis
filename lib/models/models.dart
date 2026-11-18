@@ -14,6 +14,8 @@ class ScanData {
   final String scanMode;
   final int? gridCell;
   final String location;
+  final String plantId;
+  final String careNotes;
 
   const ScanData({
     this.id,
@@ -29,9 +31,19 @@ class ScanData {
     required this.scanMode,
     this.gridCell,
     required this.location,
+    this.plantId = '',
+    this.careNotes = '',
   });
 
-  ScanData copyWith({int? id, String? imagePath, String? location}) {
+  String get monitoringId => plantId.isEmpty ? 'scan_$id' : plantId;
+
+  ScanData copyWith({
+    int? id,
+    String? imagePath,
+    String? location,
+    String? plantId,
+    String? careNotes,
+  }) {
     return ScanData(
       id: id ?? this.id,
       plant: plant,
@@ -46,6 +58,8 @@ class ScanData {
       scanMode: scanMode,
       gridCell: gridCell,
       location: location ?? this.location,
+      plantId: plantId ?? this.plantId,
+      careNotes: careNotes ?? this.careNotes,
     );
   }
 
@@ -64,6 +78,8 @@ class ScanData {
       'scan_mode': scanMode,
       'grid_cell': gridCell,
       'location': location,
+      'plant_id': plantId,
+      'care_notes': careNotes,
     };
   }
 
@@ -85,6 +101,8 @@ class ScanData {
       scanMode: map['scan_mode'] as String,
       gridCell: map['grid_cell'] as int?,
       location: (map['location'] as String?) ?? '',
+      plantId: (map['plant_id'] as String?) ?? '',
+      careNotes: (map['care_notes'] as String?) ?? '',
     );
   }
 

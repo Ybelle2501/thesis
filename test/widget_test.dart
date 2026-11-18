@@ -68,7 +68,10 @@ void main() {
     await tester.pumpWidget(const MaterialApp(home: ReportsScreen()));
 
     expect(find.text('Crop Reports'), findsOneWidget);
-    expect(find.textContaining('Live data from scan history.'), findsOneWidget);
+    expect(
+      find.textContaining('These reports use your saved scans.'),
+      findsOneWidget,
+    );
   });
 
   testWidgets('successful results collect location on the result screen', (
@@ -89,7 +92,10 @@ void main() {
 
     expect(find.text('Tag this crop location'), findsOneWidget);
     expect(find.text('Save Scan & Location'), findsOneWidget);
-    expect(find.widgetWithText(TextField, 'Crop location'), findsOneWidget);
+    expect(
+      find.widgetWithText(DropdownButtonFormField<String>, 'Crop location'),
+      findsOneWidget,
+    );
   });
 
   testWidgets('scan history overflow menu exposes location renaming', (

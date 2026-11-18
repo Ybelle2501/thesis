@@ -7,13 +7,17 @@ import '../models/models.dart';
 import 'classifier.dart';
 
 class ScanHistoryDatabase {
-  ScanHistoryDatabase._();
+  ScanHistoryDatabase._() : _factory = null;
+
+  ScanHistoryDatabase.withFactory(DatabaseFactory factory) : _factory = factory;
+
+  final DatabaseFactory? _factory;
 
   static final ScanHistoryDatabase instance = ScanHistoryDatabase._();
 
   static const _databaseName = 'scan_history.db';
   static const _tableName = 'scan_history';
-  static const schemaVersion = 2;
+  static const schemaVersion = 3;
 
   Database? _database;
   final StreamController<int> _scanChanges = StreamController<int>.broadcast();
@@ -26,13 +30,15 @@ class ScanHistoryDatabase {
     final existing = _database;
     if (existing != null) return existing;
 
-    final databasesDirectory = await getDatabasesPath();
+    final factory = _factory ?? databaseFactory;
+    final databasesDirectory = await factory.getDatabasesPath();
     final path = '$databasesDirectory${Platform.pathSeparator}$_databaseName';
-    final database = await openDatabase(
+    final database = await factory.openDatabase(
       path,
-      version: schemaVersion,
-      onCreate: (db, _) async {
-        await db.execute('''
+      options: OpenDatabaseOptions(
+        version: schemaVersion,
+        onCreate: (db, _) async {
+          await db.execute('''
           CREATE TABLE $_tableName (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             plant TEXT NOT NULL,
@@ -46,26 +52,40 @@ class ScanHistoryDatabase {
             source TEXT NOT NULL,
             scan_mode TEXT NOT NULL,
             grid_cell INTEGER,
-            location TEXT NOT NULL DEFAULT ''
+            location TEXT NOT NULL DEFAULT '',
+            plant_id TEXT NOT NULL DEFAULT '',
+            care_notes TEXT NOT NULL DEFAULT ''
           )
         ''');
-        await db.execute(
-          'CREATE INDEX scan_history_captured_at '
-          'ON $_tableName(captured_at DESC)',
-        );
-        await db.execute(
-          'CREATE INDEX scan_history_status ON $_tableName(status)',
-        );
-        await _createMetadataTable(db);
-      },
-      onUpgrade: (db, oldVersion, newVersion) async {
-        if (oldVersion < 2) {
           await db.execute(
-            "ALTER TABLE $_tableName ADD COLUMN location TEXT NOT NULL DEFAULT ''",
+            'CREATE INDEX scan_history_captured_at '
+            'ON $_tableName(captured_at DESC)',
+          );
+          await db.execute(
+            'CREATE INDEX scan_history_status ON $_tableName(status)',
           );
           await _createMetadataTable(db);
-        }
-      },
+          await _createMonitoringIndex(db);
+        },
+        onUpgrade: (db, oldVersion, newVersion) async {
+          if (oldVersion < 2) {
+            await db.execute(
+              "ALTER TABLE $_tableName ADD COLUMN location TEXT NOT NULL DEFAULT ''",
+            );
+            await _createMetadataTable(db);
+          }
+          if (oldVersion < 3) {
+            await db.execute(
+              "ALTER TABLE $_tableName ADD COLUMN plant_id TEXT NOT NULL DEFAULT ''",
+            );
+            await db.execute(
+              "ALTER TABLE $_tableName ADD COLUMN care_notes TEXT NOT NULL DEFAULT ''",
+            );
+            await db.execute("UPDATE $_tableName SET plant_id = 'scan_' || id");
+            await _createMonitoringIndex(db);
+          }
+        },
+      ),
     );
     _database = database;
     return database;
@@ -90,6 +110,7 @@ class ScanHistoryDatabase {
     required String scanMode,
     required String location,
     int? gridCell,
+    ScanData? monitoringScan,
   }) async {
     if (result.status != ScanStatus.success) {
       throw ArgumentError('Only successful classifications can be saved.');
@@ -113,13 +134,66 @@ class ScanHistoryDatabase {
 
     try {
       final database = await _db;
-      final id = await database.insert(_tableName, scan.toMap());
+      final saved = await database.transaction((txn) async {
+        if (monitoringScan != null) {
+          final previous = await txn.query(
+            _tableName,
+            where: 'plant_id = ?',
+            whereArgs: [monitoringScan.monitoringId],
+            limit: 1,
+          );
+          if (previous.isEmpty) {
+            throw StateError('The monitored plant no longer exists.');
+          }
+          if (previous.first['plant'] != result.plantName) {
+            throw ArgumentError('A follow-up must be the same crop.');
+          }
+        }
+        final linked = monitoringScan == null
+            ? scan
+            : scan.copyWith(plantId: monitoringScan.monitoringId);
+        final id = await txn.insert(_tableName, linked.toMap());
+        final saved = linked.copyWith(
+          id: id,
+          plantId: linked.plantId.isEmpty ? 'scan_$id' : linked.plantId,
+        );
+        await txn.update(
+          _tableName,
+          {'plant_id': saved.plantId},
+          where: 'id = ?',
+          whereArgs: [id],
+        );
+        return saved;
+      });
       _notifyScanChanged();
-      return scan.copyWith(id: id);
+      return saved;
     } catch (_) {
       await _deleteFileIfPresent(savedImagePath);
       rethrow;
     }
+  }
+
+  Future<List<ScanData>> getPlantScans(String plantId) async {
+    final database = await _db;
+    final rows = await database.query(
+      _tableName,
+      where: 'plant_id = ?',
+      whereArgs: [plantId],
+      orderBy: 'captured_at DESC, id DESC',
+    );
+    return rows.map(ScanData.fromMap).toList(growable: false);
+  }
+
+  Future<void> updateCareNotes(int id, String notes) async {
+    final database = await _db;
+    final count = await database.update(
+      _tableName,
+      {'care_notes': notes.trim()},
+      where: 'id = ?',
+      whereArgs: [id],
+    );
+    if (count == 0) throw StateError('This scan no longer exists.');
+    _notifyScanChanged();
   }
 
   Future<Map<String, Object?>> exportBackupData() async {
@@ -140,7 +214,8 @@ class ScanHistoryDatabase {
       _tableName,
       columns: const ['image_path'],
     );
-    final databasesDirectory = await getDatabasesPath();
+    final databasesDirectory = await (_factory ?? databaseFactory)
+        .getDatabasesPath();
     final imagesDirectory = Directory(
       '$databasesDirectory${Platform.pathSeparator}scan_history_images',
     );
@@ -151,6 +226,10 @@ class ScanHistoryDatabase {
     try {
       for (var index = 0; index < scans.length; index++) {
         final row = Map<String, Object?>.from(scans[index]);
+        if ((row['plant_id'] as String? ?? '').isEmpty) {
+          row['plant_id'] = 'scan_${row['id']}';
+        }
+        row['care_notes'] ??= '';
         final imageEntry = row.remove('image_entry') as String?;
         if (imageEntry == null) {
           final id = row['id'] as int? ?? index;
@@ -268,6 +347,11 @@ class ScanHistoryDatabase {
     ''');
   }
 
+  static Future<void> _createMonitoringIndex(DatabaseExecutor db) => db.execute(
+    'CREATE INDEX scan_history_plant_id '
+    'ON $_tableName(plant_id, captured_at DESC, id DESC)',
+  );
+
   Future<void> deleteScans(Iterable<int> ids) async {
     final uniqueIds = ids.toSet().toList(growable: false);
     if (uniqueIds.isEmpty) return;
@@ -300,7 +384,8 @@ class ScanHistoryDatabase {
       );
     }
 
-    final databasesDirectory = await getDatabasesPath();
+    final databasesDirectory = await (_factory ?? databaseFactory)
+        .getDatabasesPath();
     final imagesDirectory = Directory(
       '$databasesDirectory${Platform.pathSeparator}scan_history_images',
     );

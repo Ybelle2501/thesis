@@ -4,6 +4,7 @@ import 'package:flutter/material.dart' hide Text;
 import '../l10n/localized_text.dart';
 
 import '../services/classifier.dart';
+import '../models/models.dart';
 import '../services/farm_location_store.dart';
 import '../services/grid_scan_service.dart';
 import '../services/scan_history_database.dart';
@@ -34,6 +35,7 @@ class GridResultScreen extends StatefulWidget {
 class _GridResultScreenState extends State<GridResultScreen> {
   final _locationController = TextEditingController();
   final Set<int> _savedCellNumbers = {};
+  final Map<int, ScanData> _savedScans = {};
   late List<GridCellScan> _cells;
   List<String> _locations = const [];
   bool _saving = false;
@@ -132,6 +134,7 @@ class _GridResultScreenState extends State<GridResultScreen> {
           result: result,
         );
         _savedCellNumbers.add(cell.cellNumber);
+        _savedScans[cell.cellNumber] = scan;
       } catch (_) {
         failed = true;
       }
@@ -264,6 +267,7 @@ class _GridResultScreenState extends State<GridResultScreen> {
                 child: _GridCellResultCard(
                   cell: cell,
                   saved: _saved,
+                  savedScan: _savedScans[cell.cellNumber],
                   location: _location,
                   source: widget.source,
                   scanMode: widget.mode.shortLabel,
@@ -477,6 +481,7 @@ class _GridCellResultCard extends StatelessWidget {
     required this.location,
     required this.source,
     required this.scanMode,
+    this.savedScan,
   });
 
   final GridCellScan cell;
@@ -484,6 +489,7 @@ class _GridCellResultCard extends StatelessWidget {
   final String location;
   final String source;
   final String scanMode;
+  final ScanData? savedScan;
 
   @override
   Widget build(BuildContext context) {
@@ -607,6 +613,7 @@ class _GridCellResultCard extends StatelessWidget {
                                 capturedImagePath: cell.imagePath,
                                 result: result,
                                 alreadySaved: true,
+                                savedScan: savedScan,
                                 existingLocation: location,
                                 historySource: source,
                                 scanMode: scanMode,

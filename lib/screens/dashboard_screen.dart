@@ -454,6 +454,7 @@ class RecentScanTile extends StatelessWidget {
                 status: ScanStatus.success,
               ),
               alreadySaved: true,
+              savedScan: scan,
               existingLocation: scan.location,
               historySource: scan.source,
               scanMode: scan.scanMode,

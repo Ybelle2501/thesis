@@ -7,13 +7,22 @@ import '../widgets/shared_widgets.dart';
 import '../services/classifier.dart';
 import '../services/three_stage_scan_service.dart';
 import '../services/grid_scan_service.dart';
+import '../models/models.dart';
+import '../services/scan_history_database.dart';
 import 'grid_result_screen.dart';
 import 'result_screen.dart';
 
 // ─── CROP SCANNER SCREEN ─────────────────────────────────────────────────────
 
 class CropScannerScreen extends StatefulWidget {
-  const CropScannerScreen({super.key});
+  const CropScannerScreen({
+    super.key,
+    this.monitoringScan,
+    this.historyDatabase,
+  });
+
+  final ScanData? monitoringScan;
+  final ScanHistoryDatabase? historyDatabase;
 
   @override
   State<CropScannerScreen> createState() => _CropScannerScreenState();
@@ -86,6 +95,7 @@ class _CropScannerScreenState extends State<CropScannerScreen>
     try {
       final cameras = await availableCameras();
       if (cameras.isEmpty) {
+        if (!mounted) return;
         setState(() => _cameraError = 'No cameras found on this device.');
         return;
       }
@@ -99,7 +109,7 @@ class _CropScannerScreenState extends State<CropScannerScreen>
       _camera = camera;
       await _initCameraController(camera);
     } catch (e) {
-      setState(() => _cameraError = 'Camera failed to start: $e');
+      if (mounted) setState(() => _cameraError = 'Camera failed to start: $e');
     }
   }
 
@@ -225,7 +235,17 @@ class _CropScannerScreenState extends State<CropScannerScreen>
 
       if (!mounted) return;
 
-      Navigator.push(
+      final target = widget.monitoringScan;
+      if (target != null &&
+          result.status == ScanStatus.success &&
+          result.plantName != target.plant) {
+        _showError(
+          'This scan is a different crop. Scan the same monitored plant.',
+        );
+        return;
+      }
+
+      final saved = await Navigator.push<ScanData>(
         context,
         MaterialPageRoute(
           builder: (_) => DiseaseResultScreen(
@@ -233,9 +253,15 @@ class _CropScannerScreenState extends State<CropScannerScreen>
             result: result,
             historySource: source,
             scanMode: mode.shortLabel,
+            monitoringScan: target,
+            historyDatabase: widget.historyDatabase,
+            existingLocation: target?.location ?? '',
           ),
         ),
       );
+      if (mounted && target != null && saved != null) {
+        Navigator.pop(context, saved);
+      }
     } on CameraException catch (e) {
       _showError(e.description ?? 'Camera capture failed. Please try again.');
     } catch (_) {
@@ -271,7 +297,16 @@ class _CropScannerScreenState extends State<CropScannerScreen>
         child: Column(
           children: [
             _buildAppBar(),
-            _buildModeSelector(),
+            if (widget.monitoringScan == null) _buildModeSelector(),
+            if (widget.monitoringScan != null)
+              Padding(
+                padding: const EdgeInsets.fromLTRB(20, 12, 20, 0),
+                child: Text(
+                  'Scan the same monitored plant. Use a clear photo of one leaf.',
+                  style: const TextStyle(color: Colors.white70, fontSize: 13),
+                  textAlign: TextAlign.center,
+                ),
+              ),
             Expanded(child: _buildViewfinder()),
             _buildInstruction(),
             const AiDisclaimer(dark: true, useSafeArea: false),

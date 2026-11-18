@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart' hide Text;
 
 import '../l10n/localized_text.dart';
+import '../l10n/report_copy.dart';
 import '../analytics/papusoy_disease_aliases.dart';
 import '../analytics/papusoy_forecasting.dart';
 import '../services/scan_history_database.dart';
@@ -119,7 +120,7 @@ class _PapusoyHomeForecastCardState extends State<PapusoyHomeForecastCard>
                     const SizedBox(width: 8),
                     const Expanded(
                       child: Text(
-                        'Top expected detections',
+                        'Monthly crop outlook',
                         style: AppTextStyles.titleLarge,
                       ),
                     ),
@@ -129,7 +130,7 @@ class _PapusoyHomeForecastCardState extends State<PapusoyHomeForecastCard>
                 ),
                 const SizedBox(height: 3),
                 Text(
-                  'Leading disease per crop for ${forecast?.month ?? _currentMonth()}',
+                  '${localizeCopy(context, 'What scans may show in')} ${reportMonthLabel(context, forecast?.month ?? _currentMonth())}',
                   style: AppTextStyles.labelSmall,
                 ),
                 const SizedBox(height: 10),
@@ -142,19 +143,19 @@ class _PapusoyHomeForecastCardState extends State<PapusoyHomeForecastCard>
                   )
                 else if (_error != null)
                   Text(
-                    'Forecast unavailable: $_error',
+                    'Could not load the outlook. Open Reports to try again.',
                     style: AppTextStyles.bodyMedium,
                   )
                 else if (forecast != null)
                   _forecastRows(forecast)
                 else
                   const Text(
-                    'No forecast is available yet.',
+                    'No estimates to show yet.',
                     style: AppTextStyles.bodyMedium,
                   ),
                 const SizedBox(height: 6),
                 const Text(
-                  "Bars show each disease's share of that crop's expected detections, not disease probability.",
+                  'Bars compare disease estimates for each crop. They do not show the chance that a plant is sick.',
                   style: AppTextStyles.labelSmall,
                 ),
               ],
@@ -172,7 +173,7 @@ class _PapusoyHomeForecastCardState extends State<PapusoyHomeForecastCard>
           const Padding(
             padding: EdgeInsets.only(bottom: 8),
             child: Text(
-              'Forecasts are withheld until an infected scan label is mapped.',
+              'Some saved results are not recognized by the app, so estimates are not available.',
               style: TextStyle(color: AppColors.error, fontSize: 12),
             ),
           ),
@@ -193,7 +194,9 @@ class _PapusoyHomeForecastCardState extends State<PapusoyHomeForecastCard>
       final hasMissingLabels = forecast.unmappedInfectedScans > 0;
       return _CropForecastRow(
         crop: cropName,
-        text: hasMissingLabels ? 'Mapping required' : 'Collecting scan history',
+        text: hasMissingLabels
+            ? 'Some saved results need checking'
+            : 'More monthly scan records needed',
         isMuted: true,
       );
     }
@@ -257,10 +260,14 @@ class _CropForecastRow extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      '$disease · ${_formatCount(expectedDetections!)} expected',
+                      disease!,
                       style: AppTextStyles.bodyMedium.copyWith(
                         color: AppColors.textPrimary,
                       ),
+                    ),
+                    Text(
+                      estimatedScanLabel(expectedDetections!),
+                      style: AppTextStyles.labelSmall,
                     ),
                     if (sharePercent != null) ...[
                       const SizedBox(height: 4),
@@ -291,8 +298,4 @@ class _CropForecastRow extends StatelessWidget {
       ],
     ),
   );
-}
-
-String _formatCount(double value) {
-  return value.toStringAsFixed(2).replaceFirst(RegExp(r'\.?0+$'), '');
 }
